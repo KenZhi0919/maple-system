@@ -6,24 +6,33 @@
         <img class="logo" src="@/assets/images/logo.png" />
       </a>
       <div class="">
-        <button type="button" class="btn btn-outline-secondary nav-btn mx-1">
+        <router-link
+          to="/itemexchange"
+          class="btn btn-outline-secondary nav-btn mx-1"
+        >
           交易所
-        </button>
-        <button type="button" class="btn btn-outline-secondary nav-btn mx-1">
+        </router-link>
+        <router-link to="/bid" class="btn btn-outline-secondary nav-btn mx-1">
           競標
-        </button>
-        <button type="button" class="btn btn-outline-secondary nav-btn mx-1">
+        </router-link>
+        <router-link
+          to="/sellaccount"
+          class="btn btn-outline-secondary nav-btn mx-1"
+        >
           賣帳號
-        </button>
-        <button type="button" class="btn btn-outline-secondary nav-btn mx-1">
+        </router-link>
+        <router-link to="/guild" class="btn btn-outline-secondary nav-btn mx-1">
           找公會
-        </button>
-        <button type="button" class="btn btn-outline-secondary nav-btn mx-1">
+        </router-link>
+        <router-link
+          to="/partner"
+          class="btn btn-outline-secondary nav-btn mx-1"
+        >
           找戰友
-        </button>
-        <button type="button" class="btn btn-outline-secondary nav-btn mx-1">
+        </router-link>
+        <router-link to="/wish" class="btn btn-outline-secondary nav-btn mx-1">
           許願池
-        </button>
+        </router-link>
       </div>
     </div>
   </nav>
