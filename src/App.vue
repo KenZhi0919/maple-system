@@ -1,27 +1,26 @@
 <template>
-  <div id="nav"><router-link to="/">Home</router-link> |</div>
+  <nav-bar />
   <router-view />
 </template>
 
+<script lang="ts">
+import { Options, Vue } from "vue-class-component";
+import { NavBar } from "@/components"; // @ is an alias to /src
+
+@Options({
+  components: {
+    NavBar,
+  },
+})
+export default class Home extends Vue {}
+</script>
+
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700&display=swap");
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Noto Sans TC", sans-serif;
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  color: #242526;
+  background-color: #f4f5f6;
 }
 </style>
