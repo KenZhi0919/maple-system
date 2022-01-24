@@ -9,7 +9,6 @@ module.exports = {
     "@vue/typescript/recommended",
     "@vue/prettier",
     "@vue/prettier/@typescript-eslint",
-    'plugin:nuxt/recommended'
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -48,28 +47,6 @@ module.exports = {
 
     // debugger (只在 development 允許)
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-
-    /*****************************************
-     * eslint-plugin-import 規則
-     * DOC: https://github.com/benmosher/eslint-plugin-import
-     ****************************************/
-
-    'import/no-unresolved': [
-      'error',
-      {
-        caseSensitive: true
-      }
-    ],
-
-    // import 排序
-    'import/order': [
-      'error',
-      {
-        alphabetize: {
-          order: 'asc'
-        }
-      }
-    ],
 
     /***********************************
      * Vue Eslint 規則
