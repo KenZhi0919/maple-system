@@ -2,9 +2,9 @@
   <nav class="navbar">
     <!-- Navbar content -->
     <div class="d-flex align-items-center">
-      <a class="navbar-brand mx-4" @click.prevent>
+      <router-link to="/" class="navbar-brand mx-4">
         <img class="logo" src="@/assets/images/logo.png" />
-      </a>
+      </router-link>
       <div class="">
         <router-link
           to="/itemexchange"
