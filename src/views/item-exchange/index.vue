@@ -8,29 +8,93 @@
       </div>
       <!-- title row end -->
 
-      <!-- function row start -->
-      <div class="function-row d-flex align-items-center">
-        <function-btn msg="購買" />
-        <function-btn msg="販售" />
+      <!-- functional row start -->
+      <div class="functional-row d-flex align-items-center">
+        <input-radio
+          v-model="test"
+          id="buy"
+          name="functionalBtn"
+          value="buy"
+          label="購買"
+          label-class="functional-btn btn d-flex align-items-center justify-content-center ms-3"
+          is-checked
+        />
+        <input-radio
+          id="sell"
+          name="functionalBtn"
+          value="sell"
+          label="販售"
+          label-class="functional-btn btn d-flex align-items-center justify-content-center ms-3"
+        />
       </div>
       <!-- function row end -->
+
+      <!-- table row start -->
+      <!-- 大類 start -->
+      <div class="table-row d-flex">
+        <div class="col-4 h-100 category-box d-flex py-3">
+          <div class="col-6 d-flex flex-column">
+            <input-radio
+              id="weapon"
+              name="categoryBtn"
+              value="weapon"
+              label="武器"
+              label-class="category-btn btn d-flex align-items-center"
+              is-checked
+            />
+            <input-radio
+              id="weapon"
+              name="categoryBtn"
+              value="weapon"
+              label="防具"
+              label-class="category-btn btn d-flex align-items-center"
+              is-checked
+            />
+          </div>
+          <div class="col-6">
+            <div class="detail-box py-1">
+              <input-radio
+                id="weapon"
+                name="categoryBtn"
+                value="weapon"
+                label="雙手劍"
+                label-class="detail-btn btn d-flex align-items-center"
+                is-checked
+              />
+              <input-radio
+                id="weapon"
+                name="categoryBtn"
+                value="weapon"
+                label="單手劍"
+                label-class="detail-btn btn d-flex align-items-center"
+                is-checked
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-8">
+          <!--  -->
+        </div>
+      </div>
+      <!-- 大類 end -->
+      <!-- table row end -->
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import FunctionBtn from "./components/function-btn.vue";
+import { InputRadio } from "@/components";
 @Options({
   props: {
-    msg: String,
+    // msg: String,
   },
   components: {
-    FunctionBtn,
+    InputRadio,
   },
 })
 export default class NavBar extends Vue {
-  msg!: string;
+  test = "test";
 }
 </script>
 
@@ -38,13 +102,14 @@ export default class NavBar extends Vue {
 .trading-cart {
   width: 100%;
   height: 80vh;
-  min-height: 600px;
+  min-height: 500px;
   background-color: #f0f0f0;
   border-radius: 10px;
+  box-shadow: 0 0 15px #8f8f8f;
   .cart-title-row {
     width: 100%;
     height: 60px;
-    background-color: #445060;
+    background-color: #415067;
     border-radius: 10px 10px 0 0;
     i {
       color: white;
@@ -55,10 +120,24 @@ export default class NavBar extends Vue {
     }
   }
 
-  .function-row {
+  .functional-row {
     width: 100%;
-    height: 40px;
+    height: 45px;
     background-color: #fffefe;
+  }
+
+  .table-row {
+    height: calc(100% - 105px);
+    .category-box {
+      background-color: #cacaca;
+      border-radius: 0 0 0 10px;
+    }
+    .detail-box {
+      width: 90%;
+      height: 100%;
+      border-radius: 10px;
+      background-color: #5f6d78;
+    }
   }
 }
 </style>

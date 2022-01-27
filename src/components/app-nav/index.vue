@@ -46,7 +46,7 @@ import { Options, Vue } from "vue-class-component";
     msg: String,
   },
 })
-export default class NavBar extends Vue {
+export default class extends Vue {
   msg!: string;
 }
 </script>

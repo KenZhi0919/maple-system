@@ -1,5 +1,5 @@
 <template>
-  <nav-bar />
+  <app-nav />
 
   <div class="content">
     <router-view />
@@ -8,11 +8,11 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import { NavBar } from "@/components"; // @ is an alias to /src
+import { AppNav } from "@/components"; // @ is an alias to /src
 
 @Options({
   components: {
-    NavBar,
+    AppNav,
   },
 })
 export default class Home extends Vue {}
@@ -31,7 +31,7 @@ export default class Home extends Vue {}
 
 .content {
   min-height: calc(100vh - 60px);
-  padding-top: 60px;
+  padding-top: 50px;
   padding-bottom: 20px;
 }
 </style>
