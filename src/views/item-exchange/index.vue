@@ -11,7 +11,6 @@
       <!-- functional row start -->
       <div class="functional-row d-flex align-items-center">
         <input-radio
-          v-model="test"
           id="buy"
           name="functionalBtn"
           value="buy"
@@ -43,37 +42,65 @@
               is-checked
             />
             <input-radio
-              id="weapon"
+              id="armor"
               name="categoryBtn"
-              value="weapon"
+              value="armor"
               label="防具"
               label-class="category-btn btn d-flex align-items-center"
-              is-checked
             />
           </div>
+
           <div class="col-6">
             <div class="detail-box py-1">
               <input-radio
-                id="weapon"
-                name="categoryBtn"
-                value="weapon"
+                id="hands"
+                name="detailBtn"
+                value="hands"
                 label="雙手劍"
                 label-class="detail-btn btn d-flex align-items-center"
                 is-checked
               />
               <input-radio
-                id="weapon"
-                name="categoryBtn"
-                value="weapon"
+                id="hand"
+                name="detailBtn"
+                value="hand"
                 label="單手劍"
                 label-class="detail-btn btn d-flex align-items-center"
-                is-checked
               />
             </div>
           </div>
         </div>
+        <!-- 商品列 -->
         <div class="col-8">
-          <!--  -->
+          <div class="items-box d-flex flex-column align-items-center">
+            <div class="item-card d-flex mb-2">
+              <div class="item-img-box d-flex align-items-center px-2">
+                <div class="item-img">
+                  <!--  -->
+                </div>
+              </div>
+              <div
+                class="item-detail-box d-flex align-items-center w-100 justify-content-lg-between"
+              >
+                傑伊西恩雙手劍
+
+                <div class="me-5"><i class="bi bi-coin" /> 7,777,777</div>
+              </div>
+            </div>
+            <div class="item-card d-flex">
+              <div class="item-img-box d-flex align-items-center px-2">
+                <div class="item-img">
+                  <!--  -->
+                </div>
+              </div>
+              <div
+                class="item-detail-box d-flex align-items-center w-100 justify-content-lg-between"
+              >
+                普錫杰勒雙手劍
+                <div class="me-5"><i class="bi bi-coin" /> 7,777,777</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- 大類 end -->
@@ -83,19 +110,17 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { defineComponent } from "vue";
 import { InputRadio } from "@/components";
-@Options({
-  props: {
-    // msg: String,
-  },
+export default defineComponent({
+  name: "ItemExchange",
   components: {
     InputRadio,
   },
-})
-export default class NavBar extends Vue {
-  test = "test";
-}
+  data() {
+    return {};
+  },
+});
 </script>
 
 <style scoped lang="scss">
@@ -103,7 +128,7 @@ export default class NavBar extends Vue {
   width: 100%;
   height: 80vh;
   min-height: 500px;
-  background-color: #f0f0f0;
+  background-color: #e2e2e2;
   border-radius: 10px;
   box-shadow: 0 0 15px #8f8f8f;
   .cart-title-row {
@@ -137,6 +162,30 @@ export default class NavBar extends Vue {
       height: 100%;
       border-radius: 10px;
       background-color: #5f6d78;
+    }
+    .items-box {
+      padding: 15px 10px;
+      .item-card {
+        width: 98%;
+        height: 90px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        transition: background-color 0.15s, color 0.15s;
+        &:hover {
+          background-color: #727272;
+          color: white;
+        }
+        .item-img-box {
+          height: 100%;
+          width: 100px;
+          .item-img {
+            width: 75px;
+            height: 75px;
+            border-radius: 4px;
+            background-color: rgb(211, 211, 211);
+          }
+        }
+      }
     }
   }
 }

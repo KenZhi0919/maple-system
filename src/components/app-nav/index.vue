@@ -39,16 +39,12 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { defineComponent } from "vue";
 
-@Options({
-  props: {
-    msg: String,
-  },
-})
-export default class extends Vue {
-  msg!: string;
-}
+export default defineComponent({
+  name: "AppNav",
+  components: {},
+});
 </script>
 
 <style scoped lang="scss">

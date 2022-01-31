@@ -10,17 +10,24 @@
       :value="value"
       :class="inputClass"
       :style="inputStyle"
+      @change="changeHandler"
     />
-    <label :for="id" :class="labelClass" :style="inputStyle" @click="test">
+    <label
+      :for="id"
+      :class="labelClass"
+      :style="inputStyle"
+      @click="clickHandler"
+    >
       {{ label }}
     </label>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { defineComponent } from "vue";
 
-@Options({
+export default defineComponent({
+  name: "InputRadio",
   props: {
     id: String,
     name: String,
@@ -32,11 +39,25 @@ import { Options, Vue } from "vue-class-component";
     labelStyle: Object || String,
     isChecked: Boolean,
   },
-  ref: {
-    input: HTMLInputElement,
+  setup() {
+    //
   },
-})
-export default class FunctionBtn extends Vue {}
+  data() {
+    return {};
+  },
+  methods: {
+    clickHandler() {
+      (this.$refs.input as HTMLInputElement).click();
+    },
+    changeHandler() {
+      this.$emit("input", this.value);
+      this.$emit("change", this.value);
+    },
+  },
+  computed: {
+    //
+  },
+});
 </script>
 
 <style scoped lang="scss">

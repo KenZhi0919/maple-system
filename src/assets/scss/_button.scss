@@ -10,7 +10,14 @@
   height: 25px;
   border-radius: 5px;
   font-size: 0.9rem;
+  &:checked{
+    background-color: red;
+  }
 }
+
+.radio-btn:checked + .functional-btn{
+  background-color: #EB7547;
+} 
 
 
 // 交易所 類別 radio btn
@@ -24,10 +31,18 @@
   margin-bottom: 8px;
 }
 
+.radio-btn:checked + .category-btn{
+  background-color: #46505C;
+}
+
 // 交易所 細類 radio btn
 .detail-btn {
   color: white;
   height: 45px;
   width: 100%;
   font-size: 0.9rem;
+}
+
+.radio-btn:checked + .detail-btn{
+  background-color: #46505C;
 }

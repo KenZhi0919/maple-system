@@ -7,15 +7,14 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { AppNav } from "@/components"; // @ is an alias to /src
-
-@Options({
+import { defineComponent } from "vue";
+import { AppNav } from "@/components";
+export default defineComponent({
+  name: "App",
   components: {
     AppNav,
   },
-})
-export default class Home extends Vue {}
+});
 </script>
 
 <style lang="scss">
