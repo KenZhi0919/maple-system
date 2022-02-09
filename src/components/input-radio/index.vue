@@ -4,13 +4,14 @@
       ref="input"
       type="radio"
       class="radio-btn"
+      v-model="test"
       :checked="isChecked"
       :name="name"
       :id="id"
       :value="value"
       :class="inputClass"
       :style="inputStyle"
-      @change="changeHandler"
+      @input="changeHandler"
     />
     <label
       :for="id"
@@ -43,15 +44,18 @@ export default defineComponent({
     //
   },
   data() {
-    return {};
+    return {
+      test: "123",
+    };
   },
   methods: {
     clickHandler() {
       (this.$refs.input as HTMLInputElement).click();
     },
     changeHandler() {
-      this.$emit("input", this.value);
-      this.$emit("change", this.value);
+      console.log(this.test);
+      this.$emit("input", this.test);
+      // this.$emit("change", value);
     },
   },
   computed: {

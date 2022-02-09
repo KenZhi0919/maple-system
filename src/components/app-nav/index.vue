@@ -61,5 +61,9 @@ export default defineComponent({
 .navbar {
   height: 60px;
   background-color: #fcfcfc;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  box-shadow: 0 0 15px #dfdede;
 }
 </style>

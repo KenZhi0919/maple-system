@@ -1,5 +1,6 @@
 <template>
   <div class="container-lg">
+    <search-pannel />
     <div class="trading-cart">
       <!-- title row start -->
       <div class="cart-title-row d-flex align-items-center">
@@ -11,6 +12,7 @@
       <!-- functional row start -->
       <div class="functional-row d-flex align-items-center">
         <input-radio
+          v-model="test"
           id="buy"
           name="functionalBtn"
           value="buy"
@@ -19,6 +21,7 @@
           is-checked
         />
         <input-radio
+          v-model="test"
           id="sell"
           name="functionalBtn"
           value="sell"
@@ -77,6 +80,7 @@
               <div class="item-img-box d-flex align-items-center px-2">
                 <div class="item-img">
                   <!--  -->
+                  <img src="@/assets/images/weapon.png" alt="" />
                 </div>
               </div>
               <div
@@ -112,13 +116,18 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { InputRadio } from "@/components";
+import { SearchPannel } from "./components";
+
 export default defineComponent({
   name: "ItemExchange",
   components: {
     InputRadio,
+    SearchPannel,
   },
   data() {
-    return {};
+    return {
+      test: "test",
+    };
   },
 });
 </script>
@@ -182,7 +191,14 @@ export default defineComponent({
             width: 75px;
             height: 75px;
             border-radius: 4px;
-            background-color: rgb(211, 211, 211);
+            background-color: #dcdee1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+              width: 90%;
+              height: 90%;
+            }
           }
         }
       }
