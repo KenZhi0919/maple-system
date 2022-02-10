@@ -1,5 +1,5 @@
 <template>
-  <div class="search-pannel">
+  <div class="exchange-search-pannel">
     <div class="row">
       <div class="col-6 d-flex">
         <div class="col-3 d-flex justify-content-end align-self-center pe-3">
@@ -69,21 +69,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped lang="scss">
-.row {
-  margin-bottom: 30px;
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-.search-pannel {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 40px;
-  padding: 20px 0;
-  background-color: white;
-  box-shadow: 0 0 35px #dfdede;
-}
-</style>

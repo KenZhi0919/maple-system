@@ -101,7 +101,7 @@
                     {{ product.min_price }} ~<br />{{ product.max_price }}
                   </div>
                   <div class="col-4 align-self-center">
-                    數量: {{ product.count }}
+                    {{ product.count }}
                   </div>
                 </div>
               </div>
@@ -119,6 +119,8 @@
 import { defineComponent, reactive, toRefs } from "vue";
 import { InputRadio } from "@/components";
 import { SearchPannel } from "./components";
+import { ProductListMultiItem } from "@/@types/models";
+
 import _ from "lodash";
 export default defineComponent({
   name: "ItemExchange",
@@ -131,10 +133,10 @@ export default defineComponent({
       functional: "buy",
       category: "武器" as string,
       type: "" as string,
-      allProducts: [] as any[],
-      categoryOptions: [] as any[],
-      typeOptions: [] as any[],
-      productList: [] as any[],
+      allProducts: [] as ProductListMultiItem[],
+      categoryOptions: [] as string[],
+      typeOptions: [] as ProductListMultiItem[],
+      productList: [] as ProductListMultiItem[],
     });
     return { ...toRefs(state) };
   },
@@ -221,78 +223,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped lang="scss">
-.trading-cart {
-  width: 100%;
-  height: 80vh;
-  min-height: 500px;
-  background-color: #e2e2e2;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #8f8f8f;
-  .cart-title-row {
-    width: 100%;
-    height: 60px;
-    background-color: #415067;
-    border-radius: 10px 10px 0 0;
-    i {
-      color: white;
-    }
-    .cart-title {
-      color: white;
-      font-size: 24px;
-    }
-  }
-
-  .functional-row {
-    width: 100%;
-    height: 45px;
-    background-color: #fffefe;
-  }
-
-  .table-row {
-    height: calc(100% - 105px);
-    .category-box {
-      background-color: #cacaca;
-      border-radius: 0 0 0 10px;
-    }
-    .detail-box {
-      width: 90%;
-      height: 100%;
-      border-radius: 10px;
-      background-color: #5f6d78;
-    }
-    .items-box {
-      padding: 15px 10px;
-      .item-card {
-        width: 98%;
-        height: 90px;
-        border-radius: 10px;
-        background-color: #ffffff;
-        transition: background-color 0.15s, color 0.15s;
-        &:hover {
-          background-color: #727272;
-          color: white;
-        }
-        .item-img-box {
-          height: 100%;
-          width: 100%;
-          .item-img {
-            width: 75px;
-            height: 75px;
-            border-radius: 4px;
-            background-color: #dcdee1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            img {
-              width: 90%;
-              height: 90%;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-</style>
