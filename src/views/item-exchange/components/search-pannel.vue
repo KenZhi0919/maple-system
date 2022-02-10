@@ -20,7 +20,9 @@
         <div class="col-3 d-flex justify-content-end align-self-center pe-3">
           星力
         </div>
-        <div class="col-9 align-self-center"><input-text /></div>
+        <div class="col-9 align-self-center">
+          <input-text v-model="star" />
+        </div>
       </div>
       <div class="col-6 d-flex">
         <div class="col-3 d-flex justify-content-end align-self-center pe-3">
@@ -57,7 +59,9 @@ export default defineComponent({
     //
   },
   data() {
-    return {};
+    return {
+      star: "",
+    };
   },
   methods: {},
   computed: {

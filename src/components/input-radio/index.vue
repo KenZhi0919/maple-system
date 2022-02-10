@@ -4,14 +4,13 @@
       ref="input"
       type="radio"
       class="radio-btn"
-      v-model="test"
       :checked="isChecked"
       :name="name"
       :id="id"
-      :value="value"
+      :value="modelValue"
       :class="inputClass"
       :style="inputStyle"
-      @input="changeHandler"
+      @input="$emit('update:modelValue', this.value)"
     />
     <label
       :for="id"
@@ -33,6 +32,7 @@ export default defineComponent({
     id: String,
     name: String,
     value: String,
+    modelValue: String,
     label: String,
     inputClass: String,
     inputStyle: Object || String,
@@ -44,22 +44,12 @@ export default defineComponent({
     //
   },
   data() {
-    return {
-      test: "123",
-    };
+    return {};
   },
   methods: {
     clickHandler() {
       (this.$refs.input as HTMLInputElement).click();
     },
-    changeHandler() {
-      console.log(this.test);
-      this.$emit("input", this.test);
-      // this.$emit("change", value);
-    },
-  },
-  computed: {
-    //
   },
 });
 </script>

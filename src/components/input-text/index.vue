@@ -5,8 +5,8 @@
     class="form-control"
     :class="inputClass"
     :style="inputStyle"
-    :value="value"
-    @input="$emit('input', $event.target.value)"
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event.target.value)"
   />
 </template>
 
@@ -16,7 +16,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "InputText",
   props: {
-    value: String,
+    modelValue: String,
     inputClass: String,
     inputStyle: Object || String,
     labelClass: String,
