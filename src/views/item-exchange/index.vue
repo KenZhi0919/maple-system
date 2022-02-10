@@ -74,13 +74,32 @@
         <!-- 商品列 -->
         <div class="col-8">
           <div class="items-box d-flex flex-column align-items-center">
-            <!-- <div class="col-12">123</div> -->
+            <!-- title row start -->
+            <div class="col-12 d-flex title-row">
+              <div class="col-6">
+                <!--  -->
+              </div>
+              <div class="col-1 d-flex justify-content-center">
+                <!--  -->
+                星力
+              </div>
+              <div class="col-3 d-flex justify-content-center">
+                <!--  -->
+                登錄價格
+              </div>
+              <div class="col-2 d-flex justify-content-center">
+                <!--  -->
+                登錄數量
+              </div>
+            </div>
+            <!-- title row end -->
+
             <div
               v-for="product in productList"
               :key="product.product_list_id"
               class="item-card d-flex mb-2"
             >
-              <div class="col-4">
+              <div class="col-6">
                 <div class="w-100 h-100">
                   <div class="item-img-box d-flex align-items-center px-2">
                     <div class="item-img me-2">
@@ -90,20 +109,30 @@
                   </div>
                 </div>
               </div>
+              <!-- 星力 start -->
               <div
-                class="item-detail-box d-flex align-items-center w-100 justify-content-lg-between"
+                class="col-1 align-self-center d-flex justify-content-center"
               >
-                <div class="me-5 d-flex" style="width: 200px">
-                  <div class="col-8 d-flex">
-                    <div class="col-2 align-self-center">
-                      <i class="bi bi-coin" />
-                    </div>
+                0
+              </div>
+              <!-- 星力 end -->
+              <div
+                class="col-3 d-flex justify-content-center align-self-center"
+              >
+                <div class="d-flex justify-content-center w-100">
+                  <div class="align-self-center me-2">
+                    <i class="bi bi-coin" />
+                  </div>
+                  <div>
                     {{ product.min_price }} ~<br />{{ product.max_price }}
                   </div>
-                  <div class="col-4 align-self-center">
-                    {{ product.count }}
-                  </div>
                 </div>
+              </div>
+
+              <div
+                class="col-2 align-self-center d-flex justify-content-center"
+              >
+                {{ product.count }}
               </div>
             </div>
           </div>

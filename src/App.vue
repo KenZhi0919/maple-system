@@ -14,6 +14,11 @@ export default defineComponent({
   components: {
     AppNav,
   },
+  // setup(props) {
+  //   const computedPractice = computed(() => {
+  //     return "test";
+  //   });
+  // },
 });
 </script>
 
