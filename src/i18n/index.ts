@@ -19,7 +19,8 @@ const i18n = createI18n({
   // ...
 });
 
-// EX: Message format syntax
+// 可以用單個變數或陣列
+// 變數 EX: Message format syntax
 // hello: "{msg} world",
 // <p>{{ $t("feature.itemexchange.hello", { msg: "test" }) }}</p>
 export default i18n;
