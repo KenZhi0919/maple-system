@@ -5,6 +5,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import i18n from "@/i18n";
-
-createApp(App).use(store).use(router).use(i18n).mount("#app");
+import { example } from "@/plugins";
 import "bootstrap/dist/js/bootstrap.js";
+
+createApp(App).use(store).use(router).use(i18n).use(example).mount("#app");
