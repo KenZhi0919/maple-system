@@ -57,10 +57,10 @@
               <input-radio
                 v-model="type"
                 v-for="(option, index) in typeOptions"
-                :key="option.type"
-                :id="option.type"
-                :value="option.type"
-                :label="option.type"
+                :key="option"
+                :id="option"
+                :value="option"
+                :label="option"
                 name="typeBtn"
                 label-class="detail-btn btn d-flex align-items-center"
                 :is-checked="index === 0"
@@ -80,61 +80,32 @@
                 <!--  -->
               </div>
               <div class="col-1 d-flex justify-content-center">
-                <!--  -->
-                星力
+                <span v-if="showDetailItems">星力</span>
               </div>
-              <div class="col-3 d-flex justify-content-center">
-                <!--  -->
-                登錄價格
-              </div>
-              <div class="col-2 d-flex justify-content-center">
-                <!--  -->
-                登錄數量
-              </div>
+              <div class="col-3 d-flex justify-content-center">登錄價格</div>
+              <div class="col-2 d-flex justify-content-center">登錄數量</div>
             </div>
             <!-- title row end -->
 
-            <div
-              v-for="product in productList"
-              :key="product.product_list_id"
-              class="item-card d-flex mb-2"
-            >
-              <div class="col-6">
-                <div class="w-100 h-100">
-                  <div class="item-img-box d-flex align-items-center px-2">
-                    <div class="item-img me-2">
-                      <!--  -->
-                    </div>
-                    {{ product.name }}
-                  </div>
-                </div>
-              </div>
-              <!-- 星力 start -->
+            <template v-if="!showDetailItems">
               <div
-                class="col-1 align-self-center d-flex justify-content-center"
+                v-for="product in productList"
+                :key="product.product_list_id"
+                style="width: 98%"
               >
-                0
+                <item-card :product="product" />
               </div>
-              <!-- 星力 end -->
-              <div
-                class="col-3 d-flex justify-content-center align-self-center"
-              >
-                <div class="d-flex justify-content-center w-100">
-                  <div class="align-self-center me-2">
-                    <i class="bi bi-coin" />
-                  </div>
-                  <div>
-                    {{ product.min_price }} ~<br />{{ product.max_price }}
-                  </div>
-                </div>
-              </div>
+            </template>
 
+            <template v-else>
               <div
-                class="col-2 align-self-center d-flex justify-content-center"
+                v-for="product in productList"
+                :key="product.product_list_id"
+                class="w-100"
               >
-                {{ product.count }}
+                <item-card :product="product" is-detail-items />
               </div>
-            </div>
+            </template>
           </div>
         </div>
       </div>
@@ -147,8 +118,10 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue";
 import { InputRadio } from "@/components";
-import { SearchPannel } from "./components";
+import { SearchPannel, ItemCard } from "./components";
 import { ProductListMultiItem } from "@/@types/models";
+import { apiExchange } from "@/services/api";
+import { typeOptions, categoryOptions } from "./data";
 
 import _ from "lodash";
 export default defineComponent({
@@ -156,6 +129,7 @@ export default defineComponent({
   components: {
     InputRadio,
     SearchPannel,
+    ItemCard,
   },
   setup() {
     const state = reactive({
@@ -163,15 +137,15 @@ export default defineComponent({
       category: "武器" as string,
       type: "" as string,
       allProducts: [] as ProductListMultiItem[],
-      categoryOptions: [] as string[],
-      typeOptions: [] as ProductListMultiItem[],
+      categoryOptions: categoryOptions as string[],
+      typeOptions: typeOptions as string[],
       productList: [] as ProductListMultiItem[],
+      showDetailItems: false as boolean,
     });
     return { ...toRefs(state) };
   },
   mounted() {
     this.fetchallProducts();
-    this.getCategoryOptions();
     this.getTypeOptions();
     this.getProductList();
   },
@@ -179,23 +153,15 @@ export default defineComponent({
     return {};
   },
   methods: {
-    getCategoryOptions() {
-      this.categoryOptions = _.unionBy(this.allProducts, "category").map(el => {
-        return el.category;
-      });
-    },
     getTypeOptions() {
-      this.typeOptions = _.unionBy(
-        this.allProducts.filter(el => el.category === this.category),
-        "type"
-      );
-      this.type = this.typeOptions[0].type;
+      this.type = this.typeOptions[0];
       this.getProductList();
     },
     getProductList() {
       this.productList = this.allProducts.filter(el => el.type === this.type);
     },
     fetchallProducts() {
+      // apiExchange();
       this.allProducts = [
         {
           product_list_id: 13,
