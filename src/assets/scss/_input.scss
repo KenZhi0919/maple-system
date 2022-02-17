@@ -1,0 +1,27 @@
+.multiselect {
+  margin: 0;
+  max-width: 300px;
+  box-shadow: none !important;
+  .multiselect-option{
+  &.is-selected{
+    background:#999;
+    &.is-pointed{
+      background: rgba(153, 153, 153, 0.87);
+    }
+  }
+ }
+  &:focus{
+    border-color: #EB7547;
+  }
+  .multiselect-dropdown{
+    border-color: #EB7547;
+  }
+}
+
+.form-control{
+  max-width: 300px;
+  box-shadow: none !important;
+  &:focus{
+    border-color: #EB7547;
+  }
+}

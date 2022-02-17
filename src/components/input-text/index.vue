@@ -34,9 +34,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.form-control {
-  max-width: 300px;
-}
-</style>

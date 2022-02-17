@@ -1,5 +1,5 @@
 import instance from "../instance";
 
 export const apiExchange = (data?: any): void => {
-  instance.get("/exchange", { data });
+  instance.get("/exchange/product-list/", { data });
 };

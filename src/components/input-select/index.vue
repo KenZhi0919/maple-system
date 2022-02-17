@@ -1,37 +1,35 @@
 <template>
-  <select class="form-select" id="validationCustom04" required>
-    <option selected disabled value="">Choose...</option>
-    <option>...</option>
-  </select>
+  <multiselect
+    v-model="selected"
+    :options="options"
+    placeholder="請選擇"
+    :searchable="true"
+    @input="$emit('update:modelValue', $event)"
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Multiselect from "@vueform/multiselect";
 
 export default defineComponent({
   name: "InputText",
+  components: {
+    Multiselect,
+  },
   props: {
-    value: String,
-    inputClass: String,
-    inputStyle: Object || String,
-    labelClass: String,
-    labelStyle: Object || String,
+    options: {
+      required: true,
+    },
   },
-  setup() {
-    //
-  },
+
   data() {
-    return {};
+    return {
+      selected: "" as string,
+    };
   },
   methods: {},
-  computed: {
-    //
-  },
 });
 </script>
 
-<style scoped>
-.form-select {
-  max-width: 300px;
-}
-</style>
+<style src="@vueform/multiselect/themes/default.css"></style>
