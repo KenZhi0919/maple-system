@@ -1,9 +1,11 @@
 <template>
   <multiselect
     v-model="selected"
-    :options="options"
     placeholder="請選擇"
+    :options="options"
+    :close-on-select="closeOnSelect"
     :searchable="true"
+    :mode="multiple ? 'tag' : 'single'"
     @input="$emit('update:modelValue', $event)"
   />
 </template>
@@ -21,11 +23,19 @@ export default defineComponent({
     options: {
       required: true,
     },
+    closeOnSelect: {
+      type: Boolean,
+      default: true,
+    },
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
     return {
-      selected: "" as string,
+      selected: [] as string[],
     };
   },
   methods: {},

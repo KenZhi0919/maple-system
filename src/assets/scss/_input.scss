@@ -2,6 +2,13 @@
   margin: 0;
   max-width: 300px;
   box-shadow: none !important;
+  &.is-open{
+    border-color: $primary-orange;
+  }
+  .multiselect-tag{
+    background-color: $primary-orange;
+    font-weight: normal;
+  }
   .multiselect-option{
   &.is-selected{
     background:#999;

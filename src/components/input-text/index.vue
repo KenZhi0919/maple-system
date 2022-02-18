@@ -3,6 +3,7 @@
     ref="input"
     type="text"
     class="form-control"
+    placeholder="請輸入"
     :class="inputClass"
     :style="inputStyle"
     :value="modelValue"

@@ -52,14 +52,15 @@
       .product-box{
         overflow-y: auto;
         .product-row{
-          width: 98%;
+          width: 100%;
+          padding:0 5px;
         }
       }
       .title-row{
         margin: 0 0 10px 0;
         color: gray;
         font-weight: 500;
-        width: 98%;
+        padding:0 5px;
       }
       .item-card {
         cursor: pointer;

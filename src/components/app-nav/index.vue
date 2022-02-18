@@ -59,6 +59,7 @@ export default defineComponent({
   }
 }
 .navbar {
+  z-index: 9999999;
   height: 60px;
   background-color: #fcfcfc;
   position: fixed;
