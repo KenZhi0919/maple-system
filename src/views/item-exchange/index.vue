@@ -77,13 +77,22 @@
             <!-- title row start -->
             <div class="col-12 d-flex title-row">
               <div class="col-6">
-                <!--  -->
+                <button
+                  v-if="showDetailItems"
+                  class="btn previous-page-btn"
+                  @click="showDetailItems = false"
+                >
+                  <i class="bi bi-caret-left-fill" />
+                </button>
               </div>
               <div class="col-1 d-flex justify-content-center">
                 <span v-if="showDetailItems">星力</span>
               </div>
               <div class="col-3 d-flex justify-content-center">登錄價格</div>
-              <div class="col-2 d-flex justify-content-center">登錄數量</div>
+              <div class="col-2 d-flex justify-content-center">
+                <span v-if="!showDetailItems">登錄數量</span>
+                <span v-else>收藏</span>
+              </div>
             </div>
             <!-- title row end -->
 
@@ -96,16 +105,23 @@
                   :key="product.product_list_id"
                   class="product-row"
                 >
-                  <item-card :product="product" />
+                  <item-card
+                    :product="product"
+                    @click="productClickHandler(product.product_list_id)"
+                  />
                 </div>
               </template>
               <template v-else>
                 <div
-                  v-for="product in productList"
-                  :key="product.product_list_id"
+                  v-for="product in productDetailList"
+                  :key="product.product_id"
                   class="product-row"
                 >
-                  <item-card :product="product" :is-detail-items="true" />
+                  <item-card
+                    :product="product.product_list_data"
+                    :product-detail="product"
+                    :is-detail-items="true"
+                  />
                 </div>
               </template>
             </div>
@@ -122,8 +138,12 @@
 import { defineComponent, reactive, toRefs } from "vue";
 import { InputRadio } from "@/components";
 import { SearchPannel, ItemCard } from "./components";
-import { ProductListMultiItem, typeOption } from "@/@types/models";
-import { apiExchange } from "@/services/api";
+import {
+  ProductListMultiItem,
+  typeOption,
+  ProductDetailItem,
+} from "@/@types/models";
+import { apiGetProductList, apiGetProductDetail } from "@/services/api";
 import { typeOptions, categoryOptions } from "./data";
 
 export default defineComponent({
@@ -141,6 +161,7 @@ export default defineComponent({
       categoryOptions: categoryOptions as string[],
       allTypeOptions: typeOptions as typeOption[],
       productList: [] as ProductListMultiItem[],
+      productDetailList: [] as ProductDetailItem[],
       showDetailItems: false as boolean,
     });
     return { ...toRefs(state) };
@@ -165,8 +186,21 @@ export default defineComponent({
       try {
         const {
           data: { result },
-        } = await apiExchange(params);
+        } = await apiGetProductList(params);
         this.productList = result;
+      } catch (err) {
+        console.error(err);
+      } finally {
+        loader.hide();
+      }
+    },
+    async fetchProductDetail(productId: string) {
+      let loader = this.$loading.show();
+      try {
+        const {
+          data: { result },
+        } = await apiGetProductDetail({ product_list_id: productId });
+        this.productDetailList = result;
       } catch (err) {
         console.error(err);
       } finally {
@@ -175,10 +209,17 @@ export default defineComponent({
     },
     categoryChangeHandler() {
       this.type = this.currentTypeOptions[0];
+      this.showDetailItems = false;
       this.fetchProducts({ category: this.category, type: this.type });
     },
     typeChangeHandler() {
+      this.showDetailItems = false;
       this.fetchProducts({ category: this.category, type: this.type });
+    },
+    async productClickHandler(id: string) {
+      await this.fetchProductDetail(id);
+      this.showDetailItems = true;
+      console.log(this.productDetailList);
     },
   },
 });

@@ -3,8 +3,9 @@ export interface ProductListMultiItem {
   category: string;
   type: string;
   name: string;
+  zh_stage_level: string;
   stage_level: string;
-  image: null;
+  image: string;
   count: number;
   min_price: number;
   max_price: number;

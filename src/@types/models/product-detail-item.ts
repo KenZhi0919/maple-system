@@ -1,0 +1,21 @@
+export interface ProductDetailItem {
+  product_id: string | number;
+  images: string[];
+  product_list_data: [];
+  star: number;
+  level: number;
+  total_level: number;
+  cut_num: number;
+  attack: number;
+  main_attribute: string | null;
+  potential_level: string;
+  potential_capability: string[];
+  spark_level: string;
+  soul_capability: string | null;
+  is_maple: boolean;
+  maple_capability: string;
+  maple_level: number;
+  explanation: string;
+  price: number;
+  create_date: string;
+}

@@ -1,5 +1,8 @@
 .btn{
   border-radius: 5px;
+  &:focus{
+    box-shadow: none;
+  }
 }
 
 // 交易所 功能列 radio btn
@@ -16,7 +19,7 @@
 }
 
 .radio-btn:checked + .functional-btn{
-  background-color: #EB7547;
+  background-color: $primary-orange;
 } 
 
 
@@ -45,4 +48,23 @@
 
 .radio-btn:checked + .detail-btn{
   background-color: #46505C;
+}
+
+.previous-page-btn{
+  background-color: #fff;
+  padding: 0;
+  width: 35px;
+  font-weight:bold;
+  color: gray;
+  &:hover{
+    color:rgb(56, 56, 56)
+  }
+}
+
+.favorite-btn{
+  font-size: 90%;
+  color: $primary-blue;
+  &.isFavorite{
+    color: $primary-orange;
+  }
 }

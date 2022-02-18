@@ -1,3 +1,26 @@
+$primary-orange: #EB7547;
+$primary-blue: #46505C;
+
+
+$stage-1: #A1A2A4;
+$stage-2: #5eb6ff;
+$stage-3: #a66df7;
+$stage-4: #ffb06b;
+$stage-5: #3ac780;
+$stage-6: #fa424b;
+.stage-7{
+  -moz-border-image: -moz-linear-gradient(top left, #3acfd5 0%, #3a4ed5 100%);
+  -webkit-border-image: -webkit-linear-gradient(top left, #3acfd5 0%, #3a4ed5 100%);
+          border-image: linear-gradient(to bottom right, #3acfd5 0%, #3a4ed5 100%);
+  border-image-slice: 1;
+}
+.stage-8{
+  -moz-border-image: -moz-linear-gradient(top left, #3acfd5 0%, #3a4ed5 100%);
+  -webkit-border-image: -webkit-linear-gradient(top left, #3acfd5 0%, #3a4ed5 100%);
+          border-image: linear-gradient(to bottom right, #3acfd5 0%, #3a4ed5 100%);
+  border-image-slice: 1;
+}
+
 // 交易所
 @import "item-exchange"; 
 

@@ -11,10 +11,10 @@
   }
  }
   &:focus{
-    border-color: #EB7547;
+    border-color: $primary-orange;
   }
   .multiselect-dropdown{
-    border-color: #EB7547;
+    border-color: $primary-orange;
   }
 }
 
@@ -22,6 +22,6 @@
   max-width: 300px;
   box-shadow: none !important;
   &:focus{
-    border-color: #EB7547;
+    border-color: $primary-orange;
   }
 }
