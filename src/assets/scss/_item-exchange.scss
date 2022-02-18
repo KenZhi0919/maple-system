@@ -48,8 +48,13 @@
     }
     .items-box {
       height: 100%;
-      overflow-y: auto;
       padding: 15px 10px;
+      .product-box{
+        overflow-y: auto;
+        .product-row{
+          width: 98%;
+        }
+      }
       .title-row{
         margin: 0 0 10px 0;
         color: gray;

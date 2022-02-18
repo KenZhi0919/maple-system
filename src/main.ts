@@ -6,6 +6,19 @@ import router from "./router";
 import store from "./store";
 import i18n from "@/i18n";
 import { example } from "@/plugins";
+import VueLoading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 import "bootstrap/dist/js/bootstrap.js";
 
-createApp(App).use(store).use(router).use(i18n).use(example).mount("#app");
+createApp(App)
+  .use(store)
+  .use(router)
+  .use(i18n)
+  .use(example)
+  .use(VueLoading, {
+    color: "#EB7547",
+    loader: "bars",
+    height: 100,
+    width: 100,
+  })
+  .mount("#app");

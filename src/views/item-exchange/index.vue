@@ -89,26 +89,26 @@
 
             <div
               class="product-box w-100 d-flex flex-column align-items-center"
-              v-if="!showDetailItems"
             >
-              <div
-                v-for="product in productList"
-                :key="product.product_list_id"
-                style="width: 98%"
-              >
-                <item-card :product="product" />
-              </div>
+              <template v-if="!showDetailItems">
+                <div
+                  v-for="product in productList"
+                  :key="product.product_list_id"
+                  class="product-row"
+                >
+                  <item-card :product="product" />
+                </div>
+              </template>
+              <template v-else>
+                <div
+                  v-for="product in productList"
+                  :key="product.product_list_id"
+                  class="product-row"
+                >
+                  <item-card :product="product" :is-detail-items="true" />
+                </div>
+              </template>
             </div>
-
-            <template v-else>
-              <div
-                v-for="product in productList"
-                :key="product.product_list_id"
-                class="w-100"
-              >
-                <item-card :product="product" is-detail-items />
-              </div>
-            </template>
           </div>
         </div>
       </div>
@@ -161,6 +161,7 @@ export default defineComponent({
   },
   methods: {
     async fetchProducts(params?: any) {
+      let loader = this.$loading.show();
       try {
         const {
           data: { result },
@@ -168,6 +169,8 @@ export default defineComponent({
         this.productList = result;
       } catch (err) {
         console.error(err);
+      } finally {
+        loader.hide();
       }
     },
     categoryChangeHandler() {
