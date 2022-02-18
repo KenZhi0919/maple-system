@@ -13,3 +13,14 @@
   padding-top: 50px;
   padding-bottom: 20px;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(180, 180, 180);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 6px;
+}

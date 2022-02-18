@@ -56,7 +56,7 @@
             <div class="detail-box py-1">
               <input-radio
                 v-model="type"
-                v-for="(option, index) in typeOptions"
+                v-for="(option, index) in currentTypeOptions"
                 :key="option"
                 :id="option"
                 :value="option"
@@ -87,7 +87,10 @@
             </div>
             <!-- title row end -->
 
-            <template v-if="!showDetailItems">
+            <div
+              class="product-box w-100 d-flex flex-column align-items-center"
+              v-if="!showDetailItems"
+            >
               <div
                 v-for="product in productList"
                 :key="product.product_list_id"
@@ -95,7 +98,7 @@
               >
                 <item-card :product="product" />
               </div>
-            </template>
+            </div>
 
             <template v-else>
               <div
@@ -119,11 +122,10 @@
 import { defineComponent, reactive, toRefs } from "vue";
 import { InputRadio } from "@/components";
 import { SearchPannel, ItemCard } from "./components";
-import { ProductListMultiItem } from "@/@types/models";
+import { ProductListMultiItem, typeOption } from "@/@types/models";
 import { apiExchange } from "@/services/api";
 import { typeOptions, categoryOptions } from "./data";
 
-import _ from "lodash";
 export default defineComponent({
   name: "ItemExchange",
   components: {
@@ -135,85 +137,45 @@ export default defineComponent({
     const state = reactive({
       functional: "buy",
       category: "武器" as string,
-      type: "" as string,
-      allProducts: [] as ProductListMultiItem[],
+      type: "長槍" as string,
       categoryOptions: categoryOptions as string[],
-      typeOptions: typeOptions as string[],
+      allTypeOptions: typeOptions as typeOption[],
       productList: [] as ProductListMultiItem[],
       showDetailItems: false as boolean,
     });
     return { ...toRefs(state) };
   },
-  mounted() {
-    this.fetchallProducts();
-    this.getTypeOptions();
-    this.getProductList();
+  async mounted() {
+    await this.fetchProducts({ category: this.category, type: this.type });
   },
   data() {
     return {};
   },
+  computed: {
+    currentTypeOptions(): typeOption["type"] {
+      return (
+        this.allTypeOptions.find(el => el.category === this.category)?.type ||
+        []
+      );
+    },
+  },
   methods: {
-    getTypeOptions() {
-      this.type = this.typeOptions[0];
-      this.getProductList();
-    },
-    getProductList() {
-      this.productList = this.allProducts.filter(el => el.type === this.type);
-    },
-    fetchallProducts() {
-      // apiExchange();
-      this.allProducts = [
-        {
-          product_list_id: 13,
-          category: "武器",
-          type: "雙手劍",
-          name: "普錫杰勒雙手劍",
-          stage_level: "普通",
-          image: null,
-          count: 1,
-          min_price: 222046,
-          max_price: 222046,
-        },
-        {
-          product_list_id: 14,
-          category: "武器",
-          type: "雙手劍",
-          name: "傑伊西恩雙手劍",
-          stage_level: "普通",
-          image: null,
-          count: 2,
-          min_price: 10000,
-          max_price: 199899,
-        },
-        {
-          product_list_id: 16,
-          category: "武器",
-          type: "單手劍",
-          name: "傑伊西恩單手劍",
-          stage_level: "普通",
-          image: null,
-          count: 1,
-          min_price: 199899,
-          max_price: 199899,
-        },
-        {
-          product_list_id: 15,
-          category: "防具",
-          type: "上衣",
-          name: "經驗上衣",
-          stage_level: "普通",
-          image: null,
-          count: 1,
-          min_price: 87,
-          max_price: 199899,
-        },
-      ];
+    async fetchProducts(params?: any) {
+      try {
+        const {
+          data: { result },
+        } = await apiExchange(params);
+        this.productList = result;
+      } catch (err) {
+        console.error(err);
+      }
     },
     categoryChangeHandler() {
-      this.getTypeOptions();
+      this.type = this.currentTypeOptions[0];
+      this.fetchProducts({ category: this.category, type: this.type });
     },
     typeChangeHandler() {
-      this.getProductList();
+      this.fetchProducts({ category: this.category, type: this.type });
     },
   },
 });

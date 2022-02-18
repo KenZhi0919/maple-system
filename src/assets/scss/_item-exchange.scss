@@ -22,7 +22,7 @@
   .functional-row {
     width: 100%;
     height: 45px;
-    background-color: #fffefe;
+    background-color: #fffefeea;
   }
 
   .table-row {
@@ -34,10 +34,21 @@
     .detail-box {
       width: 90%;
       height: 100%;
+      overflow-y: auto;
       border-radius: 10px;
       background-color: #5f6d78;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .content {
+        min-height: calc(100vh - 60px);
+        padding-top: 50px;
+        padding-bottom: 20px;
+      }
     }
     .items-box {
+      height: 100%;
+      overflow-y: auto;
       padding: 15px 10px;
       .title-row{
         margin: 0 0 10px 0;
