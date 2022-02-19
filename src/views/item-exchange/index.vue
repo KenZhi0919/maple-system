@@ -1,6 +1,10 @@
 <template>
   <div class="container-lg">
-    <search-pannel />
+    <search-pannel
+      ref="searchPannel"
+      :search-condition="searchCondition"
+      @search="search"
+    />
     <div class="trading-cart">
       <!-- title row start -->
       <div class="cart-title-row d-flex align-items-center">
@@ -37,7 +41,7 @@
         <div class="col-4 h-100 category-box d-flex py-3">
           <div class="col-6 d-flex flex-column">
             <input-radio
-              v-model="category"
+              v-model="searchCondition.category"
               v-for="(option, index) in categoryOptions"
               :key="option"
               :id="option"
@@ -55,7 +59,7 @@
           <div class="col-6">
             <div class="detail-box py-1">
               <input-radio
-                v-model="type"
+                v-model="searchCondition.type"
                 v-for="(option, index) in currentTypeOptions"
                 :key="option"
                 :id="option"
@@ -142,6 +146,7 @@ import {
   ProductListMultiItem,
   typeOption,
   ProductDetailItem,
+  ProductListSearchCondition,
 } from "@/@types/models";
 import { apiGetProductList, apiGetProductDetail } from "@/services/api";
 import { typeOptions, categoryOptions } from "./data";
@@ -156,8 +161,6 @@ export default defineComponent({
   setup() {
     const state = reactive({
       functional: "buy",
-      category: "武器" as string,
-      type: "長槍" as string,
       categoryOptions: categoryOptions as string[],
       allTypeOptions: typeOptions as typeOption[],
       productList: [] as ProductListMultiItem[],
@@ -167,26 +170,40 @@ export default defineComponent({
     return { ...toRefs(state) };
   },
   async mounted() {
-    await this.fetchProducts({ category: this.category, type: this.type });
+    await this.search();
   },
   data() {
-    return {};
+    return {
+      searchCondition: {
+        category: "武器",
+        type: "長槍",
+        stage_level: undefined,
+        star: undefined,
+        is_maple: undefined,
+        maple_capability: undefined,
+        total_level: undefined,
+        min_price: undefined,
+        max_price: undefined,
+        ordering: undefined,
+      } as ProductListSearchCondition,
+    };
   },
   computed: {
     currentTypeOptions(): typeOption["type"] {
       return (
-        this.allTypeOptions.find(el => el.category === this.category)?.type ||
-        []
+        this.allTypeOptions.find(
+          el => el.category === this.searchCondition.category
+        )?.type || []
       );
     },
   },
   methods: {
-    async fetchProducts(params?: any) {
+    async fetchProducts() {
       let loader = this.$loading.show();
       try {
         const {
           data: { result },
-        } = await apiGetProductList(params);
+        } = await apiGetProductList(this.searchCondition);
         this.productList = result;
       } catch (err) {
         console.error(err);
@@ -207,19 +224,29 @@ export default defineComponent({
         loader.hide();
       }
     },
+    search(searchCondition?: ProductListSearchCondition) {
+      if (searchCondition) {
+        this.searchCondition = {
+          ...searchCondition,
+          is_maple: searchCondition.is_maple === 1 ? true : false,
+          type: this.searchCondition.type,
+          category: this.searchCondition.category,
+        };
+      }
+      this.fetchProducts();
+    },
     categoryChangeHandler() {
-      this.type = this.currentTypeOptions[0];
+      this.searchCondition.type = this.currentTypeOptions[0];
       this.showDetailItems = false;
-      this.fetchProducts({ category: this.category, type: this.type });
+      this.fetchProducts();
     },
     typeChangeHandler() {
       this.showDetailItems = false;
-      this.fetchProducts({ category: this.category, type: this.type });
+      this.fetchProducts();
     },
     async productClickHandler(id: string) {
       await this.fetchProductDetail(id);
       this.showDetailItems = true;
-      console.log(this.productDetailList);
     },
   },
 });

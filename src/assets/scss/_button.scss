@@ -68,3 +68,16 @@
     color: $primary-orange;
   }
 }
+
+.search-btn{
+  background-color: $primary-orange;
+  color: rgba(255, 255, 255, 0.965);
+  width: 100px;
+  &:hover{
+    background-color:  #ffa047;
+    color: rgba(255, 255, 255, 0.965);
+  }
+  &:active{
+    background-color: $primary-orange;
+  }
+}

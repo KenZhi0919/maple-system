@@ -1,9 +1,9 @@
 <template>
   <input
     ref="input"
-    type="text"
     class="form-control"
     placeholder="請輸入"
+    :type="type"
     :class="inputClass"
     :style="inputStyle"
     :value="modelValue"
@@ -22,6 +22,7 @@ export default defineComponent({
     inputStyle: Object || String,
     labelClass: String,
     labelStyle: Object || String,
+    type: String,
   },
   setup() {
     //
@@ -35,3 +36,8 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+::placeholder {
+  color: #9ca3af;
+}
+</style>

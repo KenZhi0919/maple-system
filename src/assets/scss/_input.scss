@@ -1,6 +1,6 @@
 .multiselect {
   margin: 0;
-  max-width: 300px;
+  // max-width: 300px;
   box-shadow: none !important;
   &.is-open{
     border-color: $primary-orange;
@@ -26,9 +26,22 @@
 }
 
 .form-control{
-  max-width: 300px;
+  // max-width: 300px;
   box-shadow: none !important;
   &:focus{
     border-color: $primary-orange;
   }
+}
+
+// input type number hide arrow 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

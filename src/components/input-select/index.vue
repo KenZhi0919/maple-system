@@ -3,9 +3,11 @@
     v-model="selected"
     placeholder="請選擇"
     :options="options"
+    :track-by="trackBy"
+    :label="label"
     :close-on-select="closeOnSelect"
     :searchable="true"
-    :mode="multiple ? 'tag' : 'single'"
+    :mode="multiple ? 'tags' : 'single'"
     @input="$emit('update:modelValue', $event)"
   />
 </template>
@@ -30,6 +32,12 @@ export default defineComponent({
     multiple: {
       type: Boolean,
       default: false,
+    },
+    trackBy: {
+      type: String,
+    },
+    label: {
+      type: String,
     },
   },
 

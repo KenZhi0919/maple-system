@@ -1,5 +1,5 @@
 export interface ProductListMultiItem {
-  product_list_id: string | number;
+  product_list_id: string;
   category: string;
   type: string;
   name: string;

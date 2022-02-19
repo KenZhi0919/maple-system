@@ -1,61 +1,92 @@
 <template>
-  <div class="exchange-search-pannel">
+  <div class="exchange-search-pannel px-5">
     <div class="row">
       <div class="col-6 d-flex">
-        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
-          階級
-        </div>
-        <div class="col-9 align-self-center">
-          <input-select multiple :options="stageLevelOptions" />
-        </div>
-      </div>
-
-      <div class="col-6 d-flex">
-        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
-          星力
-        </div>
-        <div class="col-9 align-self-center">
-          <input-text v-model="star" />
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6 d-flex">
-        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
           楓底
         </div>
-        <div class="col-9 align-self-center">
-          <input-select v-model="isMaple" :options="isMapleOptions" />
+        <div class="col-10 align-self-center">
+          <input-select
+            v-model="searchCondition.is_maple"
+            :options="isMapleOptions"
+          />
         </div>
       </div>
       <div class="col-6 d-flex">
-        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
           紋章屬性
         </div>
-        <div class="col-9 align-self-center">
+        <div class="col-10 align-self-center">
           <input-select
-            v-model="mapleCapability"
+            v-model="searchCondition.maple_capability"
             :options="mapleCapabilityOptions"
+            @input="capabilityHandler"
           />
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-6 d-flex">
-        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
+          階級
+        </div>
+        <div class="col-10 align-self-center">
+          <input-select
+            v-model="searchCondition.stage_level"
+            multiple
+            :options="stageLevelOptions"
+            :close-on-select="false"
+          />
+        </div>
+      </div>
+
+      <div class="col-6 d-flex">
+        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
           最高等級
         </div>
-        <div class="col-9 align-self-center"><input-text /></div>
+        <div class="col-10 align-self-center">
+          <input-text v-model="searchCondition.total_level" type="number" />
+        </div>
       </div>
+    </div>
+
+    <div class="row">
       <div class="col-6 d-flex">
-        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
+          星力
+        </div>
+        <div class="col-10 align-self-center">
+          <input-text v-model="searchCondition.star" type="number" />
+        </div>
+      </div>
+
+      <div class="col-6 d-flex">
+        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
           價格
         </div>
-        <div class="col-9 d-flex align-items-center">
-          <div class="col-3 align-self-center"><input-text /></div>
-          <div class="col-1 mx-2 d-flex justify-content-center">~</div>
-          <div class="col-3 align-self-center"><input-text /></div>
+        <div class="col-10 d-flex align-items-center">
+          <div class="col-5 align-self-center" style="width: 47.5%">
+            <input-text v-model="searchCondition.min_price" type="number" />
+          </div>
+          <div class="mx-2 d-flex justify-content-center" style="width: 5%">
+            ~
+          </div>
+          <div class="col-5 align-self-center" style="width: 47.5%">
+            <input-text v-model="searchCondition.max_price" type="number" />
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 d-flex justify-content-end">
+        <button
+          class="btn search-btn"
+          @click="$emit('search', searchCondition)"
+        >
+          查詢
+        </button>
       </div>
     </div>
   </div>
@@ -64,19 +95,25 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { InputSelect, InputText } from "@/components";
+import { ProductListSearchCondition } from "@/@types/models";
+
 export default defineComponent({
   name: "SearchPannel",
   components: { InputSelect, InputText },
-  props: {},
-  setup() {
-    //
-  },
   data() {
     return {
-      star: "",
-      isMaple: null,
-      mapleCapability: "",
-      stageLevel: "",
+      searchCondition: {
+        category: "",
+        type: "",
+        stage_level: [],
+        star: undefined,
+        is_maple: undefined,
+        maple_capability: undefined,
+        total_level: undefined,
+        min_price: undefined,
+        max_price: undefined,
+        ordering: undefined,
+      } as ProductListSearchCondition,
       stageLevelOptions: [
         { label: "普通", value: "1" },
         { label: "稀有", value: "2" },
@@ -93,16 +130,17 @@ export default defineComponent({
       ],
       mapleCapabilityOptions: [
         "致命傷害",
-        "Boss 傷害",
-        "Boss 防禦",
+        "Boss傷害",
+        "Boss防禦",
         "物攻",
         "魔攻",
       ],
     };
   },
-  methods: {},
-  computed: {
-    //
+  methods: {
+    capabilityHandler() {
+      this.searchCondition.is_maple = 1;
+    },
   },
 });
 </script>
