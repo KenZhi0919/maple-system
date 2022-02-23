@@ -8,7 +8,7 @@ export default {
   install: (app: App): void => {
     const exampleModule: ExampleModule = {
       sayHello: () => {
-        console.log("example");
+        // console.log("example");
       },
     };
 
