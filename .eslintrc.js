@@ -3,7 +3,6 @@ module.exports = {
   env: {
     node: true,
     jquery: true,
-    bootstrap: true
   },
   extends: [
     "plugin:vue/vue3-essential",

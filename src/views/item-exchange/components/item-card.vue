@@ -13,7 +13,7 @@
     <!-- 星力 start -->
     <div class="col-1 align-self-center d-flex justify-content-center">
       <span v-if="isDetailItems">
-        {{ productDetail.star }}
+        <span v-if="productDetail">{{ productDetail.star }}</span>
       </span>
     </div>
     <!-- 星力 end -->
@@ -27,7 +27,7 @@
             {{ product.min_price }} ~<br />{{ product.max_price }}
           </span>
 
-          <span v-else> {{ productDetail.price }}</span>
+          <span v-else-if="productDetail"> {{ productDetail.price }}</span>
         </div>
       </div>
     </div>
@@ -48,20 +48,21 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { ProductListMultiItem } from "@/@types/models";
+import { ProductListMultiItem, ProductDetailItem } from "@/@types/models";
 
 export default defineComponent({
-  // setup() {},
   props: {
     product: {
       required: true,
-      // type: Object as ProductListMultiItem,
+      type: Object as () => ProductListMultiItem,
     },
     productDetail: {
       required: false,
+      type: Object as () => ProductDetailItem,
     },
     isDetailItems: {
       default: false,
+      type: Boolean,
     },
   },
   data() {

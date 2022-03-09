@@ -8,7 +8,7 @@
   .cart-title-row {
     width: 100%;
     height: 60px;
-    background-color: #415067;
+    background-color: $primary-blue;
     border-radius: 10px 10px 0 0;
     i {
       color: rgba(255, 255, 255, 0.965);
@@ -50,6 +50,8 @@
       height: 100%;
       padding: 15px 10px;
       .product-box{
+        height: 100%;
+        width: 100%;
         overflow-y: auto;
         .product-row{
           width: 100%;
@@ -149,4 +151,11 @@
 .dollar-icon{
   font-size: 130%;
   color: rgb(255, 187, 0);
+}
+
+
+.modal-header-row{
+  .modal-title{
+    font-size: 150%;
+  }
 }

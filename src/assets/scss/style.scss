@@ -1,5 +1,5 @@
 $primary-orange: #EB7547;
-$primary-blue: #46505C;
+$primary-blue: #415067;
 
 
 $stage-1: #A1A2A4;
@@ -27,4 +27,5 @@ $stage-6: #fa424b;
 // 共用
 @import "global";
 @import "button"; 
-@import "input"
+@import "input";
+@import "modal";

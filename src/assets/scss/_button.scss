@@ -1,5 +1,6 @@
 .btn{
   border-radius: 5px;
+  width: 100px;
   &:focus{
     box-shadow: none;
   }
@@ -74,10 +75,37 @@
   color: rgba(255, 255, 255, 0.965);
   width: 100px;
   &:hover{
-    background-color:  #ffa047;
+    background-color:  #fc983a;
     color: rgba(255, 255, 255, 0.965);
   }
   &:active{
     background-color: $primary-orange;
+  }
+}
+
+.btn-primary{
+  background-color: $primary-orange;
+  border-color: $primary-orange;
+  &:hover{
+    background-color:  #fc983a;
+    border-color: #fc983a;
+  }
+  &:active{
+    background-color:  #fc983a;
+    border-color: #fc983a;
+  }
+  &:focus{
+    background-color:  #fc983a;
+    border-color: #fc983a;
+  }
+}
+
+.btn-secondary{
+  background-color: #fff;
+  border-color: #a0aab8;
+  color: #46505C;
+  &:hover{
+    background-color: rgb(226, 226, 226);
+    color: #46505C;
   }
 }

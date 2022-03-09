@@ -3,7 +3,7 @@ import { stringify } from "qs";
 
 const config: AxiosRequestConfig = {
   baseURL: "https://mapleweb.herokuapp.com/",
-  paramsSerializer: params => stringify(params, { arrayFormat: "brackets" }),
+  paramsSerializer: params => stringify(params, { arrayFormat: "repeat" }),
   headers: {},
 };
 
