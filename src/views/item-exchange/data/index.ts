@@ -1,7 +1,15 @@
 import { typeOption } from "@/@types/models";
 
 export const categoryOptions: string[] = ["武器", "防具", "造型", "消耗品"];
-
+export const stageLevelOptions: string[] = [
+  "普通",
+  "稀有",
+  "史詩",
+  "罕見",
+  "傳說",
+  "神話",
+  "古代",
+];
 export const typeOptions: typeOption[] = [
   {
     category: "武器",

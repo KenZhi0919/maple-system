@@ -1,21 +1,19 @@
 <template>
-  <div
-    v-for="(row, index) in starList.row"
-    :key="index"
-    class="star-row d-flex align-items-center"
-  >
+  <div class="">
     <div
-      v-for="(stargroup, groupIndex) in row"
-      :key="groupIndex"
-      class="me-1 d-flex"
+      v-for="(star, index) in starList"
+      :key="index"
+      :style="`display:${index === 19 ? 'inline' : 'inline-block'};`"
     >
-      <div
-        v-for="(star, starIndex) in stargroup"
-        :key="starIndex"
-        style="margin-right: 2px"
-      >
-        <i class="bi bi-star-fill" style="font-size: 10px" />
-      </div>
+      <i
+        class="bi bi-star-fill"
+        :style="{
+          'font-size': '10px',
+          color: star.selected ? 'rgb(255, 208, 0)' : '#3B3F49',
+          'margin-right': (index + 1) % 5 === 0 ? '4px' : '',
+        }"
+      />
+      <br v-if="index === 19" />
     </div>
   </div>
 </template>
@@ -25,67 +23,53 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   components: {},
+  props: {
+    star: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
-      starList: {
-        row: [
-          [
-            [
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-            ],
-            [
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-            ],
-            [
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-            ],
-            [
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-            ],
-          ],
-          [
-            [
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-            ],
-            [
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-              { selected: false },
-            ],
-            [{ selected: false }],
-          ],
-        ],
-      },
+      starList: [
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+      ],
     };
   },
-  methods: {},
+  methods: {
+    setStar() {
+      const group = Math.floor(this.star / 5);
+    },
+  },
 });
 </script>
-
-<style>
-.star-row {
-  height: 15px;
-}
-</style>
