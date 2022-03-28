@@ -48,10 +48,33 @@
             </div>
           </div>
 
-          <div class="col-6">星數</div>
-          <div class="col-6">目前等級</div>
-          <div class="col-6">總等級</div>
-          <div class="col-6">剪刀數</div>
+          <div class="col-12 d-flex mb-2">
+            <div class="col-3 align-self-center">星數</div>
+            <div class="col-9">
+              <input-text v-model="star" @input="setStar" />
+            </div>
+          </div>
+
+          <div class="col-12 d-flex mb-2">
+            <div class="col-3 align-self-center">目前等級</div>
+            <div class="col-9">
+              <input-text v-model="level" />
+            </div>
+          </div>
+          <div class="col-12 d-flex mb-2">
+            <div class="col-3 align-self-center">總等級</div>
+            <div class="col-9">
+              <input-text v-model="totalLevel" />
+            </div>
+          </div>
+
+          <div class="col-12 d-flex mb-2">
+            <div class="col-3 align-self-center">剪刀數</div>
+            <div class="col-9">
+              <input-text v-model="cutNum" />
+            </div>
+          </div>
+
           <div class="col-6">是否可裝備靈魂</div>
           <div class="col-6">靈魂能力</div>
           <div class="col-6">攻擊力</div>
@@ -81,24 +104,24 @@
             </div>
 
             <div class="ms-1">
-              <span>
-                <div style="height: fit-content">
-                  <star-list />
-                </div>
-                <div class="modal-title">
-                  {{ selectedItem ? selectedItem.name : "" }}
-                </div>
-              </span>
+              <div style="height: fit-content">
+                <star-list ref="starList" :star="star" />
+              </div>
+              <div class="modal-title">
+                {{ selectedItem ? selectedItem.name : "" }}
+              </div>
             </div>
           </div>
 
           <div class="level_box px-2 mb-1">
-            <div class="">等級</div>
-            <div class="">等級：1/20</div>
+            <div class="d-flex py-2">
+              <div>等級：{{ level || "??" }}/{{ totalLevel || "??" }}</div>
+              <div class="ms-5">階級：{{ stageLevel || "??" }}</div>
+            </div>
           </div>
           <div class="">
             <div class="">剩餘神奇剪刀</div>
-            <div class="mb-2">使用數：10</div>
+            <div class="mb-2">使用數：{{ cutNum }}</div>
             <div class="">可使用靈魂附魔</div>
             <div class="">物理攻擊力</div>
             <div class="">致命攻擊傷害</div>
@@ -111,7 +134,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { AppModal, InputSelect } from "@/components";
+import { AppModal, InputSelect, InputText } from "@/components";
 import { typeOptions, categoryOptions, stageLevelOptions } from "../data";
 import { typeOption } from "@/@types/models";
 import StarList from "./star-list.vue";
@@ -123,6 +146,7 @@ export default defineComponent({
     AppModal,
     StarList,
     InputSelect,
+    InputText,
   },
   data() {
     return {
@@ -134,6 +158,10 @@ export default defineComponent({
       type: "",
       stageLevel: "",
       product_list_id: "",
+      star: "",
+      level: "",
+      totalLevel: "",
+      cutNum: "",
       selectedItem: {} as ProductListMultiItem,
     };
   },
@@ -165,6 +193,9 @@ export default defineComponent({
       if (item) {
         this.selectedItem = item;
       }
+    },
+    setStar() {
+      (this.$refs["starList"] as typeof StarList).setStar();
     },
   },
   computed: {

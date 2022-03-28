@@ -1,4 +1,4 @@
-import { typeOption } from "@/@types/models";
+import { typeOption, defaultOption } from "@/@types/models";
 
 export const categoryOptions: string[] = ["武器", "防具", "造型", "消耗品"];
 export const stageLevelOptions: string[] = [
@@ -9,6 +9,13 @@ export const stageLevelOptions: string[] = [
   "傳說",
   "神話",
   "古代",
+  // { label: "普通", value: 1 },
+  // { label: "稀有", value: 2 },
+  // { label: "史詩", value: 3 },
+  // { label: "罕見", value: 4 },
+  // { label: "傳說", value: 5 },
+  // { label: "神話", value: 6 },
+  // { label: "古代", value: 7 },
 ];
 export const typeOptions: typeOption[] = [
   {

@@ -1,19 +1,28 @@
 <template>
-  <div class="">
-    <div
-      v-for="(star, index) in starList"
-      :key="index"
-      :style="`display:${index === 19 ? 'inline' : 'inline-block'};`"
-    >
-      <i
-        class="bi bi-star-fill"
-        :style="{
-          'font-size': '10px',
-          color: star.selected ? 'rgb(255, 208, 0)' : '#3B3F49',
-          'margin-right': (index + 1) % 5 === 0 ? '4px' : '',
-        }"
-      />
-      <br v-if="index === 19" />
+  <div style="margin-top: -6px">
+    <div class="">
+      <span v-for="(star, index) in starListRow1" :key="index">
+        <i
+          class="bi bi-star-fill"
+          :style="{
+            'font-size': '10px',
+            color: star.selected ? 'rgb(255, 208, 0)' : '#3B3F49',
+            'margin-right': (index + 1) % 5 === 0 ? '4px' : '',
+          }"
+        />
+      </span>
+    </div>
+    <div style="margin-top: -10px">
+      <span v-for="(star, index) in starListRow2" :key="index">
+        <i
+          class="bi bi-star-fill"
+          :style="{
+            'font-size': '10px',
+            color: star.selected ? 'rgb(255, 208, 0)' : '#3B3F49',
+            'margin-right': (index + 1) % 5 === 0 ? '4px' : '',
+          }"
+        />
+      </span>
     </div>
   </div>
 </template>
@@ -29,46 +38,69 @@ export default defineComponent({
       default: 0,
     },
   },
+  mounted() {
+    this.setDefault();
+  },
   data() {
     return {
-      starList: [
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-        { selected: false },
-      ],
+      starListRow1: [{ selected: false }],
+      starListRow2: [{ selected: false }],
     };
   },
   methods: {
+    setDefault() {
+      this.starListRow1 = [
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+      ];
+      this.starListRow2 = [
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+        { selected: false },
+      ];
+    },
     setStar() {
-      const group = Math.floor(this.star / 5);
+      this.setDefault();
+      if (this.star > 20) {
+        this.starListRow1.forEach(el => (el.selected = true));
+        this.starListRow2.forEach((el, index) => {
+          if (index + 1 <= this.star - 20) {
+            el.selected = true;
+          }
+        });
+      } else {
+        this.starListRow1.forEach((el, index) => {
+          if (index + 1 <= this.star) {
+            el.selected = true;
+          }
+        });
+      }
     },
   },
 });
