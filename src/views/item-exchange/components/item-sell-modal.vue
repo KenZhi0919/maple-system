@@ -30,7 +30,11 @@
           <div class="col-12 d-flex mb-2">
             <div class="col-3 align-self-center">階級</div>
             <div class="col-9">
-              <input-select v-model="stageLevel" :options="stageLevelOptions" />
+              <input-select
+                v-model="stageLevel"
+                :options="stageLevelOptions"
+                @change="setLevelColor"
+              />
             </div>
           </div>
 
@@ -51,7 +55,7 @@
           <div class="col-12 d-flex mb-2">
             <div class="col-3 align-self-center">星數</div>
             <div class="col-9">
-              <input-text v-model="star" @input="setStar" />
+              <input-text v-model="star" @input="setStar(star)" />
             </div>
           </div>
 
@@ -95,7 +99,7 @@
         <div class="col-6">
           <div class="d-flex mb-2">
             <div class="item-img-box d-flex align-items-center px-2">
-              <div class="item-img me-2 stage-7">
+              <div class="item-img me-2" :class="`stage-${stageLevelCode}`">
                 <img
                   v-if="selectedItem && selectedItem.image"
                   :src="selectedItem.image"
@@ -105,7 +109,7 @@
 
             <div class="ms-1">
               <div style="height: fit-content">
-                <star-list ref="starList" :star="star" />
+                <star-list ref="starList" />
               </div>
               <div class="modal-title">
                 {{ selectedItem ? selectedItem.name : "" }}
@@ -121,7 +125,7 @@
           </div>
           <div class="">
             <div class="">剩餘神奇剪刀</div>
-            <div class="mb-2">使用數：{{ cutNum }}</div>
+            <div class="mb-2">使用數：{{ cutNum || "??" }}</div>
             <div class="">可使用靈魂附魔</div>
             <div class="">物理攻擊力</div>
             <div class="">致命攻擊傷害</div>
@@ -136,7 +140,7 @@
 import { defineComponent } from "vue";
 import { AppModal, InputSelect, InputText } from "@/components";
 import { typeOptions, categoryOptions, stageLevelOptions } from "../data";
-import { typeOption } from "@/@types/models";
+import { defaultOption, typeOption } from "@/@types/models";
 import StarList from "./star-list.vue";
 import { apiGetProductList } from "@/services/api";
 import { ProductListMultiItem } from "@/@types/models";
@@ -163,6 +167,7 @@ export default defineComponent({
       totalLevel: "",
       cutNum: "",
       selectedItem: {} as ProductListMultiItem,
+      stageLevelCode: 1,
     };
   },
   methods: {
@@ -194,8 +199,33 @@ export default defineComponent({
         this.selectedItem = item;
       }
     },
-    setStar() {
-      (this.$refs["starList"] as typeof StarList).setStar();
+    setStar(star: string) {
+      (this.$refs["starList"] as typeof StarList).setStar(parseInt(star));
+    },
+    setLevelColor(level: string) {
+      switch (level) {
+        case "普通":
+          this.stageLevelCode = 1;
+          break;
+        case "稀有":
+          this.stageLevelCode = 2;
+          break;
+        case "史詩":
+          this.stageLevelCode = 3;
+          break;
+        case "罕見":
+          this.stageLevelCode = 4;
+          break;
+        case "傳說":
+          this.stageLevelCode = 5;
+          break;
+        case "神話":
+          this.stageLevelCode = 6;
+          break;
+        case "古代":
+          this.stageLevelCode = 7;
+          break;
+      }
     },
   },
   computed: {

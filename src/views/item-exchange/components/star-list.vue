@@ -32,12 +32,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   components: {},
-  props: {
-    star: {
-      type: Number,
-      default: 0,
-    },
-  },
+  props: {},
   mounted() {
     this.setDefault();
   },
@@ -85,18 +80,18 @@ export default defineComponent({
         { selected: false },
       ];
     },
-    setStar() {
+    setStar(star: number) {
       this.setDefault();
-      if (this.star > 20) {
+      if (star > 20) {
         this.starListRow1.forEach(el => (el.selected = true));
         this.starListRow2.forEach((el, index) => {
-          if (index + 1 <= this.star - 20) {
+          if (index + 1 <= star - 20) {
             el.selected = true;
           }
         });
       } else {
         this.starListRow1.forEach((el, index) => {
-          if (index + 1 <= this.star) {
+          if (index + 1 <= star) {
             el.selected = true;
           }
         });
