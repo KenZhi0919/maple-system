@@ -1,6 +1,6 @@
 <template>
   <!-- Modal -->
-  <div class="modal fade" data-bs-backdrop="static" id="appModal">
+  <div class="modal fade" id="appModal" tabindex="-1" data-focus="false">
     <div class="modal-dialog modal-dialog-centered" :class="`modal-${size}`">
       <div class="modal-content">
         <div class="modal-header" :class="headerClass">

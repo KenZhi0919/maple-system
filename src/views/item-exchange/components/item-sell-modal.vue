@@ -42,12 +42,12 @@
             <div class="col-3 align-self-center">商品</div>
             <div class="col-9">
               <input-select
-                v-model="product_list_id"
+                v-model="postData.product_list"
                 value-prop="product_list_id"
                 label="name"
                 :options="currentProductOptions"
                 :place-holder="productPlaceholder"
-                @change="setSelectedItem"
+                @change="setPostData"
               />
             </div>
           </div>
@@ -55,31 +55,61 @@
           <div class="col-12 d-flex mb-2">
             <div class="col-3 align-self-center">星數</div>
             <div class="col-9">
-              <input-text v-model="star" @input="setStar(star)" />
+              <input-text
+                v-model="postData.star"
+                @input="setStar(postData.star)"
+              />
             </div>
           </div>
 
           <div class="col-12 d-flex mb-2">
             <div class="col-3 align-self-center">目前等級</div>
             <div class="col-9">
-              <input-text v-model="level" />
+              <input-text v-model="postData.level" />
             </div>
           </div>
           <div class="col-12 d-flex mb-2">
             <div class="col-3 align-self-center">總等級</div>
             <div class="col-9">
-              <input-text v-model="totalLevel" />
+              <input-text v-model="postData.total_level" />
             </div>
           </div>
 
           <div class="col-12 d-flex mb-2">
             <div class="col-3 align-self-center">剪刀數</div>
             <div class="col-9">
-              <input-text v-model="cutNum" />
+              <input-text v-model="postData.cutNum" />
             </div>
           </div>
 
-          <div class="col-6">是否可裝備靈魂</div>
+          <div class="col-12 d-flex mb-2">
+            <div class="col-3 align-self-center">是否可裝備靈魂</div>
+            <div class="col-9 d-flex">
+              <div class="form-check me-3">
+                <input
+                  v-model="postData.is_equippable_soul"
+                  class="form-check-input"
+                  value="true"
+                  type="radio"
+                  name="soul"
+                  id="soulYes"
+                />
+                <label class="form-check-label" for="soulYes"> 是 </label>
+              </div>
+              <div class="form-check">
+                <input
+                  v-model="postData.is_equippable_soul"
+                  class="form-check-input"
+                  value="false"
+                  type="radio"
+                  name="soul"
+                  id="soulNo"
+                />
+                <label class="form-check-label" for="soulNo"> 否 </label>
+              </div>
+            </div>
+          </div>
+
           <div class="col-6">靈魂能力</div>
           <div class="col-6">攻擊力</div>
           <div class="col-6">主屬性</div>
@@ -100,10 +130,7 @@
           <div class="d-flex mb-2">
             <div class="item-img-box d-flex align-items-center px-2">
               <div class="item-img me-2" :class="`stage-${stageLevelCode}`">
-                <img
-                  v-if="selectedItem && selectedItem.image"
-                  :src="selectedItem.image"
-                />
+                <img v-if="selectedImage" :src="selectedImage" />
               </div>
             </div>
 
@@ -112,20 +139,24 @@
                 <star-list ref="starList" />
               </div>
               <div class="modal-title">
-                {{ selectedItem ? selectedItem.name : "" }}
+                {{ selectedName ? selectedName : "" }}
               </div>
             </div>
           </div>
 
           <div class="level_box px-2 mb-1">
             <div class="d-flex py-2">
-              <div>等級：{{ level || "??" }}/{{ totalLevel || "??" }}</div>
+              <div>
+                等級：{{ postData.level || "??" }}/{{
+                  postData.total_level || "??"
+                }}
+              </div>
               <div class="ms-5">階級：{{ stageLevel || "??" }}</div>
             </div>
           </div>
           <div class="">
             <div class="">剩餘神奇剪刀</div>
-            <div class="mb-2">使用數：{{ cutNum || "??" }}</div>
+            <div class="mb-2">使用數：{{ postData.cutNum || "??" }}</div>
             <div class="">可使用靈魂附魔</div>
             <div class="">物理攻擊力</div>
             <div class="">致命攻擊傷害</div>
@@ -140,7 +171,7 @@
 import { defineComponent } from "vue";
 import { AppModal, InputSelect, InputText } from "@/components";
 import { typeOptions, categoryOptions, stageLevelOptions } from "../data";
-import { defaultOption, typeOption } from "@/@types/models";
+import { Product, typeOption } from "@/@types/models";
 import StarList from "./star-list.vue";
 import { apiGetProductList } from "@/services/api";
 import { ProductListMultiItem } from "@/@types/models";
@@ -161,14 +192,14 @@ export default defineComponent({
       category: "",
       type: "",
       stageLevel: "",
-      product_list_id: "",
-      star: "",
-      level: "",
-      totalLevel: "",
-      cutNum: "",
-      selectedItem: {} as ProductListMultiItem,
+      selectedImage: "",
+      selectedName: "",
+      postData: {} as Product,
       stageLevelCode: 1,
     };
+  },
+  mounted() {
+    this.setDefaultProduct();
   },
   methods: {
     show() {
@@ -184,23 +215,35 @@ export default defineComponent({
           type: this.type,
         });
         this.productList = result;
-        console.log(this.productList);
       } catch (err) {
         console.error(err);
       } finally {
         loader.hide();
       }
     },
-    setSelectedItem(id: string) {
+    setPostData(id: string) {
       const item = this.currentProductOptions.find(
         el => el.product_list_id === id
       );
       if (item) {
-        this.selectedItem = item;
+        this.selectedImage = item.image;
+        this.selectedName = item.name;
       }
     },
     setStar(star: string) {
       (this.$refs["starList"] as typeof StarList).setStar(parseInt(star));
+    },
+    setDefaultProduct() {
+      this.postData = {
+        product_list: "",
+        star: "",
+        level: "",
+        total_level: "",
+        is_maple: false,
+        maple_capability: "",
+        price: "",
+        is_equippable_soul: false,
+      };
     },
     setLevelColor(level: string) {
       switch (level) {
@@ -226,6 +269,9 @@ export default defineComponent({
           this.stageLevelCode = 7;
           break;
       }
+      this.postData.product_list = "";
+      this.selectedImage = "";
+      this.selectedName = "";
     },
   },
   computed: {
