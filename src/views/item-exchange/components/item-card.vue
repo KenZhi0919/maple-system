@@ -20,7 +20,10 @@
     <div class="col-3 d-flex justify-content-center align-self-center">
       <div class="d-flex justify-content-center w-100">
         <div class="align-self-center me-2">
-          <i class="bi bi-currency-exchange dollar-icon" />
+          <img
+            src="@/assets/images/coin.png"
+            style="width: 20px; height: 20px"
+          />
         </div>
         <div class="align-self-center">
           <span v-if="!isDetailItems">

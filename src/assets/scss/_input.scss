@@ -25,12 +25,21 @@
   }
 }
 
-.form-control{
+.form-control {
   // max-width: 300px;
   box-shadow: none !important;
   &:focus{
     border-color: $primary-orange;
   }
+}
+
+.form-check-input:checked {
+  background-color: $primary-orange;
+  border-color: $primary-orange;
+}
+
+.form-check-input:focus {
+  box-shadow: none;
 }
 
 // input type number hide arrow 

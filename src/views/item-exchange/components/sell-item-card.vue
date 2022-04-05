@@ -13,8 +13,11 @@
           <div>傑伊希恩之槍</div>
           <div>
             <div class="d-flex w-100">
-              <div class="align-self-center me-2">
-                <i class="bi bi-currency-exchange dollar-icon" />
+              <div class="align-self-center me-1">
+                <img
+                  src="@/assets/images/coin.png"
+                  style="width: 20px; height: 20px"
+                />
               </div>
               <div class="align-self-center">6666666</div>
             </div>

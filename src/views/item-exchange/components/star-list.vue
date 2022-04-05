@@ -6,7 +6,7 @@
           class="bi bi-star-fill"
           :style="{
             'font-size': '10px',
-            color: star.selected ? 'rgb(255, 208, 0)' : '#3B3F49',
+            color: star.selected ? '#F7C448' : '#303943',
             'margin-right': (index + 1) % 5 === 0 ? '4px' : '',
           }"
         />
@@ -18,7 +18,7 @@
           class="bi bi-star-fill"
           :style="{
             'font-size': '10px',
-            color: star.selected ? 'rgb(255, 208, 0)' : '#3B3F49',
+            color: star.selected ? '#F7C448' : '#303943',
             'margin-right': (index + 1) % 5 === 0 ? '4px' : '',
           }"
         />

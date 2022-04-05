@@ -2,7 +2,10 @@
   <!-- Modal -->
   <div class="modal fade" id="appModal" tabindex="-1" data-focus="false">
     <div class="modal-dialog modal-dialog-centered" :class="`modal-${size}`">
-      <div class="modal-content">
+      <div
+        class="modal-content"
+        style="background-color: #f1f1f1; color: #555b62"
+      >
         <div class="modal-header" :class="headerClass">
           <slot name="header" />
           <button
@@ -12,10 +15,10 @@
             style="opacity: 0.9"
           />
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="max-height: 65vh">
           <slot name="body" />
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" style="background-color: #f1f1f1">
           <button
             type="button"
             class="btn btn-secondary"
