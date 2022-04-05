@@ -277,11 +277,11 @@
             style="max-height: 60vh; overflow-y: scroll; overflow-x: hidden"
           >
             <div class="d-flex mb-2">
-              <div class="item-img-box d-flex align-items-center px-2">
+              <div class="item-img-box d-flex align-items-center">
                 <div
                   class="item-img me-2"
                   :class="`stage-${stageLevelCode}`"
-                  style="position: relative"
+                  style="position: relative; width: 85px; height: 85px"
                 >
                   <img v-if="selectedImage" :src="selectedImage" />
                   <img
@@ -313,7 +313,7 @@
               </div>
             </div>
 
-            <div class="level_box px-2 mb-1">
+            <div class="level_box px-2 my-2">
               <div class="d-flex py-2">
                 <div>
                   等級：{{ postData.level || "??" }}/{{
@@ -410,7 +410,7 @@
               </div>
 
               <div v-if="postData.explanation">
-                <div class="divider" />
+                <div class="divider mt-2" />
 
                 <div>說明：</div>
                 <div class="w-100 pre-wrap">
