@@ -630,15 +630,15 @@ export default defineComponent({
     mapleImagePath(): string {
       switch (this.postData.maple_capability) {
         case "殘忍的紋章":
-          return "/img/deadly.522214e7.jpg";
+          return require("@/assets/images/deadly.jpg");
         case "征服紋章":
-          return "/img/Boss.c147f76c.jpg";
+          return require("@/assets/images/Boss.jpg");
         case "機靈紋章":
-          return "/img/defend.b1bc1780.jpg";
+          return require("@/assets/images/defend.jpg");
         case "強力紋章":
-          return "/img/attack.cdd75373.jpg";
+          return require("@/assets/images/attack.jpg");
         case "神聖紋章":
-          return "/img/magic.a760e25f.jpg";
+          return require("@/assets/images/magic.jpg");
         default:
           return "";
       }
