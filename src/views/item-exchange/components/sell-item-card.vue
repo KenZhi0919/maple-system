@@ -19,7 +19,7 @@
                   style="width: 20px; height: 20px"
                 />
               </div>
-              <div class="align-self-center">6666666</div>
+              <div class="align-self-center">{{ formatPrice(6666666) }}</div>
             </div>
           </div>
         </div>
@@ -42,8 +42,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { productMixin } from "@/mixins";
 
 export default defineComponent({
+  mixins: [productMixin],
   props: {},
   data() {
     return {};

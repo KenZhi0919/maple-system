@@ -27,10 +27,14 @@
         </div>
         <div class="align-self-center">
           <span v-if="!isDetailItems">
-            {{ product.min_price }} ~<br />{{ product.max_price }}
+            {{ formatPrice(product.min_price) }} ~<br />{{
+              formatPrice(product.max_price)
+            }}
           </span>
 
-          <span v-else-if="productDetail"> {{ productDetail.price }}</span>
+          <span v-else-if="productDetail">
+            {{ formatPrice(productDetail.price) }}</span
+          >
         </div>
       </div>
     </div>
@@ -52,8 +56,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { ProductListMultiItem, ProductDetailItem } from "@/@types/models";
-
+import { productMixin } from "@/mixins";
 export default defineComponent({
+  mixins: [productMixin],
   props: {
     product: {
       required: true,

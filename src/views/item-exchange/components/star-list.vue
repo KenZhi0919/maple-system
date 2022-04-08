@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: -6px">
+  <div style="margin-top: -6px; height: 38px">
     <div class="">
       <span v-for="(star, index) in starListRow1" :key="index">
         <i
@@ -32,9 +32,19 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   components: {},
-  props: {},
+  props: {
+    star: {
+      required: false,
+      type: Number,
+    },
+  },
   mounted() {
     this.setDefault();
+
+    if (this.star) {
+      console.log(123);
+      this.setStar(this.star);
+    }
   },
   data() {
     return {

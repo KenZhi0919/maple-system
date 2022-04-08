@@ -1,10 +1,16 @@
 <template>
-  <app-modal ref="appModal" size="xl" header-class="d-flex align-items-start">
+  <app-modal
+    ref="appModal"
+    size="xl"
+    header-class="d-flex align-items-start"
+    @hiddenHandler="reset"
+    @submit="submitHandler"
+  >
     <template v-slot:header>
       <div class="modal-title">上架商品</div>
     </template>
 
-    <template v-slot:body>
+    <template v-if="isLoaded" v-slot:body>
       <div class="row">
         <div class="col-6">
           <div class="px-2" style="overflow-y: scroll; max-height: 60vh">
@@ -299,7 +305,7 @@
               </div>
 
               <div class="ms-1">
-                <div style="height: fit-content">
+                <div>
                   <star-list ref="starList" />
                 </div>
                 <div class="modal-title">
@@ -429,7 +435,7 @@
                   />
                   販售金額：
                 </div>
-                <div>{{ postData.price }}</div>
+                <div>{{ formatPrice(postData.price) }}</div>
               </div>
             </div>
           </div>
@@ -455,10 +461,12 @@ import {
 } from "../data";
 import { Product, typeOption } from "@/@types/models";
 import StarList from "./star-list.vue";
-import { apiGetProductList } from "@/services/api";
+import { apiGetProductList, apiPostProduct } from "@/services/api";
 import { ProductListMultiItem } from "@/@types/models";
+import { productMixin } from "@/mixins";
 
 export default defineComponent({
+  mixins: [productMixin],
   components: {
     AppModal,
     StarList,
@@ -488,11 +496,9 @@ export default defineComponent({
       stageLevelCode: 1,
     };
   },
-  mounted() {
-    this.setDefaultProduct();
-  },
   methods: {
     show() {
+      this.setDefaultProduct();
       (this.$refs["appModal"] as typeof AppModal).show();
     },
     async fetchProducts() {
@@ -565,8 +571,45 @@ export default defineComponent({
       this.selectedImage = "";
       this.selectedName = "";
     },
+    reset() {
+      this.productList = [] as ProductListMultiItem[];
+      this.category = "";
+      this.type = "";
+      this.stageLevel = "";
+      this.selectedImage = "";
+      this.selectedName = "";
+      this.soulType = "";
+      this.soul = "";
+      this.postData = {} as Product;
+      this.stageLevelCode = 1;
+    },
+    async submitHandler() {
+      let loader = this.$loading.show();
+      try {
+        await apiPostProduct({
+          ...this.postData,
+          maple_capability: "致命傷害",
+          soul_capability: `${this.soulType}${this.soul}的`,
+          potential_capability: this.postData.potential_capability?.join(","),
+          spark_capability: this.postData.spark_capability?.join(","),
+        });
+        (this.$refs["appModal"] as typeof AppModal).hide();
+        this.$notify({ type: "success", text: "登錄成功!" });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        loader.hide();
+      }
+    },
   },
   computed: {
+    isLoaded(): boolean {
+      if (this.postData && this.postData.spark_capability) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     currentTypeOptions(): typeOption["type"] {
       if (this.category) {
         return (
@@ -675,23 +718,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-.modal-title {
-  font-size: 130%;
-}
-
-.level_box {
-  border-radius: 10px;
-  background-color: #e5e7e9;
-}
-
-.price_box {
-  border-radius: 7px;
-  background-color: white;
-}
-
-.soul-text {
-  color: rgb(39, 207, 6);
-}
-</style>

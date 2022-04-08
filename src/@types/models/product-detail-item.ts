@@ -18,6 +18,7 @@ export interface ProductDetailItem {
   explanation: string;
   price: number;
   create_date: string;
+  is_equippable_soul: boolean;
 }
 
 export interface product_list_data {

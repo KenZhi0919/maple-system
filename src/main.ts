@@ -9,6 +9,7 @@ import { example } from "@/plugins";
 import VueLoading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import "bootstrap/dist/js/bootstrap.js";
+import Notifications from "@kyvg/vue3-notification";
 
 createApp(App)
   .use(store)
@@ -21,4 +22,5 @@ createApp(App)
     height: 100,
     width: 100,
   })
+  .use(Notifications)
   .mount("#app");

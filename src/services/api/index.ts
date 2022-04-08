@@ -17,3 +17,9 @@ export const apiGetProductDetail = (
 ): Promise<AxiosResponse<ApiResponse<ProductDetailItem[]>>> => {
   return instance.get("exchange/product", { params });
 };
+
+export const apiPostProduct = (
+  data: any
+): Promise<AxiosResponse<ApiResponse>> => {
+  return instance.post("exchange/product", data);
+};

@@ -1,7 +1,10 @@
 <template>
   <!-- Modal -->
   <div class="modal fade" id="appModal" tabindex="-1" data-focus="false">
-    <div class="modal-dialog modal-dialog-centered" :class="`modal-${size}`">
+    <div
+      class="modal-dialog modal-dialog-centered"
+      :class="`modal-${size} ${scrollable ? 'modal-dialog-scrollable' : ''}`"
+    >
       <div
         class="modal-content"
         style="background-color: #f1f1f1; color: #555b62"
@@ -19,14 +22,31 @@
           <slot name="body" />
         </div>
         <div class="modal-footer" style="background-color: #f1f1f1">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            取消
-          </button>
-          <button type="button" class="btn btn-primary">送出</button>
+          <div class="w-100 d-flex justify-content-center" v-if="onlyCloseBtn">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              關閉
+            </button>
+          </div>
+          <div v-else>
+            <button
+              type="button"
+              class="btn btn-secondary me-3"
+              data-bs-dismiss="modal"
+            >
+              取消
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="$emit('submit')"
+            >
+              販售登錄
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -42,6 +62,9 @@ export default defineComponent({
     const myModalEl = document.querySelector("#appModal");
     if (myModalEl) {
       this.modal = Modal.getOrCreateInstance(myModalEl); // Returns a Bootstrap modal instance
+      myModalEl.addEventListener("hidden.bs.modal", () => {
+        this.$emit("hidden-handler");
+      });
     }
   },
   props: {
@@ -51,6 +74,14 @@ export default defineComponent({
     size: {
       type: String,
       default: "lg",
+    },
+    onlyCloseBtn: {
+      type: Boolean,
+      default: false,
+    },
+    scrollable: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
