@@ -269,7 +269,7 @@ export default defineComponent({
         case "殘忍的紋章":
           return require("@/assets/images/deadly.jpg");
         case "征服紋章":
-          return require("@/assets/images/Boss.jpg");
+          return require("@/assets/images/boss.jpg");
         case "機靈紋章":
           return require("@/assets/images/defend.jpg");
         case "強力紋章":

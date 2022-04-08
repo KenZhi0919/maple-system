@@ -1,5 +1,5 @@
 export interface Product {
-  product_list: string | number;
+  product_list: string | number | null;
   star: string;
   level: string;
   total_level: string;

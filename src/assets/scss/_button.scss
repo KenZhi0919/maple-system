@@ -109,3 +109,8 @@
     color: #46505C;
   }
 }
+
+.btn-primary:disabled, .btn-primary.disabled{
+  background-color: grey;
+  border-color: grey;
+}

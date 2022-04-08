@@ -56,10 +56,12 @@
           <div class="col-1 d-flex justify-content-center">
             <span v-if="showDetailItems">星力</span>
           </div>
-          <div class="col-3 d-flex justify-content-center">登錄價格</div>
+          <div class="col-3 d-flex justify-content-center">
+            <span v-if="!showDetailItems">登錄價格</span>
+          </div>
           <div class="col-2 d-flex justify-content-center">
             <span v-if="!showDetailItems">登錄數量</span>
-            <span v-else>收藏</span>
+            <span v-else>登錄價格</span>
           </div>
         </div>
         <!-- title row end -->

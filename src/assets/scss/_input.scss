@@ -54,3 +54,7 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.has-error {
+  border-color: #ff554f;
+}

@@ -47,7 +47,7 @@ export const mapleOptions: string[] = [
   "神聖紋章",
 ];
 
-export const sparkLevelOptions: string[] = ["稀有", "罕見", "傳說", "神話"];
+export const sparkLevelOptions: string[] = ["罕見", "傳說", "神話"];
 
 export const potentialLevelOptions: string[] = ["稀有", "史詩", "罕見", "傳說"];
 
