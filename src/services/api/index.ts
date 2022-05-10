@@ -23,3 +23,7 @@ export const apiPostProduct = (
 ): Promise<AxiosResponse<ApiResponse>> => {
   return instance.post("exchange/product", data);
 };
+
+export const apiLogin = (data: any): Promise<AxiosResponse<ApiResponse>> => {
+  return instance.post("accounts/user", data);
+};

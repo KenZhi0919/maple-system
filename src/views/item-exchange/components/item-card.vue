@@ -10,14 +10,14 @@
         </div>
       </div>
     </div>
-    <!-- 星力 start -->
-    <!-- <div class="col-1 align-self-center d-flex justify-content-center">
+
+    <div class="col-3 d-flex justify-content-center align-self-center">
+      <!-- 星力 start -->
       <span v-if="isDetailItems">
         <span v-if="productDetail">{{ productDetail.star }}</span>
       </span>
-    </div> -->
-    <!-- 星力 end -->
-    <div class="col-4 d-flex justify-content-center align-self-center">
+      <!-- 星力 end -->
+
       <div v-if="!productDetail" class="d-flex justify-content-center w-100">
         <div class="align-self-center me-2">
           <img
@@ -31,30 +31,18 @@
               formatPrice(product.max_price)
             }}
           </span>
-
-          <span v-else-if="productDetail">
-            {{ formatPrice(productDetail.price) }}</span
-          >
         </div>
       </div>
     </div>
 
-    <div class="col-2 align-self-center d-flex justify-content-center">
+    <div class="col-3 align-self-center d-flex justify-content-center">
       <span v-if="!isDetailItems">
         {{ product.count }}
       </span>
       <div v-else-if="productDetail" class="align-self-center me-2">
         <img src="@/assets/images/coin.png" style="width: 20px; height: 20px" />
+        <span> {{ formatPrice(productDetail.price) }}</span>
       </div>
-      <div class="align-self-center">
-        <!-- <span> {{ formatPrice(productDetail.price) }}</span> -->
-      </div>
-      <!-- <i
-        v-else
-        class="bi bi-heart-fill favorite-btn"
-        :class="isFavorite ? 'isFavorite' : ''"
-        @click="isFavorite = !isFavorite"
-      /> -->
     </div>
   </div>
 </template>

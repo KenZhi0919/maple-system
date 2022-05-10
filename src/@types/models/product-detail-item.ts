@@ -11,6 +11,7 @@ export interface ProductDetailItem {
   potential_level: string;
   potential_capability: string[];
   spark_level: string;
+  spark_capability: string[];
   soul_capability: string | null;
   is_maple: boolean;
   maple_capability: string;

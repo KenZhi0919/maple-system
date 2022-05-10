@@ -1,6 +1,6 @@
 <template>
   <app-nav />
-  <div class="content" style="margin-top: 60px">
+  <div class="content">
     <slot />
     <notifications position="bottom right" width="150px" />
   </div>

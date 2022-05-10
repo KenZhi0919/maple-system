@@ -28,6 +28,7 @@
                     v-bind="field"
                     :class="!valid ? 'has-error' : ''"
                     :options="categoryOptions"
+                    @change="clearSelectedItem('category')"
                   />
                   <span class="errorMessage">
                     {{ errorMessage }}
@@ -197,11 +198,7 @@
             <div class="col-12 d-flex mb-2">
               <div class="col-3 pt-2">攻擊力(物/魔)</div>
               <div class="col-9">
-                <input-text
-                  v-model="postData.attack"
-                  type="number"
-                  v-bind="field"
-                />
+                <input-text v-model="postData.attack" type="number" />
               </div>
             </div>
 
@@ -628,7 +625,7 @@
                   />
                   販售金額：
                 </div>
-                <div>{{ formatPrice(postData.price) }}</div>
+                <div>{{ formatPrice(parseInt(postData.price)) }}</div>
               </div>
             </div>
           </div>
@@ -781,6 +778,10 @@ export default defineComponent({
       this.selectedName = "";
       switch (type) {
         case "type":
+          this.productList = [];
+          break;
+        case "category":
+          this.type = "";
           this.productList = [];
           break;
       }

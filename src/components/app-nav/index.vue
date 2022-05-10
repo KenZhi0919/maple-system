@@ -35,6 +35,14 @@
         </router-link>
       </div>
     </div>
+    <div class="">
+      <button
+        class="btn btn-outline-secondary nav-btn mx-1"
+        @click="logoutHandler"
+      >
+        登出
+      </button>
+    </div>
   </nav>
 </template>
 
@@ -44,6 +52,13 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "AppNav",
   components: {},
+  methods: {
+    logoutHandler() {
+      document.cookie = `accessToken=;expires=Wed, 31 Oct 2012 08:50:17 UTC`;
+      document.cookie = `refreshToken=;expires=Wed, 31 Oct 2012 08:50:17 UTC`;
+      this.$router.push("/login");
+    },
+  },
 });
 </script>
 
@@ -59,12 +74,8 @@ export default defineComponent({
   }
 }
 .navbar {
-  z-index: 2;
   height: 60px;
-  background-color: #fcfcfc;
-  position: fixed;
+  background-color: rgba(255, 255, 255, 0.637);
   width: 100%;
-  top: 0;
-  box-shadow: 0 0 15px #dfdede;
 }
 </style>
