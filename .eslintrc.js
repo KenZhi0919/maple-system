@@ -41,13 +41,13 @@ module.exports = {
     ],
 
     // console (只在 development 允許)
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console':'off',
 
     // 允許在正則表達式中使用控制字符
     'no-control-regex': 'off',
 
     // debugger (只在 development 允許)
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': 'off',
 
     /***********************************
      * Vue Eslint 規則

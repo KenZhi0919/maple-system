@@ -1,5 +1,4 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/maple-system/" : "/",
   css: {
     loaderOptions: {
       sass: {
@@ -9,4 +8,4 @@ module.exports = {
       },
     },
   },
-};
+}
