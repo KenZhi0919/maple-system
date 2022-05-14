@@ -60,9 +60,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { Modal } from "bootstrap";
-import { Form as ValidataForm } from "vee-validate";
+import { defineComponent } from "vue"
+import { Modal } from "bootstrap"
+import { Form as ValidataForm } from "vee-validate"
 
 export default defineComponent({
   name: "AppModal",
@@ -70,12 +70,12 @@ export default defineComponent({
     ValidataForm,
   },
   mounted() {
-    const myModalEl = document.querySelector("#appModal");
+    const myModalEl = document.querySelector("#appModal")
     if (myModalEl) {
-      this.modal = Modal.getOrCreateInstance(myModalEl); // Returns a Bootstrap modal instance
+      this.modal = Modal.getOrCreateInstance(myModalEl) // Returns a Bootstrap modal instance
       myModalEl.addEventListener("hidden.bs.modal", () => {
-        this.$emit("hidden-handler");
-      });
+        this.$emit("hidden-handler")
+      })
     }
   },
   props: {
@@ -101,15 +101,15 @@ export default defineComponent({
   data() {
     return {
       modal: {} as Modal,
-    };
+    }
   },
   methods: {
     show() {
-      this.modal.show();
+      this.modal.show()
     },
     hide() {
-      this.modal.hide();
+      this.modal.hide()
     },
   },
-});
+})
 </script>

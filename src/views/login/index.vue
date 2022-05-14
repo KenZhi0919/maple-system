@@ -59,9 +59,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { InputText } from "@/components";
-import { apiLogin } from "../../services/api";
+import { defineComponent } from "vue"
+import { InputText } from "@/components"
+import { apiLogin } from "../../services/api"
 
 export default defineComponent({
   name: "Login",
@@ -74,12 +74,12 @@ export default defineComponent({
       password2: "",
       email: "",
       line_id: "",
-    };
+    }
   },
   methods: {
     async loginHandler() {
-      this.$notify({ type: "success", text: "註冊成功!請登入" });
-      let loader = this.$loading.show();
+      this.$notify({ type: "success", text: "註冊成功!請登入" })
+      let loader = this.$loading.show()
       try {
         const { data } = await apiLogin({
           username: this.account,
@@ -87,32 +87,32 @@ export default defineComponent({
           password2: this.isRegister ? this.password2 : undefined,
           email: this.isRegister ? this.email : undefined,
           line_id: this.isRegister ? this.line_id : undefined,
-        });
+        })
 
         if (this.isRegister) {
-          this.isRegister = false;
-          this.account = "";
-          this.password = "";
-          this.password2 = "";
-          this.email = "";
-          this.line_id = "";
-          this.$notify({ type: "success", text: "註冊成功!請登入" });
+          this.isRegister = false
+          this.account = ""
+          this.password = ""
+          this.password2 = ""
+          this.email = ""
+          this.line_id = ""
+          this.$notify({ type: "success", text: "註冊成功!請登入" })
         } else {
-          document.cookie = `accessToken=${data.result.access}`;
-          document.cookie = `refreshToken=${data.result.refresh}`;
-          this.$router.push("/");
+          document.cookie = `accessToken=${data.result.access}`
+          document.cookie = `refreshToken=${data.result.refresh}`
+          this.$router.push("/")
         }
       } catch (e) {
-        console.log(e);
+        console.log(e)
       } finally {
-        loader.hide();
+        loader.hide()
       }
     },
     setIsRegister() {
-      this.isRegister = !this.isRegister;
+      this.isRegister = !this.isRegister
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

@@ -37,10 +37,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from "vue"
 
-import SellItemCard from "./sell-item-card.vue";
-import ItemSellModal from "./item-sell-modal.vue";
+import SellItemCard from "./sell-item-card.vue"
+import ItemSellModal from "./item-sell-modal.vue"
 
 export default defineComponent({
   name: "ItemExchangeBuy",
@@ -49,14 +49,14 @@ export default defineComponent({
     ItemSellModal,
   },
   data() {
-    return {};
+    return {}
   },
   methods: {
     showModal() {
-      (this.$refs["itemSellModal"] as typeof ItemSellModal).show();
+      ;(this.$refs["itemSellModal"] as typeof ItemSellModal).show()
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

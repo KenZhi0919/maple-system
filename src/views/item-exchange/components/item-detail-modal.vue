@@ -170,11 +170,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { AppModal } from "@/components";
-import StartList from "./star-list.vue";
-import { ProductDetailItem, product_list_data } from "@/@types/models";
-import { productMixin } from "@/mixins";
+import { defineComponent } from "vue"
+import { AppModal } from "@/components"
+import StartList from "./star-list.vue"
+import { ProductDetailItem, product_list_data } from "@/@types/models"
+import { productMixin } from "@/mixins"
 export default defineComponent({
   mixins: [productMixin],
   components: {
@@ -185,101 +185,99 @@ export default defineComponent({
     return {
       product: {} as product_list_data,
       productDetail: {} as ProductDetailItem,
-    };
+    }
   },
   methods: {
     show(productDetail: ProductDetailItem) {
-      this.productDetail = productDetail;
-      this.product = productDetail.product_list_data;
-      (this.$refs["appModal"] as typeof AppModal).show();
-      console.log(this.product);
-      console.log("detail", this.productDetail);
+      this.productDetail = productDetail
+      this.product = productDetail.product_list_data
+      ;(this.$refs["appModal"] as typeof AppModal).show()
     },
     reset() {
-      this.product = {} as product_list_data;
-      this.productDetail = {} as ProductDetailItem;
+      this.product = {} as product_list_data
+      this.productDetail = {} as ProductDetailItem
     },
   },
   computed: {
     isLoaded() {
       if (this.productDetail && this.productDetail.product_id) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     },
     soulText(): string {
       if (this.productDetail.is_equippable_soul) {
         if (this.productDetail.soul_capability) {
-          return "已裝備靈魂";
+          return "已裝備靈魂"
         }
-        return "可裝備靈魂";
+        return "可裝備靈魂"
       } else {
-        return "可使用靈魂附魔";
+        return "可使用靈魂附魔"
       }
     },
     potentialLevelColor(): string {
       switch (this.productDetail.potential_level) {
         case "稀有":
-          return "blue-text";
+          return "blue-text"
         case "史詩":
-          return "purple-text";
+          return "purple-text"
         case "罕見":
-          return "orange-text";
+          return "orange-text"
         case "傳說":
-          return "green-text";
+          return "green-text"
         case "神話":
-          return "red-text";
+          return "red-text"
         default:
-          return "";
+          return ""
       }
     },
     sparkLevelColor(): string {
       switch (this.productDetail.spark_level) {
         case "稀有":
-          return "blue-text";
+          return "blue-text"
         case "罕見":
-          return "orange-text";
+          return "orange-text"
         case "傳說":
-          return "green-text";
+          return "green-text"
         case "神話":
-          return "red-text";
+          return "red-text"
         default:
-          return "";
+          return ""
       }
     },
     mapleText(): string {
       switch (this.productDetail.maple_capability) {
         case "殘忍的紋章":
-          return "致命攻擊傷害";
+          return "致命攻擊傷害"
         case "征服紋章":
-          return "對BOSS攻擊力增加";
+          return "對BOSS攻擊力增加"
         case "機靈紋章":
-          return "對BOSS防禦力增加";
+          return "對BOSS防禦力增加"
         case "強力紋章":
-          return "物理攻擊力增加";
+          return "物理攻擊力增加"
         case "神聖紋章":
-          return "魔法攻擊力增加";
+          return "魔法攻擊力增加"
         default:
-          return "";
+          return ""
       }
     },
     mapleImagePath(): string {
       switch (this.productDetail.maple_capability) {
         case "殘忍的紋章":
-          return require("@/assets/images/deadly.jpg");
+          return require("@/assets/images/deadly.jpg")
         case "征服紋章":
-          return require("@/assets/images/boss.jpg");
+          return require("@/assets/images/boss-attack.jpg")
         case "機靈紋章":
-          return require("@/assets/images/defend.jpg");
+          return require("@/assets/images/defend.jpg")
         case "強力紋章":
-          return require("@/assets/images/attack.jpg");
+          return require("@/assets/images/attack.jpg")
         case "神聖紋章":
-          return require("@/assets/images/magic.jpg");
+          return require("@/assets/images/magic.jpg")
         default:
-          return "";
+          return ""
       }
     },
   },
-});
+})
 </script>

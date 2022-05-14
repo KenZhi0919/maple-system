@@ -93,9 +93,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { InputSelect, InputText } from "@/components";
-import { ProductListSearchCondition } from "@/@types/models";
+import { defineComponent } from "vue"
+import { InputSelect, InputText } from "@/components"
+import { ProductListSearchCondition } from "@/@types/models"
 
 export default defineComponent({
   name: "SearchPannel",
@@ -135,12 +135,12 @@ export default defineComponent({
         "物攻",
         "魔攻",
       ],
-    };
+    }
   },
   methods: {
     capabilityHandler() {
-      this.searchCondition.is_maple = 1;
+      this.searchCondition.is_maple = 1
     },
   },
-});
+})
 </script>

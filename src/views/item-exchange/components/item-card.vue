@@ -48,9 +48,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { ProductListMultiItem, ProductDetailItem } from "@/@types/models";
-import { productMixin } from "@/mixins";
+import { defineComponent } from "vue"
+import { ProductListMultiItem, ProductDetailItem } from "@/@types/models"
+import { productMixin } from "@/mixins"
 export default defineComponent({
   mixins: [productMixin],
   props: {
@@ -70,7 +70,7 @@ export default defineComponent({
   data() {
     return {
       isFavorite: false,
-    };
+    }
   },
-});
+})
 </script>

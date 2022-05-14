@@ -44,10 +44,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
-import { InputRadio } from "@/components";
-import { SearchPannel, ItemExchangeBuy, ItemExchangeSell } from "./components";
-import { ProductListSearchCondition } from "@/@types/models";
+import { defineComponent, reactive, toRefs } from "vue"
+import { InputRadio } from "@/components"
+import { SearchPannel, ItemExchangeBuy, ItemExchangeSell } from "./components"
+import { ProductListSearchCondition } from "@/@types/models"
 
 export default defineComponent({
   name: "ItemExchange",
@@ -60,11 +60,11 @@ export default defineComponent({
   setup() {
     const state = reactive({
       functional: "buy",
-    });
-    return { ...toRefs(state) };
+    })
+    return { ...toRefs(state) }
   },
   async mounted() {
-    await this.search();
+    await this.search()
   },
   data() {
     return {
@@ -80,15 +80,15 @@ export default defineComponent({
         max_price: undefined,
         ordering: undefined,
       } as ProductListSearchCondition,
-    };
+    }
   },
 
   methods: {
     search(searchCondition?: ProductListSearchCondition) {
-      (this.$refs["itemExchangeBuy"] as typeof ItemExchangeBuy).search(
+      ;(this.$refs["itemExchangeBuy"] as typeof ItemExchangeBuy).search(
         searchCondition
-      );
+      )
     },
   },
-});
+})
 </script>

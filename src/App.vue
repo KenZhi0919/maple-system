@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { AppNav } from "@/components";
-import { DefaultLayout, LoginLayout } from "@/layout";
+import { defineComponent } from "vue"
+import { AppNav } from "@/components"
+import { DefaultLayout, LoginLayout } from "@/layout"
 export default defineComponent({
   name: "App",
   components: {
@@ -22,10 +22,10 @@ export default defineComponent({
   // },
   computed: {
     layout() {
-      return this.$route.meta.layout || "DefaultLayout";
+      return this.$route.meta.layout || "DefaultLayout"
     },
   },
-});
+})
 </script>
 
 <style lang="scss">

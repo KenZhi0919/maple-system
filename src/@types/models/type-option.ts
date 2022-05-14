@@ -1,4 +1,4 @@
 export interface typeOption {
-  category: string;
-  type: string[];
+  category: string
+  type: string[]
 }

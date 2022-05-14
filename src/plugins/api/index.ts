@@ -1,7 +1,7 @@
-import { App } from "vue";
+import { App } from "vue"
 
 export interface ExampleModule {
-  sayHello: () => void;
+  sayHello: () => void
 }
 
 export default {
@@ -10,15 +10,15 @@ export default {
       sayHello: () => {
         // console.log("example");
       },
-    };
+    }
 
-    app.config.globalProperties.$example = exampleModule;
+    app.config.globalProperties.$example = exampleModule
   },
-};
+}
 
 // 這邊是 ts, 用來 Bind to `this` keyword
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
-    $example: ExampleModule;
+    $example: ExampleModule
   }
 }

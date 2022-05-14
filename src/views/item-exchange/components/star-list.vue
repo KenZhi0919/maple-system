@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from "vue"
 
 export default defineComponent({
   components: {},
@@ -39,18 +39,17 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.setDefault();
+    this.setDefault()
 
     if (this.star) {
-      console.log(123);
-      this.setStar(this.star);
+      this.setStar(this.star)
     }
   },
   data() {
     return {
       starListRow1: [{ selected: false }],
       starListRow2: [{ selected: false }],
-    };
+    }
   },
   methods: {
     setDefault() {
@@ -75,7 +74,7 @@ export default defineComponent({
         { selected: false },
         { selected: false },
         { selected: false },
-      ];
+      ]
       this.starListRow2 = [
         { selected: false },
         { selected: false },
@@ -88,25 +87,25 @@ export default defineComponent({
         { selected: false },
         { selected: false },
         { selected: false },
-      ];
+      ]
     },
     setStar(star: number) {
-      this.setDefault();
+      this.setDefault()
       if (star > 20) {
-        this.starListRow1.forEach(el => (el.selected = true));
+        this.starListRow1.forEach(el => (el.selected = true))
         this.starListRow2.forEach((el, index) => {
           if (index + 1 <= star - 20) {
-            el.selected = true;
+            el.selected = true
           }
-        });
+        })
       } else {
         this.starListRow1.forEach((el, index) => {
           if (index + 1 <= star) {
-            el.selected = true;
+            el.selected = true
           }
-        });
+        })
       }
     },
   },
-});
+})
 </script>

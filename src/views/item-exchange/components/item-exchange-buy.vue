@@ -103,18 +103,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
-import { InputRadio } from "@/components";
-import ItemCard from "./item-card.vue";
-import ItemDetailModal from "./item-detail-modal.vue";
+import { defineComponent, reactive, toRefs } from "vue"
+import { InputRadio } from "@/components"
+import ItemCard from "./item-card.vue"
+import ItemDetailModal from "./item-detail-modal.vue"
 import {
   ProductListMultiItem,
   typeOption,
   ProductDetailItem,
   ProductListSearchCondition,
-} from "@/@types/models";
-import { apiGetProductList, apiGetProductDetail } from "@/services/api";
-import { typeOptions, categoryOptions } from "../data";
+} from "@/@types/models"
+import { apiGetProductList, apiGetProductDetail } from "@/services/api"
+import { typeOptions, categoryOptions } from "../data"
 
 export default defineComponent({
   name: "ItemExchangeBuy",
@@ -131,11 +131,11 @@ export default defineComponent({
       productList: [] as ProductListMultiItem[],
       productDetailList: [] as ProductDetailItem[],
       showDetailItems: false as boolean,
-    });
-    return { ...toRefs(state) };
+    })
+    return { ...toRefs(state) }
   },
   async mounted() {
-    await this.search();
+    await this.search()
   },
   data() {
     return {
@@ -151,7 +151,7 @@ export default defineComponent({
         max_price: undefined,
         ordering: undefined,
       } as ProductListSearchCondition,
-    };
+    }
   },
   computed: {
     currentTypeOptions(): typeOption["type"] {
@@ -159,66 +159,66 @@ export default defineComponent({
         this.allTypeOptions.find(
           el => el.category === this.searchCondition.category
         )?.type || []
-      );
+      )
     },
   },
   methods: {
     async fetchProducts() {
-      let loader = this.$loading.show();
+      let loader = this.$loading.show()
       try {
         const {
           data: { result },
-        } = await apiGetProductList(this.searchCondition);
-        this.productList = result;
+        } = await apiGetProductList(this.searchCondition)
+        this.productList = result
       } catch (err) {
-        console.error(err);
+        console.error(err)
       } finally {
-        loader.hide();
+        loader.hide()
       }
     },
     async fetchProductDetail(productId: string) {
-      let loader = this.$loading.show();
+      let loader = this.$loading.show()
       try {
         const {
           data: { result },
-        } = await apiGetProductDetail({ product_list_id: productId });
-        this.productDetailList = result;
+        } = await apiGetProductDetail({ product_list_id: productId })
+        this.productDetailList = result
       } catch (err) {
-        console.error(err);
+        console.error(err)
       } finally {
-        loader.hide();
+        loader.hide()
       }
     },
     search(searchCondition?: ProductListSearchCondition) {
-      this.showDetailItems = false;
+      this.showDetailItems = false
       if (searchCondition) {
         this.searchCondition = {
           ...searchCondition,
           is_maple: searchCondition.is_maple === 1 ? true : false,
           type: this.searchCondition.type,
           category: this.searchCondition.category,
-        };
+        }
       }
-      this.fetchProducts();
+      this.fetchProducts()
     },
     categoryChangeHandler() {
-      this.searchCondition.type = this.currentTypeOptions[0];
-      this.showDetailItems = false;
-      this.fetchProducts();
+      this.searchCondition.type = this.currentTypeOptions[0]
+      this.showDetailItems = false
+      this.fetchProducts()
     },
     typeChangeHandler() {
-      this.showDetailItems = false;
-      this.fetchProducts();
+      this.showDetailItems = false
+      this.fetchProducts()
     },
     async productClickHandler(id: string) {
-      await this.fetchProductDetail(id);
-      this.showDetailItems = true;
+      await this.fetchProductDetail(id)
+      this.showDetailItems = true
     },
     showModal(productDetail: ProductDetailItem) {
-      (this.$refs["itemDetailModal"] as typeof ItemDetailModal).show(
+      ;(this.$refs["itemDetailModal"] as typeof ItemDetailModal).show(
         productDetail
-      );
+      )
     },
   },
-});
+})
 </script>

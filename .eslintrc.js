@@ -21,6 +21,7 @@ module.exports = {
      * Eslint 規則
      * https://cn.eslint.org/docs/rules
      ****************************************/
+    'semi': [1, "never"],
 
     'no-unused-expressions': 'off',
 
@@ -41,7 +42,7 @@ module.exports = {
     ],
 
     // console (只在 development 允許)
-    'no-console':'off',
+    'no-console': 'off',
 
     // 允許在正則表達式中使用控制字符
     'no-control-regex': 'off',

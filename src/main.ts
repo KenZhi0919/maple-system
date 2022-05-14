@@ -1,24 +1,24 @@
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import i18n from "@/i18n";
-import { example } from "@/plugins";
-import VueLoading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
-import "bootstrap/dist/js/bootstrap.js";
-import Notifications from "@kyvg/vue3-notification";
+import "bootstrap/dist/css/bootstrap.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import { createApp } from "vue"
+import App from "./App.vue"
+import router from "./router"
+import store from "./store"
+import i18n from "@/i18n"
+import { example } from "@/plugins"
+import VueLoading from "vue-loading-overlay"
+import "vue-loading-overlay/dist/vue-loading.css"
+import "bootstrap/dist/js/bootstrap.js"
+import Notifications from "@kyvg/vue3-notification"
 
-import { defineRule, configure } from "vee-validate";
-import { between, required, digits } from "@vee-validate/rules";
-import { localize } from "@vee-validate/i18n";
+import { defineRule, configure } from "vee-validate"
+import { between, required, digits } from "@vee-validate/rules"
+import { localize } from "@vee-validate/i18n"
 
 // define global rules
-defineRule("required", required);
-defineRule("between", between);
-defineRule("digits", digits);
+defineRule("required", required)
+defineRule("between", between)
+defineRule("digits", digits)
 
 configure({
   // create and set a localization handler
@@ -32,7 +32,7 @@ configure({
       digits: "{field} 必須是數字",
     },
   }),
-});
+})
 
 createApp(App)
   .use(store)
@@ -46,4 +46,4 @@ createApp(App)
     width: 100,
   })
   .use(Notifications)
-  .mount("#app");
+  .mount("#app")

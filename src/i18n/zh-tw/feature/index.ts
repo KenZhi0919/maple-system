@@ -1,7 +1,7 @@
-import itemexchange from "./item-exchange";
+import itemexchange from "./item-exchange"
 
 const feature = {
   itemexchange,
-};
+}
 
-export default feature;
+export default feature

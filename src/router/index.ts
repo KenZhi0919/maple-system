@@ -1,20 +1,20 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import { ItemExchange, Login } from "@/views";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
+import { ItemExchange, Login } from "@/views"
 
 const getCookie = (cname: string) => {
-  const name = cname + "=";
-  const ca = document.cookie.split(";");
+  const name = cname + "="
+  const ca = document.cookie.split(";")
   for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
+    let c = ca[i]
     while (c.charAt(0) == " ") {
-      c = c.substring(1);
+      c = c.substring(1)
     }
     if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
+      return c.substring(name.length, c.length)
     }
   }
-  return "";
-};
+  return ""
+}
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -28,18 +28,18 @@ const routes: Array<RouteRecordRaw> = [
     component: Login,
     meta: { layout: "LoginLayout" },
   },
-];
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-});
+})
 
 router.beforeEach(async to => {
   if (to.name !== "Login" && getCookie("accessToken") === "") {
     // redirect the user to the login page
-    return { name: "Login" };
+    return { name: "Login" }
   }
-});
+})
 
-export default router;
+export default router

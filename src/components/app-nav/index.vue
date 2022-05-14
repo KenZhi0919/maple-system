@@ -47,19 +47,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from "vue"
 
 export default defineComponent({
   name: "AppNav",
   components: {},
   methods: {
     logoutHandler() {
-      document.cookie = `accessToken=;expires=Wed, 31 Oct 2012 08:50:17 UTC`;
-      document.cookie = `refreshToken=;expires=Wed, 31 Oct 2012 08:50:17 UTC`;
-      this.$router.push("/login");
+      document.cookie = `accessToken=;expires=Wed, 31 Oct 2012 08:50:17 UTC`
+      document.cookie = `refreshToken=;expires=Wed, 31 Oct 2012 08:50:17 UTC`
+      this.$router.push("/login")
     },
   },
-});
+})
 </script>
 
 <style scoped lang="scss">

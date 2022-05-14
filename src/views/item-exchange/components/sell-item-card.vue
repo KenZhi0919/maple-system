@@ -41,16 +41,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { productMixin } from "@/mixins";
+import { defineComponent } from "vue"
+import { productMixin } from "@/mixins"
 
 export default defineComponent({
   mixins: [productMixin],
   props: {},
   data() {
-    return {};
+    return {}
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

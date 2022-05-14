@@ -16,8 +16,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import Multiselect from "@vueform/multiselect";
+import { defineComponent } from "vue"
+import Multiselect from "@vueform/multiselect"
 
 export default defineComponent({
   name: "InputText",
@@ -53,10 +53,10 @@ export default defineComponent({
   data() {
     return {
       selected: [] as string[],
-    };
+    }
   },
   methods: {},
-});
+})
 </script>
 
 <style src="@vueform/multiselect/themes/default.css"></style>

@@ -1,3 +1,3 @@
-const itemexchange = {};
+const itemexchange = {}
 
-export default itemexchange;
+export default itemexchange

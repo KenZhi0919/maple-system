@@ -636,8 +636,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { AppModal, InputSelect, InputText } from "@/components";
+import { defineComponent } from "vue"
+import { AppModal, InputSelect, InputText } from "@/components"
 import {
   typeOptions,
   categoryOptions,
@@ -648,14 +648,14 @@ import {
   sparkLevelOptions,
   potentialLevelOptions,
   mapleOptions,
-} from "../data";
-import { Product, typeOption } from "@/@types/models";
-import StarList from "./star-list.vue";
-import { apiGetProductList, apiPostProduct } from "@/services/api";
-import { ProductListMultiItem } from "@/@types/models";
-import { productMixin } from "@/mixins";
-import { Field } from "vee-validate";
-import * as yup from "yup";
+} from "../data"
+import { Product, typeOption } from "@/@types/models"
+import StarList from "./star-list.vue"
+import { apiGetProductList, apiPostProduct } from "@/services/api"
+import { ProductListMultiItem } from "@/@types/models"
+import { productMixin } from "@/mixins"
+import { Field } from "vee-validate"
+import * as yup from "yup"
 
 export default defineComponent({
   mixins: [productMixin],
@@ -691,46 +691,46 @@ export default defineComponent({
       schema: yup.object({
         category: yup.string().required().label("test"),
       }),
-    };
+    }
   },
   methods: {
     show() {
-      this.setDefaultProduct();
-      (this.$refs["appModal"] as typeof AppModal).show();
+      this.setDefaultProduct()
+      ;(this.$refs["appModal"] as typeof AppModal).show()
     },
     async fetchProducts() {
-      let loader = this.$loading.show();
+      let loader = this.$loading.show()
 
       try {
         if (this.type !== null) {
-          this.postData.product_list = null;
+          this.postData.product_list = null
           const {
             data: { result },
           } = await apiGetProductList({
             category: this.category,
             type: this.type,
-          });
-          this.productList = result;
+          })
+          this.productList = result
         } else {
-          this.clearSelectedItem("type");
+          this.clearSelectedItem("type")
         }
       } catch (err) {
-        console.error(err);
+        console.error(err)
       } finally {
-        loader.hide();
+        loader.hide()
       }
     },
     setPostData(id: string) {
       const item = this.currentProductOptions.find(
         el => el.product_list_id === id
-      );
+      )
       if (item) {
-        this.selectedImage = item.image;
-        this.selectedName = item.name;
+        this.selectedImage = item.image
+        this.selectedName = item.name
       }
     },
     setStar(star: string) {
-      (this.$refs["starList"] as typeof StarList).setStar(parseInt(star));
+      ;(this.$refs["starList"] as typeof StarList).setStar(parseInt(star))
     },
     setDefaultProduct() {
       this.postData = {
@@ -744,62 +744,62 @@ export default defineComponent({
         is_equippable_soul: false,
         spark_capability: ["", ""],
         potential_capability: ["", "", ""],
-      };
+      }
     },
     setLevelColor(level: string) {
       switch (level) {
         case "普通":
-          this.stageLevelCode = 1;
-          break;
+          this.stageLevelCode = 1
+          break
         case "稀有":
-          this.stageLevelCode = 2;
-          break;
+          this.stageLevelCode = 2
+          break
         case "史詩":
-          this.stageLevelCode = 3;
-          break;
+          this.stageLevelCode = 3
+          break
         case "罕見":
-          this.stageLevelCode = 4;
-          break;
+          this.stageLevelCode = 4
+          break
         case "傳說":
-          this.stageLevelCode = 5;
-          break;
+          this.stageLevelCode = 5
+          break
         case "神話":
-          this.stageLevelCode = 6;
-          break;
+          this.stageLevelCode = 6
+          break
         case "古代":
-          this.stageLevelCode = 7;
-          break;
+          this.stageLevelCode = 7
+          break
       }
-      this.clearSelectedItem("level");
+      this.clearSelectedItem("level")
     },
     clearSelectedItem(type: string) {
-      this.postData.product_list = null;
-      this.selectedImage = "";
-      this.selectedName = "";
+      this.postData.product_list = null
+      this.selectedImage = ""
+      this.selectedName = ""
       switch (type) {
         case "type":
-          this.productList = [];
-          break;
+          this.productList = []
+          break
         case "category":
-          this.type = "";
-          this.productList = [];
-          break;
+          this.type = ""
+          this.productList = []
+          break
       }
     },
     reset() {
-      this.productList = [] as ProductListMultiItem[];
-      this.category = "";
-      this.type = "";
-      this.stageLevel = "";
-      this.selectedImage = "";
-      this.selectedName = "";
-      this.soulType = "";
-      this.soul = "";
-      this.postData = {} as Product;
-      this.stageLevelCode = 1;
+      this.productList = [] as ProductListMultiItem[]
+      this.category = ""
+      this.type = ""
+      this.stageLevel = ""
+      this.selectedImage = ""
+      this.selectedName = ""
+      this.soulType = ""
+      this.soul = ""
+      this.postData = {} as Product
+      this.stageLevelCode = 1
     },
     async submitHandler() {
-      let loader = this.$loading.show();
+      let loader = this.$loading.show()
       const {
         is_maple,
         maple_capability,
@@ -808,7 +808,7 @@ export default defineComponent({
         potential_capability,
         spark_level,
         spark_capability,
-      } = this.postData;
+      } = this.postData
 
       try {
         await apiPostProduct({
@@ -826,129 +826,129 @@ export default defineComponent({
           spark_capability: spark_level
             ? spark_capability?.join(",")
             : undefined,
-        });
-        (this.$refs["appModal"] as typeof AppModal).hide();
-        this.$notify({ type: "success", text: "登錄成功!" });
+        })
+        ;(this.$refs["appModal"] as typeof AppModal).hide()
+        this.$notify({ type: "success", text: "登錄成功!" })
       } catch (e) {
-        console.log(e);
+        console.log(e)
       } finally {
-        loader.hide();
+        loader.hide()
       }
     },
   },
   computed: {
     isLoaded(): boolean {
       if (this.postData && this.postData.spark_capability) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     },
     currentTypeOptions(): typeOption["type"] {
       if (this.category) {
         return (
           this.typeOptions.find(el => el.category === this.category)?.type || []
-        );
+        )
       } else {
-        return [];
+        return []
       }
     },
     productPlaceholder(): string {
       if (this.type === "" || this.stageLevel === "") {
-        return "請完成上面所有選項";
+        return "請完成上面所有選項"
       } else {
-        return "請選擇";
+        return "請選擇"
       }
     },
     currentProductOptions(): ProductListMultiItem[] {
       return this.productList.filter(
         el => el.zh_stage_level === this.stageLevel
-      );
+      )
     },
     soulText(): string {
       if (this.postData.is_equippable_soul && this.soul && this.soulType) {
-        return "已裝備靈魂";
+        return "已裝備靈魂"
       } else if (this.postData.is_equippable_soul) {
-        return "可裝備靈魂";
+        return "可裝備靈魂"
       } else {
-        return "可使用靈魂附魔";
+        return "可使用靈魂附魔"
       }
     },
     sparkLevelColor(): string {
       switch (this.postData.spark_level) {
         case "稀有":
-          return "blue-text";
+          return "blue-text"
         case "罕見":
-          return "orange-text";
+          return "orange-text"
         case "傳說":
-          return "green-text";
+          return "green-text"
         case "神話":
-          return "red-text";
+          return "red-text"
         default:
-          return "";
+          return ""
       }
     },
     mapleText(): string {
       switch (this.postData.maple_capability) {
         case "殘忍的紋章":
-          return "致命攻擊傷害";
+          return "致命攻擊傷害"
         case "征服紋章":
-          return "對BOSS攻擊力增加";
+          return "對BOSS攻擊力增加"
         case "機靈紋章":
-          return "對BOSS防禦力增加";
+          return "對BOSS防禦力增加"
         case "強力紋章":
-          return "物理攻擊力增加";
+          return "物理攻擊力增加"
         case "神聖紋章":
-          return "魔法攻擊力增加";
+          return "魔法攻擊力增加"
         default:
-          return "";
+          return ""
       }
     },
     mapleImagePath(): string {
       switch (this.postData.maple_capability) {
         case "殘忍的紋章":
-          return require("@/assets/images/deadly.jpg");
+          return require("@/assets/images/deadly.jpg")
         case "征服紋章":
-          return require("@/assets/images/boss.jpg");
+          return require("@/assets/images/boss-attack.jpg")
         case "機靈紋章":
-          return require("@/assets/images/defend.jpg");
+          return require("@/assets/images/defend.jpg")
         case "強力紋章":
-          return require("@/assets/images/attack.jpg");
+          return require("@/assets/images/attack.jpg")
         case "神聖紋章":
-          return require("@/assets/images/magic.jpg");
+          return require("@/assets/images/magic.jpg")
         default:
-          return "";
+          return ""
       }
     },
     potentialLevelColor(): string {
       switch (this.postData.potential_level) {
         case "稀有":
-          return "blue-text";
+          return "blue-text"
         case "史詩":
-          return "purple-text";
+          return "purple-text"
         case "罕見":
-          return "orange-text";
+          return "orange-text"
         case "傳說":
-          return "green-text";
+          return "green-text"
         case "神話":
-          return "red-text";
+          return "red-text"
         default:
-          return "";
+          return ""
       }
     },
     showPotentialCapability(): boolean {
       if (this.postData.potential_capability) {
-        let result = false;
+        let result = false
         this.postData.potential_capability.forEach(el => {
           if (el !== "") {
-            return (result = true);
+            return (result = true)
           }
-        });
-        return result;
+        })
+        return result
       } else {
-        return false;
+        return false
       }
     },
   },
-});
+})
 </script>

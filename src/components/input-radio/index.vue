@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from "vue"
 
 export default defineComponent({
   name: "InputRadio",
@@ -44,14 +44,14 @@ export default defineComponent({
     //
   },
   data() {
-    return {};
+    return {}
   },
   methods: {
     clickHandler() {
-      (this.$refs.input as HTMLInputElement).click();
+      ;(this.$refs.input as HTMLInputElement).click()
     },
   },
-});
+})
 </script>
 
 <style scoped lang="scss">
