@@ -1,6 +1,7 @@
 <template>
   <component :is="layout">
     <router-view />
+    <notifications position="bottom right" width="150px" />
   </component>
 </template>
 
@@ -30,5 +31,8 @@ export default defineComponent({
 
 <style lang="scss">
 #app {
+}
+.notification-content {
+  font-size: 16px;
 }
 </style>

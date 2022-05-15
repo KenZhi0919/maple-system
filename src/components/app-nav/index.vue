@@ -12,27 +12,19 @@
         >
           交易所
         </router-link>
-        <router-link to="/bid" class="btn btn-outline-secondary nav-btn mx-1">
-          競標
-        </router-link>
-        <router-link
-          to="/sellaccount"
-          class="btn btn-outline-secondary nav-btn mx-1"
-        >
+        <div to="/bid" class="btn btn-outline-secondary nav-btn mx-1">競標</div>
+        <div to="/sellaccount" class="btn btn-outline-secondary nav-btn mx-1">
           賣帳號
-        </router-link>
-        <router-link to="/guild" class="btn btn-outline-secondary nav-btn mx-1">
+        </div>
+        <div to="/guild" class="btn btn-outline-secondary nav-btn mx-1">
           找公會
-        </router-link>
-        <router-link
-          to="/partner"
-          class="btn btn-outline-secondary nav-btn mx-1"
-        >
+        </div>
+        <div to="/partner" class="btn btn-outline-secondary nav-btn mx-1">
           找戰友
-        </router-link>
-        <router-link to="/wish" class="btn btn-outline-secondary nav-btn mx-1">
+        </div>
+        <div to="/wish" class="btn btn-outline-secondary nav-btn mx-1">
           許願池
-        </router-link>
+        </div>
       </div>
     </div>
     <div class="">

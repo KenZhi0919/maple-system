@@ -9,7 +9,7 @@
         class="modal-content"
         style="background-color: #f1f1f1; color: #555b62"
       >
-        <validata-form v-slot="{ meta: { valid } }" :validation-schema="schema">
+        <validate-form v-slot="{ meta: { valid } }" :validation-schema="schema">
           <div class="modal-header" :class="headerClass">
             <slot name="header" />
             <button
@@ -53,7 +53,7 @@
               </button>
             </div>
           </div>
-        </validata-form>
+        </validate-form>
       </div>
     </div>
   </div>
@@ -62,12 +62,12 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import { Modal } from "bootstrap"
-import { Form as ValidataForm } from "vee-validate"
+import { Form as ValidateForm } from "vee-validate"
 
 export default defineComponent({
   name: "AppModal",
   components: {
-    ValidataForm,
+    ValidateForm,
   },
   mounted() {
     const myModalEl = document.querySelector("#appModal")
