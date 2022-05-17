@@ -43,11 +43,10 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent, reactive, toRefs } from "vue"
 import { InputRadio } from "@/components"
 import { SearchPannel, ItemExchangeBuy, ItemExchangeSell } from "./components"
-import { ProductListSearchCondition } from "@/@types/models"
 
 export default defineComponent({
   name: "ItemExchange",
@@ -79,13 +78,13 @@ export default defineComponent({
         min_price: undefined,
         max_price: undefined,
         ordering: undefined,
-      } as ProductListSearchCondition,
+      } ,
     }
   },
 
   methods: {
-    search(searchCondition?: ProductListSearchCondition) {
-      ;(this.$refs["itemExchangeBuy"] as typeof ItemExchangeBuy).search(
+    search(searchCondition) {
+      ;(this.$refs["itemExchangeBuy"]).search(
         searchCondition
       )
     },

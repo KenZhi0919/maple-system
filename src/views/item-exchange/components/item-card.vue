@@ -47,24 +47,20 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
-import { ProductListMultiItem, ProductDetailItem } from "@/@types/models"
 import { productMixin } from "@/mixins"
 export default defineComponent({
   mixins: [productMixin],
   props: {
     product: {
       required: true,
-      type: Object as () => ProductListMultiItem,
     },
     productDetail: {
       required: false,
-      type: Object as () => ProductDetailItem,
     },
     isDetailItems: {
       default: false,
-      type: Boolean,
     },
   },
   data() {

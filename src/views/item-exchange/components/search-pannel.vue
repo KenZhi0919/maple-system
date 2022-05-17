@@ -92,10 +92,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 import { InputSelect, InputText } from "@/components"
-import { ProductListSearchCondition } from "@/@types/models"
 
 export default defineComponent({
   name: "SearchPannel",
@@ -113,7 +112,7 @@ export default defineComponent({
         min_price: undefined,
         max_price: undefined,
         ordering: undefined,
-      } as ProductListSearchCondition,
+      },
       stageLevelOptions: [
         { label: "普通", value: "1" },
         { label: "稀有", value: "2" },

@@ -169,11 +169,10 @@
   </app-modal>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 import { AppModal } from "@/components"
 import StartList from "./star-list.vue"
-import { ProductDetailItem, product_list_data } from "@/@types/models"
 import { productMixin } from "@/mixins"
 export default defineComponent({
   mixins: [productMixin],
@@ -183,19 +182,19 @@ export default defineComponent({
   },
   data() {
     return {
-      product: {} as product_list_data,
-      productDetail: {} as ProductDetailItem,
+      product: {} ,
+      productDetail: {} ,
     }
   },
   methods: {
-    show(productDetail: ProductDetailItem) {
+    show(productDetail) {
       this.productDetail = productDetail
       this.product = productDetail.product_list_data
-      ;(this.$refs["appModal"] as typeof AppModal).show()
+      ;(this.$refs["appModal"]).show()
     },
     reset() {
-      this.product = {} as product_list_data
-      this.productDetail = {} as ProductDetailItem
+      this.product = {}
+      this.productDetail = {}
     },
   },
   computed: {
@@ -206,7 +205,7 @@ export default defineComponent({
         return false
       }
     },
-    soulText(): string {
+    soulText() {
       if (this.productDetail.is_equippable_soul) {
         if (this.productDetail.soul_capability) {
           return "已裝備靈魂"
@@ -216,7 +215,7 @@ export default defineComponent({
         return "可使用靈魂附魔"
       }
     },
-    potentialLevelColor(): string {
+    potentialLevelColor() {
       switch (this.productDetail.potential_level) {
         case "稀有":
           return "blue-text"
@@ -232,7 +231,7 @@ export default defineComponent({
           return ""
       }
     },
-    sparkLevelColor(): string {
+    sparkLevelColor(){
       switch (this.productDetail.spark_level) {
         case "稀有":
           return "blue-text"
@@ -246,7 +245,7 @@ export default defineComponent({
           return ""
       }
     },
-    mapleText(): string {
+    mapleText() {
       switch (this.productDetail.maple_capability) {
         case "殘忍的紋章":
           return "致命攻擊傷害"
@@ -262,7 +261,7 @@ export default defineComponent({
           return ""
       }
     },
-    mapleImagePath(): string {
+    mapleImagePath() {
       switch (this.productDetail.maple_capability) {
         case "殘忍的紋章":
           return require("@/assets/images/deadly.jpg")

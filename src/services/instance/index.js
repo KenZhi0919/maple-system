@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig } from "axios"
+import axios from "axios"
 import { stringify } from "qs"
 
-const config: AxiosRequestConfig = {
+const config = {
   baseURL: "https://mapleweb.herokuapp.com/",
   paramsSerializer: params => stringify(params, { arrayFormat: "repeat" }),
   headers: {},

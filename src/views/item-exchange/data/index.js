@@ -1,8 +1,6 @@
-import { typeOption } from "@/@types/models"
+export const categoryOptions = ["武器", "防具", "造型", "消耗品"]
 
-export const categoryOptions: string[] = ["武器", "防具", "造型", "消耗品"]
-
-export const soulTypeOptions: string[] = [
+export const soulTypeOptions = [
   "充滿力量的",
   "敏捷的",
   "聰明的",
@@ -14,7 +12,7 @@ export const soulTypeOptions: string[] = [
   "偉大的",
 ]
 
-export const soulOptions: string[] = [
+export const soulOptions = [
   "殘暴炎魔",
   "闇黑龍王",
   "皮卡啾",
@@ -29,7 +27,7 @@ export const soulOptions: string[] = [
   "阿卡伊農",
 ]
 
-export const stageLevelOptions: string[] = [
+export const stageLevelOptions = [
   "普通",
   "稀有",
   "史詩",
@@ -39,7 +37,7 @@ export const stageLevelOptions: string[] = [
   "古代",
 ]
 
-export const mapleOptions: string[] = [
+export const mapleOptions = [
   "殘忍的紋章",
   "征服紋章",
   "機靈紋章",
@@ -47,18 +45,18 @@ export const mapleOptions: string[] = [
   "神聖紋章",
 ]
 
-export const sparkLevelOptions: string[] = ["罕見", "傳說", "神話"]
+export const sparkLevelOptions = ["罕見", "傳說", "神話"]
 
-export const potentialLevelOptions: string[] = ["稀有", "史詩", "罕見", "傳說"]
+export const potentialLevelOptions = ["稀有", "史詩", "罕見", "傳說"]
 
-export const mainAttributeOptions: string[] = [
+export const mainAttributeOptions = [
   "致命攻擊傷害",
   "BOSS傷害",
   "經驗值增加",
   "致命攻擊率",
 ]
 
-export const typeOptions: typeOption[] = [
+export const typeOptions = [
   {
     category: "武器",
     type: [

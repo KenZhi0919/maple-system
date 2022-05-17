@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 
 export default defineComponent({
@@ -48,7 +48,7 @@ export default defineComponent({
   },
   methods: {
     clickHandler() {
-      ;(this.$refs.input as HTMLInputElement).click()
+      ;(this.$refs.input).click()
     },
   },
 })

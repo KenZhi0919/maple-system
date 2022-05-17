@@ -7,9 +7,7 @@ module.exports = {
   extends: [
     "plugin:vue/vue3-essential",
     "eslint:recommended",
-    "@vue/typescript/recommended",
     "@vue/prettier",
-    "@vue/prettier/@typescript-eslint",
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -26,11 +24,9 @@ module.exports = {
     'no-unused-expressions': 'off',
 
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'warn',
 
     // must disable the base rule as it can report incorrect errors
     'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
 
     // class 成員需空行 (警告)
     'lines-between-class-members': [

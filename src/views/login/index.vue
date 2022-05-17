@@ -169,7 +169,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 import { InputText } from "@/components"
 import { apiLogin } from "../../services/api"
@@ -177,7 +177,7 @@ import { Form as ValidateForm, Field, defineRule } from "vee-validate"
 import { email } from "@vee-validate/rules"
 import Swal from "sweetalert2"
 
-defineRule("confirmed", (value: any, [target]: any) => {
+defineRule("confirmed", (value, [target]) => {
   if (value === target) {
     return true
   }

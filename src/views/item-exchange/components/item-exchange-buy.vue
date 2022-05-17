@@ -102,17 +102,11 @@
   <item-detail-modal ref="itemDetailModal" />
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent, reactive, toRefs } from "vue"
 import { InputRadio } from "@/components"
 import ItemCard from "./item-card.vue"
 import ItemDetailModal from "./item-detail-modal.vue"
-import {
-  ProductListMultiItem,
-  typeOption,
-  ProductDetailItem,
-  ProductListSearchCondition,
-} from "@/@types/models"
 import { apiGetProductList, apiGetProductDetail } from "@/services/api"
 import { typeOptions, categoryOptions } from "../data"
 
@@ -126,11 +120,11 @@ export default defineComponent({
   setup() {
     const state = reactive({
       functional: "buy",
-      categoryOptions: categoryOptions as string[],
-      allTypeOptions: typeOptions as typeOption[],
-      productList: [] as ProductListMultiItem[],
-      productDetailList: [] as ProductDetailItem[],
-      showDetailItems: false as boolean,
+      categoryOptions: categoryOptions ,
+      allTypeOptions: typeOptions ,
+      productList: [] ,
+      productDetailList: [] ,
+      showDetailItems: false ,
     })
     return { ...toRefs(state) }
   },
@@ -150,11 +144,11 @@ export default defineComponent({
         min_price: undefined,
         max_price: undefined,
         ordering: undefined,
-      } as ProductListSearchCondition,
+      },
     }
   },
   computed: {
-    currentTypeOptions(): typeOption["type"] {
+    currentTypeOptions() {
       return (
         this.allTypeOptions.find(
           el => el.category === this.searchCondition.category
@@ -176,7 +170,7 @@ export default defineComponent({
         loader.hide()
       }
     },
-    async fetchProductDetail(productId: string) {
+    async fetchProductDetail(productId) {
       let loader = this.$loading.show()
       try {
         const {
@@ -189,7 +183,7 @@ export default defineComponent({
         loader.hide()
       }
     },
-    search(searchCondition?: ProductListSearchCondition) {
+    search(searchCondition) {
       this.showDetailItems = false
       if (searchCondition) {
         this.searchCondition = {
@@ -210,12 +204,12 @@ export default defineComponent({
       this.showDetailItems = false
       this.fetchProducts()
     },
-    async productClickHandler(id: string) {
+    async productClickHandler(id) {
       await this.fetchProductDetail(id)
       this.showDetailItems = true
     },
-    showModal(productDetail: ProductDetailItem) {
-      ;(this.$refs["itemDetailModal"] as typeof ItemDetailModal).show(
+    showModal(productDetail) {
+      this.$refs["itemDetailModal"].show(
         productDetail
       )
     },

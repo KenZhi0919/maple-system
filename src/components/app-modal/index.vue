@@ -59,7 +59,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 import { Modal } from "bootstrap"
 import { Form as ValidateForm } from "vee-validate"
@@ -100,7 +100,7 @@ export default defineComponent({
   },
   data() {
     return {
-      modal: {} as Modal,
+      modal: {},
     }
   },
   methods: {

@@ -36,7 +36,7 @@
   <item-sell-modal ref="itemSellModal" />
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 
 import SellItemCard from "./sell-item-card.vue"
@@ -53,7 +53,7 @@ export default defineComponent({
   },
   methods: {
     showModal() {
-      ;(this.$refs["itemSellModal"] as typeof ItemSellModal).show()
+      ;(this.$refs["itemSellModal"]).show()
     },
   },
 })

@@ -635,7 +635,7 @@
   </app-modal>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 import { AppModal, InputSelect, InputText } from "@/components"
 import {
@@ -649,10 +649,8 @@ import {
   potentialLevelOptions,
   mapleOptions,
 } from "../data"
-import { Product, typeOption } from "@/@types/models"
 import StarList from "./star-list.vue"
 import { apiGetProductList, apiPostProduct } from "@/services/api"
-import { ProductListMultiItem } from "@/@types/models"
 import { productMixin } from "@/mixins"
 import { Field } from "vee-validate"
 import * as yup from "yup"
@@ -676,8 +674,8 @@ export default defineComponent({
       sparkLevelOptions: sparkLevelOptions,
       potentialLevelOptions: potentialLevelOptions,
       mapleOptions: mapleOptions,
-      typeOptions: typeOptions as typeOption[],
-      productList: [] as ProductListMultiItem[],
+      typeOptions: typeOptions,
+      productList: [],
       category: "",
       type: "",
       stageLevel: "",
@@ -685,7 +683,7 @@ export default defineComponent({
       selectedName: "",
       soulType: "",
       soul: "",
-      postData: {} as Product,
+      postData: {},
       stageLevelCode: 1,
       categoryRules: yup.string().required(),
       schema: yup.object({
@@ -696,7 +694,7 @@ export default defineComponent({
   methods: {
     show() {
       this.setDefaultProduct()
-      ;(this.$refs["appModal"] as typeof AppModal).show()
+      ;(this.$refs["appModal"]).show()
     },
     async fetchProducts() {
       let loader = this.$loading.show()
@@ -720,7 +718,7 @@ export default defineComponent({
         loader.hide()
       }
     },
-    setPostData(id: string) {
+    setPostData(id) {
       const item = this.currentProductOptions.find(
         el => el.product_list_id === id
       )
@@ -729,8 +727,8 @@ export default defineComponent({
         this.selectedName = item.name
       }
     },
-    setStar(star: string) {
-      ;(this.$refs["starList"] as typeof StarList).setStar(parseInt(star))
+    setStar(star) {
+      ;(this.$refs["starList"]).setStar(parseInt(star))
     },
     setDefaultProduct() {
       this.postData = {
@@ -746,7 +744,7 @@ export default defineComponent({
         potential_capability: ["", "", ""],
       }
     },
-    setLevelColor(level: string) {
+    setLevelColor(level) {
       switch (level) {
         case "普通":
           this.stageLevelCode = 1
@@ -772,7 +770,7 @@ export default defineComponent({
       }
       this.clearSelectedItem("level")
     },
-    clearSelectedItem(type: string) {
+    clearSelectedItem(type) {
       this.postData.product_list = null
       this.selectedImage = ""
       this.selectedName = ""
@@ -787,7 +785,7 @@ export default defineComponent({
       }
     },
     reset() {
-      this.productList = [] as ProductListMultiItem[]
+      this.productList = []
       this.category = ""
       this.type = ""
       this.stageLevel = ""
@@ -795,7 +793,7 @@ export default defineComponent({
       this.selectedName = ""
       this.soulType = ""
       this.soul = ""
-      this.postData = {} as Product
+      this.postData = {}
       this.stageLevelCode = 1
     },
     async submitHandler() {
@@ -827,7 +825,7 @@ export default defineComponent({
             ? spark_capability?.join(",")
             : undefined,
         })
-        ;(this.$refs["appModal"] as typeof AppModal).hide()
+        ;(this.$refs["appModal"]).hide()
         this.$notify({ type: "success", text: "登錄成功!" })
       } catch (e) {
         console.log(e)
@@ -837,14 +835,14 @@ export default defineComponent({
     },
   },
   computed: {
-    isLoaded(): boolean {
+    isLoaded() {
       if (this.postData && this.postData.spark_capability) {
         return true
       } else {
         return false
       }
     },
-    currentTypeOptions(): typeOption["type"] {
+    currentTypeOptions() {
       if (this.category) {
         return (
           this.typeOptions.find(el => el.category === this.category)?.type || []
@@ -853,19 +851,19 @@ export default defineComponent({
         return []
       }
     },
-    productPlaceholder(): string {
+    productPlaceholder() {
       if (this.type === "" || this.stageLevel === "") {
         return "請完成上面所有選項"
       } else {
         return "請選擇"
       }
     },
-    currentProductOptions(): ProductListMultiItem[] {
+    currentProductOptions() {
       return this.productList.filter(
         el => el.zh_stage_level === this.stageLevel
       )
     },
-    soulText(): string {
+    soulText() {
       if (this.postData.is_equippable_soul && this.soul && this.soulType) {
         return "已裝備靈魂"
       } else if (this.postData.is_equippable_soul) {
@@ -874,7 +872,7 @@ export default defineComponent({
         return "可使用靈魂附魔"
       }
     },
-    sparkLevelColor(): string {
+    sparkLevelColor() {
       switch (this.postData.spark_level) {
         case "稀有":
           return "blue-text"
@@ -888,7 +886,7 @@ export default defineComponent({
           return ""
       }
     },
-    mapleText(): string {
+    mapleText() {
       switch (this.postData.maple_capability) {
         case "殘忍的紋章":
           return "致命攻擊傷害"
@@ -904,7 +902,7 @@ export default defineComponent({
           return ""
       }
     },
-    mapleImagePath(): string {
+    mapleImagePath() {
       switch (this.postData.maple_capability) {
         case "殘忍的紋章":
           return require("@/assets/images/deadly.jpg")
@@ -920,7 +918,7 @@ export default defineComponent({
           return ""
       }
     },
-    potentialLevelColor(): string {
+    potentialLevelColor() {
       switch (this.postData.potential_level) {
         case "稀有":
           return "blue-text"
@@ -936,7 +934,7 @@ export default defineComponent({
           return ""
       }
     },
-    showPotentialCapability(): boolean {
+    showPotentialCapability() {
       if (this.postData.potential_capability) {
         let result = false
         this.postData.potential_capability.forEach(el => {

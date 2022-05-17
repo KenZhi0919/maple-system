@@ -15,7 +15,7 @@
   />
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 import Multiselect from "@vueform/multiselect"
 
@@ -52,7 +52,7 @@ export default defineComponent({
 
   data() {
     return {
-      selected: [] as string[],
+      selected: [],
     }
   },
   methods: {},

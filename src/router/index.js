@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import { ItemExchange, Login } from "@/views"
 
-const getCookie = (cname: string) => {
+const getCookie = cname => {
   const name = cname + "="
   const ca = document.cookie.split(";")
   for (let i = 0; i < ca.length; i++) {
@@ -16,7 +16,7 @@ const getCookie = (cname: string) => {
   return ""
 }
 
-const routes: Array<RouteRecordRaw> = [
+const routes = [
   {
     path: "/itemexchange",
     name: "ItemExchange",

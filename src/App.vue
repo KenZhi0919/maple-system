@@ -5,10 +5,11 @@
   </component>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 import { AppNav } from "@/components"
 import { DefaultLayout, LoginLayout } from "@/layout"
+import GAuth from "vue3-google-oauth2"
 export default defineComponent({
   name: "App",
   components: {

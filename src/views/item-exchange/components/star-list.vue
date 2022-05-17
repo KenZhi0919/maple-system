@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue"
 
 export default defineComponent({
@@ -89,7 +89,7 @@ export default defineComponent({
         { selected: false },
       ]
     },
-    setStar(star: number) {
+    setStar(star) {
       this.setDefault()
       if (star > 20) {
         this.starListRow1.forEach(el => (el.selected = true))
