@@ -6,7 +6,7 @@
       <div class="login-box d-flex justify-content-center align-items-center">
         <div class="w-60">
           <div class="d-flex flex-column align-items-center">
-            <h1 class="mb-5">{{ isRegister ? "註冊" : "登入" }}</h1>
+            <h1 class="mb-5">{{ isRegister ? '註冊' : '登入' }}</h1>
 
             <div v-if="!isRegister" class="w-100">
               <field
@@ -154,14 +154,15 @@
               style="border-radius: 20px"
               :disabled="!meta.valid"
             >
-              {{ isRegister ? "註冊" : "登入" }}
+              {{ isRegister ? '註冊' : '登入' }}
             </button>
 
             <div class="d-flex justify-content-end w-100">
               <span class="register-text" @click="setIsRegister">
-                {{ isRegister ? "返回登入" : "進行註冊" }}
+                {{ isRegister ? '返回登入' : '進行註冊' }}
               </span>
             </div>
+            <google-login :callback="callback" prompt />
           </div>
         </div>
       </div>
@@ -172,10 +173,11 @@
 <script lang="js">
 import { defineComponent } from "vue"
 import { InputText } from "@/components"
-import { apiLogin } from "../../services/api"
+import { apiLogin, apiLoginThirdParty } from "../../services/api"
 import { Form as ValidateForm, Field, defineRule } from "vee-validate"
 import { email } from "@vee-validate/rules"
 import Swal from "sweetalert2"
+import { decodeCredential } from "vue3-google-login"
 
 defineRule("confirmed", (value, [target]) => {
   if (value === target) {
@@ -202,6 +204,21 @@ export default defineComponent({
     }
   },
   methods: {
+    async callback(res){
+      const userData = await decodeCredential(res.credential)
+      const { data: { result } }= await apiLoginThirdParty({
+        token:res.credential,
+        type:'google',
+        line_id:'test'
+      })
+      this.$store.dispatch('setUser', {
+        name: userData.name,
+        email: userData.email
+      })
+      document.cookie = `accessToken=${result.access}`
+      document.cookie = `refreshToken=${result.refresh}`
+      this.$router.push("/")
+    },
     async loginHandler() {
       let loader = this.$loading.show()
       try {

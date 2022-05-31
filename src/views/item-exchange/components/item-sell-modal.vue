@@ -497,10 +497,10 @@
                 </div>
                 <div class="modal-title">
                   <span class="soul-text">
-                    {{ soul && soulType ? `${soulType}${soul}的` : "" }}
+                    {{ soul && soulType ? `${soulType}${soul}的` : '' }}
                   </span>
                   <span>
-                    {{ selectedName ? selectedName : "" }}
+                    {{ selectedName ? selectedName : '' }}
                   </span>
                 </div>
               </div>
@@ -509,11 +509,11 @@
             <div class="level_box px-2 my-2">
               <div class="d-flex py-2">
                 <div>
-                  等級：{{ postData.level || "??" }}/{{
-                    postData.total_level || "??"
+                  等級：{{ postData.level || '??' }}/{{
+                    postData.total_level || '??'
                   }}
                 </div>
-                <div class="ms-5">階級：{{ stageLevel || "??" }}</div>
+                <div class="ms-5">階級：{{ stageLevel || '??' }}</div>
               </div>
             </div>
 
@@ -522,7 +522,7 @@
                 <div class="col-12 d-flex">
                   <div class="col-6">
                     <div>剩餘神奇剪刀</div>
-                    <div>使用數：{{ postData.cut_num || "??" }}</div>
+                    <div>使用數：{{ postData.cut_num || '??' }}</div>
                   </div>
                   <div
                     v-if="postData.attack"

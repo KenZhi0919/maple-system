@@ -1,5 +1,5 @@
-import instance from "@/services/instance"
-const url = "/login"
+import instance from '@/services/instance'
+const url = '/login'
 
 const getLogin = instance.get(url)
 

@@ -1,4 +1,4 @@
-import itemexchange from "./item-exchange"
+import itemexchange from './item-exchange'
 
 const feature = {
   itemexchange,

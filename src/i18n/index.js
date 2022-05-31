@@ -1,8 +1,8 @@
-import { createI18n } from "vue-i18n"
-import zh from "./zh-tw"
-import en from "./en"
+import { createI18n } from 'vue-i18n'
+import zh from './zh-tw'
+import en from './en'
 const messages = {
-  "zh-tw": {
+  'zh-tw': {
     feature: zh.feature,
   },
   en: {
@@ -12,8 +12,8 @@ const messages = {
 
 // 2. Create i18n instance with options
 const i18n = createI18n({
-  locale: "zh-tw", // set locale
-  fallbackLocale: "en", // set fallback locale
+  locale: 'zh-tw', // set locale
+  fallbackLocale: 'en', // set fallback locale
   messages, // set locale messages
   // If you need to specify other options, you can set other options
   // ...
