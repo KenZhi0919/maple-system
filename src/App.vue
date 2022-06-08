@@ -5,13 +5,13 @@
   </component>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
-import { AppNav } from "@/components"
-import { DefaultLayout, LoginLayout } from "@/layout"
-import GAuth from "vue3-google-oauth2"
+<script>
+import { defineComponent } from 'vue'
+import { AppNav } from '@/components'
+import { DefaultLayout, LoginLayout } from '@/layout'
+
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     AppNav,
     DefaultLayout,
@@ -24,7 +24,7 @@ export default defineComponent({
   // },
   computed: {
     layout() {
-      return this.$route.meta.layout || "DefaultLayout"
+      return this.$route.meta.layout || 'DefaultLayout'
     },
   },
 })

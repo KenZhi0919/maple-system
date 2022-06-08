@@ -36,14 +36,14 @@
   <item-sell-modal ref="itemSellModal" />
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
+<script>
+import { defineComponent } from 'vue'
 
-import SellItemCard from "./sell-item-card.vue"
-import ItemSellModal from "./item-sell-modal.vue"
+import SellItemCard from './sell-item-card.vue'
+import ItemSellModal from './item-sell-modal.vue'
 
 export default defineComponent({
-  name: "ItemExchangeBuy",
+  name: 'ItemExchangeBuy',
   components: {
     SellItemCard,
     ItemSellModal,
@@ -53,7 +53,7 @@ export default defineComponent({
   },
   methods: {
     showModal() {
-      ;(this.$refs["itemSellModal"]).show()
+      this.$refs['itemSellModal'].show()
     },
   },
 })

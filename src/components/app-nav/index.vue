@@ -38,17 +38,17 @@
   </nav>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
+<script>
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "AppNav",
+  name: 'AppNav',
   components: {},
   methods: {
     logoutHandler() {
       document.cookie = `accessToken=;expires=Wed, 31 Oct 2012 08:50:17 UTC`
       document.cookie = `refreshToken=;expires=Wed, 31 Oct 2012 08:50:17 UTC`
-      this.$router.push("/login")
+      this.$router.push('/login')
     },
   },
 })

@@ -102,16 +102,16 @@
   <item-detail-modal ref="itemDetailModal" />
 </template>
 
-<script lang="js">
-import { defineComponent, reactive, toRefs } from "vue"
-import { InputRadio } from "@/components"
-import ItemCard from "./item-card.vue"
-import ItemDetailModal from "./item-detail-modal.vue"
-import { apiGetProductList, apiGetProductDetail } from "@/services/api"
-import { typeOptions, categoryOptions } from "../data"
+<script>
+import { defineComponent, reactive, toRefs } from 'vue'
+import { InputRadio } from '@/components'
+import ItemCard from './item-card.vue'
+import ItemDetailModal from './item-detail-modal.vue'
+import { apiGetProductList, apiGetProductDetail } from '@/services/api'
+import { typeOptions, categoryOptions } from '../data'
 
 export default defineComponent({
-  name: "ItemExchangeBuy",
+  name: 'ItemExchangeBuy',
   components: {
     InputRadio,
     ItemCard,
@@ -119,12 +119,12 @@ export default defineComponent({
   },
   setup() {
     const state = reactive({
-      functional: "buy",
-      categoryOptions: categoryOptions ,
-      allTypeOptions: typeOptions ,
-      productList: [] ,
-      productDetailList: [] ,
-      showDetailItems: false ,
+      functional: 'buy',
+      categoryOptions: categoryOptions,
+      allTypeOptions: typeOptions,
+      productList: [],
+      productDetailList: [],
+      showDetailItems: false,
     })
     return { ...toRefs(state) }
   },
@@ -134,8 +134,8 @@ export default defineComponent({
   data() {
     return {
       searchCondition: {
-        category: "武器",
-        type: "長槍",
+        category: '武器',
+        type: '長槍',
         stage_level: undefined,
         star: undefined,
         is_maple: undefined,
@@ -209,9 +209,7 @@ export default defineComponent({
       this.showDetailItems = true
     },
     showModal(productDetail) {
-      this.$refs["itemDetailModal"].show(
-        productDetail
-      )
+      this.$refs['itemDetailModal'].show(productDetail)
     },
   },
 })

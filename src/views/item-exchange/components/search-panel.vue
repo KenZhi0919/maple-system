@@ -1,5 +1,5 @@
 <template>
-  <div class="exchange-search-pannel px-5">
+  <div class="exchange-search-panel px-5">
     <div class="row">
       <div class="col-6 d-flex">
         <div class="col-2 d-flex justify-content-end align-self-center pe-3">
@@ -92,18 +92,18 @@
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
-import { InputSelect, InputText } from "@/components"
+<script>
+import { defineComponent } from 'vue'
+import { InputSelect, InputText } from '@/components'
 
 export default defineComponent({
-  name: "SearchPannel",
+  name: 'SearchPanel',
   components: { InputSelect, InputText },
   data() {
     return {
       searchCondition: {
-        category: "",
-        type: "",
+        category: '',
+        type: '',
         stage_level: [],
         star: undefined,
         is_maple: undefined,
@@ -114,25 +114,25 @@ export default defineComponent({
         ordering: undefined,
       },
       stageLevelOptions: [
-        { label: "普通", value: "1" },
-        { label: "稀有", value: "2" },
-        { label: "史詩", value: "3" },
-        { label: "罕見", value: "4" },
-        { label: "傳說", value: "5" },
-        { label: "神話", value: "6" },
-        { label: "古代", value: "7" },
-        { label: "死靈", value: "8" },
+        { label: '普通', value: '1' },
+        { label: '稀有', value: '2' },
+        { label: '史詩', value: '3' },
+        { label: '罕見', value: '4' },
+        { label: '傳說', value: '5' },
+        { label: '神話', value: '6' },
+        { label: '古代', value: '7' },
+        { label: '死靈', value: '8' },
       ],
       isMapleOptions: [
-        { label: "無", value: 0 },
-        { label: "包含", value: 1 },
+        { label: '無', value: 0 },
+        { label: '包含', value: 1 },
       ],
       mapleCapabilityOptions: [
-        "致命傷害",
-        "Boss傷害",
-        "Boss防禦",
-        "物攻",
-        "魔攻",
+        '致命傷害',
+        'Boss傷害',
+        'Boss防禦',
+        '物攻',
+        '魔攻',
       ],
     }
   },

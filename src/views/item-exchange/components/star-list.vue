@@ -27,8 +27,8 @@
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
+<script>
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   components: {},

@@ -170,54 +170,56 @@
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
-import { InputText } from "@/components"
-import { apiLogin, apiLoginThirdParty } from "../../services/api"
-import { Form as ValidateForm, Field, defineRule } from "vee-validate"
-import { email } from "@vee-validate/rules"
-import Swal from "sweetalert2"
-import { decodeCredential } from "vue3-google-login"
+<script>
+import { defineComponent } from 'vue'
+import { InputText } from '@/components'
+import { apiLogin, apiLoginThirdParty } from '../../services/api'
+import { Form as ValidateForm, Field, defineRule } from 'vee-validate'
+import { email } from '@vee-validate/rules'
+import Swal from 'sweetalert2'
+import { decodeCredential } from 'vue3-google-login'
 
-defineRule("confirmed", (value, [target]) => {
+defineRule('confirmed', (value, [target]) => {
   if (value === target) {
     return true
   }
-  return "請輸入相同的密碼"
+  return '請輸入相同的密碼'
 })
 
-defineRule("email", email)
+defineRule('email', email)
 
 export default defineComponent({
-  name: "Login",
+  name: 'Login',
   components: { InputText, ValidateForm, Field },
   data() {
     return {
       isRegister: false,
-      account: "",
-      regisAccount: "",
-      password: "",
-      regisPassword: "",
-      confirmPassword: "",
-      email: "",
-      line_id: "",
+      account: '',
+      regisAccount: '',
+      password: '',
+      regisPassword: '',
+      confirmPassword: '',
+      email: '',
+      line_id: '',
     }
   },
   methods: {
-    async callback(res){
+    async callback(res) {
       const userData = await decodeCredential(res.credential)
-      const { data: { result } }= await apiLoginThirdParty({
-        token:res.credential,
-        type:'google',
-        line_id:'test'
+      const {
+        data: { result },
+      } = await apiLoginThirdParty({
+        token: res.credential,
+        type: 'google',
+        line_id: 'test',
       })
       this.$store.dispatch('setUser', {
         name: userData.name,
-        email: userData.email
+        email: userData.email,
       })
       document.cookie = `accessToken=${result.access}`
       document.cookie = `refreshToken=${result.refresh}`
-      this.$router.push("/")
+      this.$router.push('/')
     },
     async loginHandler() {
       let loader = this.$loading.show()
@@ -232,22 +234,22 @@ export default defineComponent({
 
         if (this.isRegister) {
           this.isRegister = false
-          this.regisAccount = ""
-          this.regisPassword = ""
-          this.confirmPassword = ""
-          this.email = ""
-          this.line_id = ""
-          this.$notify({ type: "success", text: "註冊成功!" })
+          this.regisAccount = ''
+          this.regisPassword = ''
+          this.confirmPassword = ''
+          this.email = ''
+          this.line_id = ''
+          this.$notify({ type: 'success', text: '註冊成功!' })
         } else {
           document.cookie = `accessToken=${data.result.access}`
           document.cookie = `refreshToken=${data.result.refresh}`
-          this.$router.push("/")
+          this.$router.push('/')
         }
       } catch (e) {
         Swal.fire({
-          title: this.isRegister ? "註冊失敗!" : "登入失敗!",
-          icon: "error",
-          confirmButtonText: "確認",
+          title: this.isRegister ? '註冊失敗!' : '登入失敗!',
+          icon: 'error',
+          confirmButtonText: '確認',
         })
       } finally {
         loader.hide()

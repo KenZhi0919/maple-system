@@ -23,11 +23,11 @@
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
+<script>
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "InputRadio",
+  name: 'InputRadio',
   props: {
     id: String,
     name: String,
@@ -48,7 +48,7 @@ export default defineComponent({
   },
   methods: {
     clickHandler() {
-      ;(this.$refs.input).click()
+      this.$refs.input.click()
     },
   },
 })

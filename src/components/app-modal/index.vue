@@ -59,22 +59,22 @@
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
-import { Modal } from "bootstrap"
-import { Form as ValidateForm } from "vee-validate"
+<script>
+import { defineComponent } from 'vue'
+import { Modal } from 'bootstrap'
+import { Form as ValidateForm } from 'vee-validate'
 
 export default defineComponent({
-  name: "AppModal",
+  name: 'AppModal',
   components: {
     ValidateForm,
   },
   mounted() {
-    const myModalEl = document.querySelector("#appModal")
+    const myModalEl = document.querySelector('#appModal')
     if (myModalEl) {
       this.modal = Modal.getOrCreateInstance(myModalEl) // Returns a Bootstrap modal instance
-      myModalEl.addEventListener("hidden.bs.modal", () => {
-        this.$emit("hidden-handler")
+      myModalEl.addEventListener('hidden.bs.modal', () => {
+        this.$emit('hidden-handler')
       })
     }
   },
@@ -84,7 +84,7 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: "lg",
+      default: 'lg',
     },
     onlyCloseBtn: {
       type: Boolean,

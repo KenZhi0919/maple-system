@@ -1,13 +1,13 @@
 <template>
   <app-nav />
   <div class="content">
-    <slot />
+    <slot></slot>
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
-import { AppNav } from "@/components"
+<script>
+import { defineComponent } from 'vue'
+import { AppNav } from '@/components'
 export default defineComponent({
   components: {
     AppNav,

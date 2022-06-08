@@ -40,9 +40,9 @@
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
-import { productMixin } from "@/mixins"
+<script>
+import { defineComponent } from 'vue'
+import { productMixin } from '@/mixins'
 
 export default defineComponent({
   mixins: [productMixin],

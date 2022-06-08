@@ -15,12 +15,12 @@
   />
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
-import Multiselect from "@vueform/multiselect"
+<script>
+import { defineComponent } from 'vue'
+import Multiselect from '@vueform/multiselect'
 
 export default defineComponent({
-  name: "InputText",
+  name: 'InputText',
   components: {
     Multiselect,
   },

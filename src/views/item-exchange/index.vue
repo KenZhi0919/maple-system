@@ -1,8 +1,8 @@
 <template>
   <div class="container-lg">
-    <search-pannel
+    <search-panel
       v-if="functional === 'buy'"
-      ref="searchPannel"
+      ref="searchPanel"
       :search-condition="searchCondition"
       @search="search"
     />
@@ -43,22 +43,22 @@
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent, reactive, toRefs } from "vue"
-import { InputRadio } from "@/components"
-import { SearchPannel, ItemExchangeBuy, ItemExchangeSell } from "./components"
+<script>
+import { defineComponent, reactive, toRefs } from 'vue'
+import { InputRadio } from '@/components'
+import { SearchPanel, ItemExchangeBuy, ItemExchangeSell } from './components'
 
 export default defineComponent({
-  name: "ItemExchange",
+  name: 'ItemExchange',
   components: {
     InputRadio,
-    SearchPannel,
+    SearchPanel,
     ItemExchangeBuy,
     ItemExchangeSell,
   },
   setup() {
     const state = reactive({
-      functional: "buy",
+      functional: 'buy',
     })
     return { ...toRefs(state) }
   },
@@ -68,8 +68,8 @@ export default defineComponent({
   data() {
     return {
       searchCondition: {
-        category: "武器",
-        type: "長槍",
+        category: '武器',
+        type: '長槍',
         stage_level: undefined,
         star: undefined,
         is_maple: undefined,
@@ -78,15 +78,13 @@ export default defineComponent({
         min_price: undefined,
         max_price: undefined,
         ordering: undefined,
-      } ,
+      },
     }
   },
 
   methods: {
     search(searchCondition) {
-      ;(this.$refs["itemExchangeBuy"]).search(
-        searchCondition
-      )
+      this.$refs['itemExchangeBuy'].search(searchCondition)
     },
   },
 })

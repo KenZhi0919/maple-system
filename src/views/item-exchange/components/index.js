@@ -1,4 +1,4 @@
-export { default as SearchPannel } from './search-pannel.vue'
+export { default as SearchPanel } from './search-panel.vue'
 export { default as ItemCard } from './item-card.vue'
 export { default as ItemSellModal } from './item-sell-modal.vue'
 export { default as ItemDetailModal } from './item-detail-modal.vue'

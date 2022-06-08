@@ -169,11 +169,11 @@
   </app-modal>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
-import { AppModal } from "@/components"
-import StartList from "./star-list.vue"
-import { productMixin } from "@/mixins"
+<script>
+import { defineComponent } from 'vue'
+import { AppModal } from '@/components'
+import StartList from './star-list.vue'
+import { productMixin } from '@/mixins'
 export default defineComponent({
   mixins: [productMixin],
   components: {
@@ -182,15 +182,15 @@ export default defineComponent({
   },
   data() {
     return {
-      product: {} ,
-      productDetail: {} ,
+      product: {},
+      productDetail: {},
     }
   },
   methods: {
     show(productDetail) {
       this.productDetail = productDetail
       this.product = productDetail.product_list_data
-      ;(this.$refs["appModal"]).show()
+      this.$refs['appModal'].show()
     },
     reset() {
       this.product = {}
@@ -208,73 +208,73 @@ export default defineComponent({
     soulText() {
       if (this.productDetail.is_equippable_soul) {
         if (this.productDetail.soul_capability) {
-          return "已裝備靈魂"
+          return '已裝備靈魂'
         }
-        return "可裝備靈魂"
+        return '可裝備靈魂'
       } else {
-        return "可使用靈魂附魔"
+        return '可使用靈魂附魔'
       }
     },
     potentialLevelColor() {
       switch (this.productDetail.potential_level) {
-        case "稀有":
-          return "blue-text"
-        case "史詩":
-          return "purple-text"
-        case "罕見":
-          return "orange-text"
-        case "傳說":
-          return "green-text"
-        case "神話":
-          return "red-text"
+        case '稀有':
+          return 'blue-text'
+        case '史詩':
+          return 'purple-text'
+        case '罕見':
+          return 'orange-text'
+        case '傳說':
+          return 'green-text'
+        case '神話':
+          return 'red-text'
         default:
-          return ""
+          return ''
       }
     },
-    sparkLevelColor(){
+    sparkLevelColor() {
       switch (this.productDetail.spark_level) {
-        case "稀有":
-          return "blue-text"
-        case "罕見":
-          return "orange-text"
-        case "傳說":
-          return "green-text"
-        case "神話":
-          return "red-text"
+        case '稀有':
+          return 'blue-text'
+        case '罕見':
+          return 'orange-text'
+        case '傳說':
+          return 'green-text'
+        case '神話':
+          return 'red-text'
         default:
-          return ""
+          return ''
       }
     },
     mapleText() {
       switch (this.productDetail.maple_capability) {
-        case "殘忍的紋章":
-          return "致命攻擊傷害"
-        case "征服紋章":
-          return "對BOSS攻擊力增加"
-        case "機靈紋章":
-          return "對BOSS防禦力增加"
-        case "強力紋章":
-          return "物理攻擊力增加"
-        case "神聖紋章":
-          return "魔法攻擊力增加"
+        case '殘忍的紋章':
+          return '致命攻擊傷害'
+        case '征服紋章':
+          return '對BOSS攻擊力增加'
+        case '機靈紋章':
+          return '對BOSS防禦力增加'
+        case '強力紋章':
+          return '物理攻擊力增加'
+        case '神聖紋章':
+          return '魔法攻擊力增加'
         default:
-          return ""
+          return ''
       }
     },
     mapleImagePath() {
       switch (this.productDetail.maple_capability) {
-        case "殘忍的紋章":
-          return require("@/assets/images/deadly.jpg")
-        case "征服紋章":
-          return require("@/assets/images/boss-attack.jpg")
-        case "機靈紋章":
-          return require("@/assets/images/defend.jpg")
-        case "強力紋章":
-          return require("@/assets/images/attack.jpg")
-        case "神聖紋章":
-          return require("@/assets/images/magic.jpg")
+        case '殘忍的紋章':
+          return require('@/assets/images/deadly.jpg')
+        case '征服紋章':
+          return require('@/assets/images/boss-attack.jpg')
+        case '機靈紋章':
+          return require('@/assets/images/defend.jpg')
+        case '強力紋章':
+          return require('@/assets/images/attack.jpg')
+        case '神聖紋章':
+          return require('@/assets/images/magic.jpg')
         default:
-          return ""
+          return ''
       }
     },
   },

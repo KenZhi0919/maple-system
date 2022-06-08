@@ -1,11 +1,11 @@
 <template>
   <div class="login-page">
-    <slot />
+    <slot></slot>
   </div>
 </template>
 
-<script lang="js">
-import { defineComponent } from "vue"
+<script>
+import { defineComponent } from 'vue'
 
 export default defineComponent({})
 </script>
