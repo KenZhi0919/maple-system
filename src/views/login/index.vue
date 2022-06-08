@@ -1,212 +1,148 @@
 <template>
-  <div
-    class="container-lg h-100 d-flex justify-content-center align-items-center"
-  >
-    <validate-form :validation-schema="schema">
-      <TextInput v-model="textVar" name="name" type="text" />
-    </validate-form>
-
-    <validate-form v-slot="{ meta }">
-      <div class="login-box d-flex justify-content-center align-items-center">
-        <div class="w-60">
-          <div class="d-flex flex-column align-items-center">
-            <h1 class="mb-5">{{ isRegister ? '註冊' : '登入' }}</h1>
-
-            <div v-if="!isRegister" class="w-100">
-              <field
-                name="帳號"
-                rules="required"
-                as="div"
+  <div class="container-lg login-container">
+    <div class="login-box d-flex justify-content-center align-items-center">
+      <div class="w-60">
+        <div class="d-flex flex-column align-items-center">
+          <h1 class="mb-5">{{ isRegister ? '註冊' : '登入' }}</h1>
+          <!-- 登入 start -->
+          <div v-if="!isRegister" class="w-100">
+            <validate-form :validation-schema="loginSchema" v-slot="{ meta }">
+              <input-text
+                v-model="account"
+                name="account"
+                placeholder="帳號"
                 class="mb-4"
-                v-slot="{ field, meta: { valid, touched }, errorMessage }"
-              >
-                <input-text
-                  v-bind="field"
-                  v-model="account"
-                  placeholder="帳號"
-                  class="login-input"
-                  :class="!valid && touched ? 'has-error' : ''"
-                />
-                <div class="errorMessage w-100 my-2">
-                  {{ errorMessage }}
-                </div>
-              </field>
+              />
 
-              <field
+              <input-text
+                v-model="password"
                 name="password"
-                rules="required"
-                as="div"
+                type="password"
+                placeholder="密碼"
                 class="mb-4"
-                v-slot="{ field, meta: { valid, touched }, errorMessage }"
-              >
-                <input-text
-                  v-bind="field"
-                  v-model="password"
-                  type="password"
-                  class="login-input"
-                  :class="!valid && touched ? 'has-error' : ''"
-                  placeholder="密碼"
-                />
-                <div class="errorMessage w-100 my-2">
-                  {{ errorMessage }}
-                </div>
-              </field>
-            </div>
+              />
 
-            <div v-else class="w-100">
-              <field
-                name="regisAccount"
-                rules="required"
-                as="div"
-                class="mb-4"
-                v-slot="{ field, meta: { valid, touched }, errorMessage }"
-              >
-                <input-text
-                  v-bind="field"
-                  v-model="regisAccount"
-                  placeholder="帳號"
-                  class="login-input"
-                  :class="!valid && touched ? 'has-error' : ''"
-                />
-                <div class="errorMessage w-100 my-2">
-                  {{ errorMessage }}
-                </div>
-              </field>
+              <div class="d-flex justify-content-center">
+                <button
+                  class="btn btn-primary"
+                  @click.prevent="loginHandler"
+                  style="border-radius: 20px"
+                  :disabled="!meta.valid"
+                >
+                  登入
+                </button>
+              </div>
+            </validate-form>
+          </div>
+          <!-- 登入 end -->
 
-              <field
-                name="regispassword"
-                rules="required"
-                as="div"
-                class="mb-4"
-                v-slot="{ field, meta: { valid, touched }, errorMessage }"
-              >
-                <input-text
-                  v-bind="field"
-                  v-model="regisPassword"
-                  type="password"
-                  class="login-input"
-                  :class="!valid && touched ? 'has-error' : ''"
-                  placeholder="密碼"
-                />
-                <div class="errorMessage w-100 my-2">
-                  {{ errorMessage }}
-                </div>
-              </field>
-
-              <field
-                name="confirmPassword"
-                :rules="`required|confirmed:${regisPassword}`"
-                as="div"
-                class="mb-4"
-                v-slot="{ field, meta: { valid, touched }, errorMessage }"
-              >
-                <input-text
-                  v-bind="field"
-                  v-model="confirmPassword"
-                  type="password"
-                  class="login-input"
-                  :class="!valid && touched ? 'has-error' : ''"
-                  placeholder="密碼確認"
-                />
-                <div class="errorMessage w-100 my-2">
-                  {{ errorMessage }}
-                </div>
-              </field>
-
-              <field
-                name="email"
-                rules="required|email"
-                as="div"
-                class="mb-4"
-                v-slot="{ field, meta: { valid, touched } }"
-              >
-                <input-text
-                  v-model="email"
-                  v-bind="field"
-                  placeholder="信箱"
-                  class="login-input"
-                  :class="!valid && touched ? 'has-error' : ''"
-                />
-                <div class="errorMessage w-100 my-2">
-                  <span v-if="!valid && touched">請輸入有效信箱</span>
-                </div>
-              </field>
-
-              <field
-                name="Line ID"
-                rules="required"
-                as="div"
-                class="mb-4"
-                v-slot="{ field, meta: { valid, touched }, errorMessage }"
-              >
-                <input-text
-                  v-bind="field"
-                  v-model="line_id"
-                  placeholder="Line ID"
-                  class="login-input"
-                  :class="!valid && touched ? 'has-error' : ''"
-                />
-                <div class="errorMessage w-100 my-2">
-                  {{ errorMessage }}
-                </div>
-              </field>
-            </div>
-
-            <button
-              class="btn btn-primary mb-2"
-              @click.prevent="loginHandler"
-              style="border-radius: 20px"
-              :disabled="!meta.valid"
+          <!-- 註冊 start -->
+          <div v-else class="w-100">
+            <validate-form
+              :validation-schema="registerSchema"
+              v-slot="{ meta }"
             >
-              {{ isRegister ? '註冊' : '登入' }}
-            </button>
+              <input-text
+                v-model="regisAccount"
+                name="account"
+                placeholder="帳號"
+                class="mb-4"
+              />
 
-            <div class="d-flex justify-content-end w-100">
-              <span class="register-text" @click="setIsRegister">
-                {{ isRegister ? '返回登入' : '進行註冊' }}
-              </span>
-            </div>
-            <google-login :callback="callback" prompt />
+              <input-text
+                v-model="regisPassword"
+                name="password"
+                type="password"
+                placeholder="密碼"
+                class="mb-4"
+              />
+
+              <input-text
+                v-model="confirmPassword"
+                name="confirm_password"
+                type="password"
+                placeholder="密碼確認"
+                class="mb-4"
+              />
+
+              <input-text
+                v-model="email"
+                name="email"
+                placeholder="信箱"
+                class="mb-4"
+              />
+
+              <input-text
+                v-model="line_id"
+                name="line"
+                placeholder="Line ID"
+                class="mb-4"
+              />
+
+              <div class="d-flex justify-content-center">
+                <button
+                  class="btn btn-primary"
+                  @click.prevent="loginHandler"
+                  style="border-radius: 20px"
+                  :disabled="!meta.valid"
+                >
+                  註冊
+                </button>
+              </div>
+            </validate-form>
+          </div>
+
+          <div v-if="!isRegister" class="my-4 d-flex align-items-center">
+            <div class="line" />
+            <span class="mx-3"> OR </span>
+            <div class="line" />
+          </div>
+
+          <google-login v-if="!isRegister" :callback="callback" />
+
+          <div class="d-flex justify-content-center w-100 regis-btn">
+            <span class="register-text" @click="setIsRegister">
+              {{ isRegister ? '返回登入' : '點我註冊' }}
+            </span>
           </div>
         </div>
       </div>
-    </validate-form>
+    </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import { InputText, TextInput } from '@/components'
+import { InputText } from '@/components'
 import { apiLogin, apiLoginThirdParty } from '../../services/api'
-import { Form as ValidateForm, Field, defineRule } from 'vee-validate'
-import { email } from '@vee-validate/rules'
-import Swal from 'sweetalert2'
+import { Form as ValidateForm } from 'vee-validate'
 import { decodeCredential } from 'vue3-google-login'
 import * as Yup from 'yup'
 
-defineRule('confirmed', (value, [target]) => {
-  if (value === target) {
-    return true
-  }
-  return '請輸入相同的密碼'
-})
-
-defineRule('email', email)
-
 export default defineComponent({
   name: 'Login',
-  components: { InputText, ValidateForm, Field, TextInput },
+  components: { InputText, ValidateForm },
   setup() {
-    // Using yup to generate a validation schema
-    // https://vee-validate.logaretm.com/v4/guide/validation#validation-schemas-with-yup
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
+    const loginSchema = Yup.object().shape({
+      account: Yup.string().min(6, '最少6個字元').required('必填'),
+      password: Yup.string().min(8, '最少8個字元').required('必填'),
+    })
+    const registerSchema = Yup.object().shape({
+      account: Yup.string()
+        .min(6, '最少6個字元')
+        .max(30, '最多30個字元')
+        .required('必填'),
+      password: Yup.string().min(8, '最少8個字元').required('必填'),
+      email: Yup.string().email('請輸入正確格式').required('必填'),
+      confirm_password: Yup.string()
+        .required('必填')
+        .oneOf([Yup.ref('password')], '密碼不一致'),
+      line: Yup.string(),
     })
 
-    const textVar = 'test'
     return {
-      schema,
-      textVar,
+      loginSchema,
+      registerSchema,
     }
   },
   data() {
@@ -229,7 +165,6 @@ export default defineComponent({
       } = await apiLoginThirdParty({
         token: res.credential,
         type: 'google',
-        line_id: 'test',
       })
       this.$store.dispatch('setUser', {
         name: userData.name,
@@ -264,11 +199,7 @@ export default defineComponent({
           this.$router.push('/')
         }
       } catch (e) {
-        Swal.fire({
-          title: this.isRegister ? '註冊失敗!' : '登入失敗!',
-          icon: 'error',
-          confirmButtonText: '確認',
-        })
+        console.log(e)
       } finally {
         loader.hide()
       }
@@ -286,6 +217,14 @@ export default defineComponent({
   border-radius: 30px;
   height: 800px;
   width: 700px;
+  position: relative;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh);
 }
 
 .register-text {
@@ -296,8 +235,54 @@ export default defineComponent({
   }
 }
 
-.login-input {
-  border-radius: 20px;
-  height: 45px;
+.line {
+  height: 1px;
+  width: 180px;
+  background-color: #6c757d;
+}
+
+#customBtn {
+  display: inline-block;
+  background: white;
+  color: #444;
+  width: 230px;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+}
+
+#customBtn:hover {
+  cursor: pointer;
+}
+
+span.label {
+  font-family: serif;
+  font-weight: normal;
+}
+
+span.icon {
+  background: url('https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png')
+    transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
+}
+
+span.buttonText {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 42px;
+  padding-right: 42px;
+  font-size: 14px;
+  font-weight: bold;
+  /* Use the Roboto font that is loaded in the <head> */
+  font-family: 'Roboto', sans-serif;
+}
+
+.regis-btn {
+  position: absolute;
+  bottom: 60px;
 }
 </style>
