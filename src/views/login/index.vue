@@ -2,6 +2,10 @@
   <div
     class="container-lg h-100 d-flex justify-content-center align-items-center"
   >
+    <validate-form :validation-schema="schema">
+      <TextInput v-model="textVar" name="name" type="text" />
+    </validate-form>
+
     <validate-form v-slot="{ meta }">
       <div class="login-box d-flex justify-content-center align-items-center">
         <div class="w-60">
@@ -172,12 +176,13 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { InputText } from '@/components'
+import { InputText, TextInput } from '@/components'
 import { apiLogin, apiLoginThirdParty } from '../../services/api'
 import { Form as ValidateForm, Field, defineRule } from 'vee-validate'
 import { email } from '@vee-validate/rules'
 import Swal from 'sweetalert2'
 import { decodeCredential } from 'vue3-google-login'
+import * as Yup from 'yup'
 
 defineRule('confirmed', (value, [target]) => {
   if (value === target) {
@@ -190,7 +195,20 @@ defineRule('email', email)
 
 export default defineComponent({
   name: 'Login',
-  components: { InputText, ValidateForm, Field },
+  components: { InputText, ValidateForm, Field, TextInput },
+  setup() {
+    // Using yup to generate a validation schema
+    // https://vee-validate.logaretm.com/v4/guide/validation#validation-schemas-with-yup
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+    })
+
+    const textVar = 'test'
+    return {
+      schema,
+      textVar,
+    }
+  },
   data() {
     return {
       isRegister: false,
