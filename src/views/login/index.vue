@@ -7,14 +7,14 @@
           <!-- 登入 start -->
           <div v-if="!isRegister" class="w-100">
             <validate-form :validation-schema="loginSchema" v-slot="{ meta }">
-              <input-text
+              <input-valid-text
                 v-model="account"
                 name="account"
                 placeholder="帳號"
                 class="mb-4"
               />
 
-              <input-text
+              <input-valid-text
                 v-model="password"
                 name="password"
                 type="password"
@@ -42,14 +42,14 @@
               :validation-schema="registerSchema"
               v-slot="{ meta }"
             >
-              <input-text
+              <input-valid-text
                 v-model="regisAccount"
                 name="account"
                 placeholder="帳號"
                 class="mb-4"
               />
 
-              <input-text
+              <input-valid-text
                 v-model="regisPassword"
                 name="password"
                 type="password"
@@ -57,7 +57,7 @@
                 class="mb-4"
               />
 
-              <input-text
+              <input-valid-text
                 v-model="confirmPassword"
                 name="confirm_password"
                 type="password"
@@ -65,14 +65,14 @@
                 class="mb-4"
               />
 
-              <input-text
+              <input-valid-text
                 v-model="email"
                 name="email"
                 placeholder="信箱"
                 class="mb-4"
               />
 
-              <input-text
+              <input-valid-text
                 v-model="line_id"
                 name="line"
                 placeholder="Line ID"
@@ -113,7 +113,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { InputText } from '@/components'
+import { InputValidText } from '@/components'
 import { apiLogin, apiLoginThirdParty } from '../../services/api'
 import { Form as ValidateForm } from 'vee-validate'
 import { decodeCredential } from 'vue3-google-login'
@@ -121,10 +121,10 @@ import * as Yup from 'yup'
 
 export default defineComponent({
   name: 'Login',
-  components: { InputText, ValidateForm },
+  components: { InputValidText, ValidateForm },
   setup() {
     const loginSchema = Yup.object().shape({
-      account: Yup.string().min(6, '最少6個字元').required('必填'),
+      account: Yup.string().min(6, '最少6個字元'),
       password: Yup.string().min(8, '最少8個字元').required('必填'),
     })
     const registerSchema = Yup.object().shape({
@@ -159,20 +159,27 @@ export default defineComponent({
   },
   methods: {
     async callback(res) {
-      const userData = await decodeCredential(res.credential)
-      const {
-        data: { result },
-      } = await apiLoginThirdParty({
-        token: res.credential,
-        type: 'google',
-      })
-      this.$store.dispatch('setUser', {
-        name: userData.name,
-        email: userData.email,
-      })
-      document.cookie = `accessToken=${result.access}`
-      document.cookie = `refreshToken=${result.refresh}`
-      this.$router.push('/')
+      let loader = this.$loading.show()
+      try {
+        const userData = await decodeCredential(res.credential)
+        const {
+          data: { result },
+        } = await apiLoginThirdParty({
+          token: res.credential,
+          type: 'google',
+        })
+        this.$store.dispatch('setUser', {
+          name: userData.name,
+          email: userData.email,
+        })
+        document.cookie = `accessToken=${result.access}`
+        document.cookie = `refreshToken=${result.refresh}`
+        this.$router.push('/')
+      } catch (e) {
+        console.log(e)
+      } finally {
+        loader.hide()
+      }
     },
     async loginHandler() {
       let loader = this.$loading.show()

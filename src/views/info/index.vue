@@ -1,47 +1,97 @@
 <template>
-  <div v-if="user.email" class="container-lg info-container">
+  <div v-if="user.email !== null" class="container-lg info-container">
     <validate-form v-slot="{ meta }" :validation-schema="schema">
       <div class="info-box d-flex justify-content-center align-items-center">
-        <div style="width: 420px">
+        <div style="width: 600px">
           <div class="d-flex flex-column align-items-center">
             <h1 class="mb-5">個人資料</h1>
             <div class="w-100 d-flex align-items-center flex-column">
-              <input-text
-                v-model="user.email"
-                name="email"
-                placeholder="信箱"
-                class="w-100 mb-4"
-              />
+              <!-- 信箱 -->
+              <div class="w-100 d-flex">
+                <div class="label-box">信箱</div>
+                <div class="form-box w-100">
+                  <input-valid-text
+                    v-model="user.email"
+                    name="email"
+                    placeholder="信箱"
+                    class="w-100 mb-4"
+                    :disabled="user.provider !== '無'"
+                  />
+                </div>
+              </div>
+              <!-- 信箱 -->
 
-              <input-text
-                v-model="user.new_password"
-                name="password"
-                type="password"
-                placeholder="新密碼"
-                class="w-100 mb-4"
-              />
+              <!-- line_id -->
+              <div class="w-100 d-flex">
+                <div class="label-box">Line ID</div>
+                <div class="form-box w-100">
+                  <input-valid-text
+                    v-model="user.line_id"
+                    name="line"
+                    placeholder="Line ID"
+                    class="w-100 mb-4"
+                  />
+                </div>
+              </div>
+              <!-- line_id -->
 
-              <input-text
-                v-model="user.confirmPassword"
-                name="confirm_password"
-                type="password"
-                placeholder="密碼確認"
-                class="w-100 mb-4"
-              />
+              <!-- server -->
+              <div
+                class="w-100 d-flex"
+                :class="user.provider === '無' ? 'mb-4' : 'mb-5'"
+              >
+                <div class="label-box">伺服器</div>
+                <div class="form-box w-100">
+                  <input-select v-model="user.server_name" :options="server" />
+                </div>
+              </div>
+              <!-- server -->
 
-              <input-text
-                v-model="user.line_id"
-                name="line"
-                placeholder="Line ID"
-                class="w-100 mb-4"
-              />
+              <template v-if="this.user.provider === '無'">
+                <!-- 新密碼 -->
+                <div class="w-100 d-flex">
+                  <div class="label-box">新密碼</div>
+                  <div class="form-box w-100 mb-4">
+                    <input-text
+                      v-model="new_password"
+                      :class="passwordIsError ? 'has-error' : ''"
+                      type="password"
+                      placeholder="新密碼"
+                      class="w-100"
+                    />
+                    <p v-if="passwordIsError" class="help-message">
+                      最少6個字元
+                    </p>
+                  </div>
+                </div>
+                <!-- 新密碼 -->
+
+                <!-- 密碼確認 -->
+                <div class="w-100 d-flex">
+                  <div class="label-box">密碼確認</div>
+                  <div class="form-box w-100 mb-5">
+                    <input-text
+                      v-model="confirmPassword"
+                      name="password"
+                      type="password"
+                      :class="cPasswordIsError ? 'has-error' : ''"
+                      placeholder="密碼確認"
+                      class="w-100"
+                    />
+                    <p v-if="cPasswordIsError" class="help-message">
+                      密碼不一致
+                    </p>
+                  </div>
+                </div>
+                <!-- 密碼確認 -->
+              </template>
             </div>
 
             <div class="d-flex justify-content-center">
               <button
                 class="btn btn-primary"
                 style="border-radius: 20px"
-                :disabled="!meta.valid"
+                :disabled="!meta.valid || cPasswordIsError || passwordIsError"
                 @click.prevent="updateHandler"
               >
                 更新
@@ -56,19 +106,17 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { InputText } from '@/components'
+import { InputValidText, InputText, InputSelect } from '@/components'
 import { apiGetUserInfo, apiPatchUserInfo } from '../../services/api'
 import { Form as ValidateForm } from 'vee-validate'
 import * as Yup from 'yup'
 
 export default defineComponent({
   name: 'Info',
-  components: { InputText, ValidateForm },
+  components: { InputValidText, ValidateForm, InputText, InputSelect },
   setup() {
     const schema = Yup.object().shape({
       email: Yup.string().email('請輸入正確格式').required('必填'),
-      password: Yup.string().min(8, '最少8個字元'),
-      confirm_password: Yup.string().oneOf([Yup.ref('password')], '密碼不一致'),
       line: Yup.string(),
     })
 
@@ -79,21 +127,31 @@ export default defineComponent({
   data() {
     return {
       user: {
-        username: '',
-        email: '',
+        id: null,
+        email: null,
         provider: '',
         line_id: '',
         server_name: '',
-        confirmPassword: '',
-        new_password: '',
       },
+      confirmPassword: '',
+      new_password: '',
+      server: ['傑尼斯', '斯卡尼亞', '露娜', '溫迪亞', '凱伊尼'],
     }
   },
   mounted() {
     this.getUserData()
   },
+  computed: {
+    passwordIsError() {
+      return this.new_password !== '' && this.new_password.length < 6
+    },
+    cPasswordIsError() {
+      return this.confirmPassword !== this.new_password
+    },
+  },
   methods: {
     async getUserData() {
+      let loader = this.$loading.show()
       try {
         const {
           data: { result },
@@ -101,15 +159,36 @@ export default defineComponent({
         this.user = result
       } catch (e) {
         console.log(e)
+      } finally {
+        loader.hide()
       }
     },
     async updateHandler() {
-      console.log(123)
+      let loader = this.$loading.show()
       try {
-        await apiPatchUserInfo({ line_id: this.user.line_id })
+        await apiPatchUserInfo(this.user.id, {
+          email: this.user.email,
+          line_id: this.user.line_id,
+          password: this.new_password === '' ? undefined : this.new_password,
+          server_name: this.user.server_name,
+        })
+        this.new_password = ''
+        this.confirmPassword = ''
         await this.getUserData()
       } catch (e) {
         console.log(e)
+      } finally {
+        loader.hide()
+      }
+    },
+    passwordHandler() {
+      if (
+        this.new_password !== '' &&
+        this.new_password !== this.confirmPassword
+      ) {
+        this.cPasswordIsError = true
+      } else {
+        this.cPasswordIsError = false
       }
     },
   },
@@ -121,7 +200,7 @@ export default defineComponent({
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 30px;
   height: 800px;
-  width: 700px;
+  width: 900px;
   position: relative;
 }
 
@@ -130,5 +209,10 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 130px);
+}
+
+.label-box {
+  width: 110px;
+  margin-top: 6px;
 }
 </style>

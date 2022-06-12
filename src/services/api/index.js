@@ -24,6 +24,6 @@ export const apiGetUserInfo = () => {
   return instance.get('accounts/user')
 }
 
-export const apiPatchUserInfo = data => {
-  return instance.patch('accounts/user', data)
+export const apiPatchUserInfo = (id, data) => {
+  return instance.patch(`accounts/user/${id}`, data)
 }
