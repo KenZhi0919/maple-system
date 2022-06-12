@@ -13,7 +13,6 @@
                   <input-valid-text
                     v-model="user.email"
                     name="email"
-                    placeholder="信箱"
                     class="w-100 mb-4"
                     :disabled="user.provider !== '無'"
                   />
@@ -28,7 +27,6 @@
                   <input-valid-text
                     v-model="user.line_id"
                     name="line"
-                    placeholder="Line ID"
                     class="w-100 mb-4"
                   />
                 </div>
@@ -56,11 +54,10 @@
                       v-model="new_password"
                       :class="passwordIsError ? 'has-error' : ''"
                       type="password"
-                      placeholder="新密碼"
                       class="w-100"
                     />
                     <p v-if="passwordIsError" class="help-message">
-                      最少6個字元
+                      最少8個字元
                     </p>
                   </div>
                 </div>
@@ -75,7 +72,6 @@
                       name="password"
                       type="password"
                       :class="cPasswordIsError ? 'has-error' : ''"
-                      placeholder="密碼確認"
                       class="w-100"
                     />
                     <p v-if="cPasswordIsError" class="help-message">
@@ -139,11 +135,18 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getUserData()
+    let loader = this.$loading.show()
+    try {
+      this.getUserData()
+    } catch (e) {
+      console.log(e)
+    } finally {
+      loader.hide()
+    }
   },
   computed: {
     passwordIsError() {
-      return this.new_password !== '' && this.new_password.length < 6
+      return this.new_password !== '' && this.new_password.length < 8
     },
     cPasswordIsError() {
       return this.confirmPassword !== this.new_password
@@ -151,17 +154,10 @@ export default defineComponent({
   },
   methods: {
     async getUserData() {
-      let loader = this.$loading.show()
-      try {
-        const {
-          data: { result },
-        } = await apiGetUserInfo()
-        this.user = result
-      } catch (e) {
-        console.log(e)
-      } finally {
-        loader.hide()
-      }
+      const {
+        data: { result },
+      } = await apiGetUserInfo()
+      this.user = result
     },
     async updateHandler() {
       let loader = this.$loading.show()
@@ -169,12 +165,16 @@ export default defineComponent({
         await apiPatchUserInfo(this.user.id, {
           email: this.user.email,
           line_id: this.user.line_id,
-          password: this.new_password === '' ? undefined : this.new_password,
-          server_name: this.user.server_name,
+          new_password:
+            this.new_password === '' ? undefined : this.new_password,
+          new_password2:
+            this.confirmPassword === '' ? undefined : this.confirmPassword,
+          server_name: this.user.server_name ? this.user.server_name : '無',
         })
         this.new_password = ''
         this.confirmPassword = ''
         await this.getUserData()
+        this.$notify({ type: 'success', text: '更新成功!' })
       } catch (e) {
         console.log(e)
       } finally {

@@ -31,7 +31,10 @@ export default defineComponent({
     labelClass: String,
     labelStyle: Object || String,
     type: String,
-    placeholder: String,
+    placeholder: {
+      type: String,
+      default: '請輸入',
+    },
     disabled: Boolean,
     name: {
       type: String,
