@@ -19,3 +19,11 @@ export const apiLogin = data => {
 export const apiLoginThirdParty = data => {
   return instance.post('accounts/three-party-login', data)
 }
+
+export const apiGetUserInfo = () => {
+  return instance.get('accounts/user')
+}
+
+export const apiPatchUserInfo = (id, data) => {
+  return instance.patch(`accounts/user/${id}`, data)
+}

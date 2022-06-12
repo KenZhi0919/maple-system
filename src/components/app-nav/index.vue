@@ -27,13 +27,13 @@
         </div>
       </div>
     </div>
-    <div class="">
-      <button
-        class="btn btn-outline-secondary nav-btn mx-1"
-        @click="logoutHandler"
-      >
-        登出
-      </button>
+    <div class="d-flex">
+      <div class="icon-box" @click="infoHandler">
+        <i class="bi bi-person-fill icon" />
+      </div>
+      <div class="icon-box" @click="logoutHandler">
+        <i class="bi bi-box-arrow-right icon" />
+      </div>
     </div>
   </nav>
 </template>
@@ -50,6 +50,9 @@ export default defineComponent({
       document.cookie = `refreshToken=;expires=Wed, 31 Oct 2012 08:50:17 UTC`
       this.$router.push('/login')
     },
+    infoHandler() {
+      this.$router.push('/info')
+    },
   },
 })
 </script>
@@ -59,15 +62,39 @@ export default defineComponent({
   width: 35px;
   height: 35px;
 }
+
 .nav-btn {
   border: 0px;
   &:focus {
     box-shadow: 0 0 0 0rem;
   }
 }
+
 .navbar {
   height: 60px;
   background-color: rgba(255, 255, 255, 0.637);
   width: 100%;
+}
+
+.icon {
+  font-size: 20px;
+  margin: auto;
+}
+
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  color: #6c757d;
+  margin-right: 20px;
+  transition: background-color 0.15s, color 0.15s;
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background-color: #6c757d;
+  }
 }
 </style>

@@ -18,7 +18,7 @@
   }
  }
   &:focus{
-    border-color: $primary-orange;
+    border-color: #ffb758;
   }
   .multiselect-dropdown{
     border-color: $primary-orange;
@@ -26,10 +26,9 @@
 }
 
 .form-control {
-  // max-width: 300px;
   box-shadow: none !important;
   &:focus{
-    border-color: $primary-orange;
+    border-color: #ffb758;
   }
 }
 
@@ -56,5 +55,14 @@ input[type=number] {
 }
 
 .has-error {
-  border-color: #ff554f;
+  border-color: #f23648;
+  font-size: 14px;
+  &:focus {
+    border-color: #f23648;
+  }
+}
+
+.help-message {
+  color: #f23648 !important;
+  font-size: 14px;
 }
