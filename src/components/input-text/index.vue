@@ -1,21 +1,31 @@
 <template>
-  <input
-    ref="input"
-    class="form-control"
-    placeholder="請輸入"
-    :type="type"
-    :class="inputClass"
-    :style="inputStyle"
-    :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
-  />
+  <div class="TextInput" :class="{ 'has-error': !!errorMessage }">
+    <input
+      ref="input"
+      class="form-control"
+      :class="[!!errorMessage ? 'has-error' : '', inputClass]"
+      :placeholder="placeholder"
+      :type="type"
+      :value="name ? inputValue : modelValue"
+      :style="inputStyle"
+      :disabled="disabled"
+      @input="handleInputChange"
+      @blur="handleInputBlur"
+    />
+    <div v-if="name">
+      <p class="help-message" v-show="errorMessage || meta.valid">
+        {{ errorMessage }}
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, toRef } from 'vue'
+import { useField } from 'vee-validate'
 
 export default defineComponent({
-  name: 'InputText',
+  name: 'InputValidText',
   props: {
     modelValue: String,
     inputClass: String,
@@ -23,19 +33,53 @@ export default defineComponent({
     labelClass: String,
     labelStyle: Object || String,
     type: String,
+    placeholder: {
+      type: String,
+      default: '請輸入',
+    },
+    disabled: Boolean,
+    name: {
+      type: String,
+    },
   },
-  setup() {
-    //
+  setup(props) {
+    if (props.name) {
+      const name = toRef(props, 'name')
+      const {
+        value: inputValue,
+        errorMessage,
+        handleBlur,
+        handleChange,
+        meta,
+      } = useField(name, undefined, {
+        initialValue: props.modelValue,
+      })
+
+      return {
+        handleChange,
+        handleBlur,
+        errorMessage,
+        inputValue,
+        meta,
+      }
+    }
   },
-  data() {
-    return {}
-  },
-  methods: {},
-  computed: {
-    //
+  methods: {
+    handleInputChange(e) {
+      if (this.name) {
+        this.handleChange(e)
+      }
+      this.$emit('update:modelValue', e.target.value)
+    },
+    handleInputBlur(e) {
+      if (this.name) {
+        this.handleBlur(e)
+      }
+    },
   },
 })
 </script>
+
 <style lang="scss" scoped>
 ::placeholder {
   color: #9ca3af;

@@ -7,14 +7,14 @@
           <!-- 登入 start -->
           <div v-if="!isRegister" class="w-100">
             <validate-form :validation-schema="loginSchema" v-slot="{ meta }">
-              <input-valid-text
+              <input-text
                 v-model="account"
                 name="account"
                 placeholder="帳號"
                 class="mb-4"
               />
 
-              <input-valid-text
+              <input-text
                 v-model="password"
                 name="password"
                 type="password"
@@ -42,14 +42,14 @@
               :validation-schema="registerSchema"
               v-slot="{ meta }"
             >
-              <input-valid-text
+              <input-text
                 v-model="regisAccount"
                 name="account"
                 placeholder="帳號"
                 class="mb-4"
               />
 
-              <input-valid-text
+              <input-text
                 v-model="regisPassword"
                 name="password"
                 type="password"
@@ -57,7 +57,7 @@
                 class="mb-4"
               />
 
-              <input-valid-text
+              <input-text
                 v-model="confirmPassword"
                 name="confirm_password"
                 type="password"
@@ -65,14 +65,14 @@
                 class="mb-4"
               />
 
-              <input-valid-text
+              <input-text
                 v-model="email"
                 name="email"
                 placeholder="信箱"
                 class="mb-4"
               />
 
-              <input-valid-text
+              <input-text
                 v-model="line_id"
                 name="line"
                 placeholder="Line ID"
@@ -113,7 +113,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { InputValidText } from '@/components'
+import { InputText } from '@/components'
 import { apiLogin, apiLoginThirdParty } from '../../services/api'
 import { Form as ValidateForm } from 'vee-validate'
 import { decodeCredential } from 'vue3-google-login'
@@ -121,7 +121,7 @@ import * as Yup from 'yup'
 
 export default defineComponent({
   name: 'Login',
-  components: { InputValidText, ValidateForm },
+  components: { InputText, ValidateForm },
   setup() {
     const loginSchema = Yup.object().shape({
       account: Yup.string().min(6, '最少6個字元'),

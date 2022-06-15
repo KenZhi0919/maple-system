@@ -10,7 +10,7 @@
               <div class="w-100 d-flex">
                 <div class="label-box">信箱</div>
                 <div class="form-box w-100">
-                  <input-valid-text
+                  <input-text
                     v-model="user.email"
                     name="email"
                     class="w-100 mb-4"
@@ -24,7 +24,7 @@
               <div class="w-100 d-flex">
                 <div class="label-box">Line ID</div>
                 <div class="form-box w-100">
-                  <input-valid-text
+                  <input-text
                     v-model="user.line_id"
                     name="line"
                     class="w-100 mb-4"
@@ -102,14 +102,14 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { InputValidText, InputText, InputSelect } from '@/components'
+import { InputText, InputSelect } from '@/components'
 import { apiGetUserInfo, apiPatchUserInfo } from '../../services/api'
 import { Form as ValidateForm } from 'vee-validate'
 import * as Yup from 'yup'
 
 export default defineComponent({
   name: 'Info',
-  components: { InputValidText, ValidateForm, InputText, InputSelect },
+  components: { ValidateForm, InputText, InputSelect },
   setup() {
     const schema = Yup.object().shape({
       email: Yup.string().email('請輸入正確格式').required('必填'),
