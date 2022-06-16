@@ -1,9 +1,9 @@
 <template>
-  <div class="TextInput" :class="{ 'has-error': !!errorMessage }">
+  <div class="TextInput" :class="{ 'has-error': name && !!errorMessage }">
     <input
       ref="input"
       class="form-control"
-      :class="[!!errorMessage ? 'has-error' : '', inputClass]"
+      :class="[name && !!errorMessage ? 'has-error' : '', inputClass]"
       :placeholder="placeholder"
       :type="type"
       :value="name ? inputValue : modelValue"
@@ -25,7 +25,7 @@ import { defineComponent, toRef } from 'vue'
 import { useField } from 'vee-validate'
 
 export default defineComponent({
-  name: 'InputValidText',
+  name: 'InputText',
   props: {
     modelValue: String,
     inputClass: String,
