@@ -1,28 +1,36 @@
 <template>
-  <app-modal
-    ref="appModal"
-    size="xl"
-    header-class="d-flex align-items-start"
-    @hiddenHandler="reset"
-    @submit="submitHandler"
+  <validate-form
+    :validation-schema="schema"
+    validateOnMount
+    v-slot="{ meta: { valid } }"
   >
-    <template v-slot:header>
-      <div class="modal-title">上架商品</div>
-    </template>
+    <app-modal
+      ref="appModal"
+      size="xl"
+      header-class="d-flex align-items-start"
+      :valid="valid"
+      @hiddenHandler="reset"
+      @submit="submitHandler"
+    >
+      <template v-slot:header>
+        <div class="modal-title">上架商品</div>
+      </template>
 
-    <template v-if="isLoaded" v-slot:body>
-      <validate-form :validation-schema="schema">
+      <template v-if="isLoaded" v-slot:body>
         <div class="row">
           <div class="col-6">
             <div class="px-2" style="overflow-y: scroll; max-height: 60vh">
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">類別</div>
                 <div class="col-9">
-                  <multiselect
+                  <input-select
                     v-model="category"
                     name="category"
+                    :value="category"
                     :options="categoryOptions"
-                    @change="clearSelectedItem('category')"
+                    label="name"
+                    trackBy="value"
+                    @input="clearSelectedItem('category')"
                   />
                 </div>
               </div>
@@ -30,8 +38,10 @@
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">種類</div>
                 <div class="col-9">
-                  <multiselect
+                  <input-select
                     v-model="type"
+                    ref="typeInput"
+                    name="type"
                     :place-holder="category ? undefined : '請先選擇類別'"
                     :options="currentTypeOptions"
                     @input="fetchProducts"
@@ -42,10 +52,11 @@
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">階級</div>
                 <div class="col-9">
-                  <multiselect
+                  <input-select
                     v-model="stageLevel"
+                    name="stageLevel"
                     :options="stageLevelOptions"
-                    @change="setLevelColor"
+                    @input="setLevelColor(stageLevel)"
                   />
                 </div>
               </div>
@@ -53,13 +64,15 @@
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">商品</div>
                 <div class="col-9">
-                  <multiselect
+                  <input-select
+                    ref="productInput"
                     v-model="postData.product_list"
+                    :value="postData.product_list"
+                    name="product_list"
                     value-prop="product_list_id"
                     label="name"
                     :options="currentProductOptions"
-                    :place-holder="productPlaceholder"
-                    @change="setPostData"
+                    @input="setPostData(postData.product_list)"
                   />
                 </div>
               </div>
@@ -70,6 +83,7 @@
                   <input-text
                     v-model="postData.star"
                     name="star"
+                    type="number"
                     @input="setStar(postData.star)"
                   />
                 </div>
@@ -78,21 +92,24 @@
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">目前等級</div>
                 <div class="col-9">
-                  <input-text v-model="postData.level" />
+                  <input-text v-model="postData.level" name="level" />
                 </div>
               </div>
 
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">總等級</div>
                 <div class="col-9">
-                  <input-text v-model="postData.total_level" />
+                  <input-text
+                    v-model="postData.total_level"
+                    name="total_level"
+                  />
                 </div>
               </div>
 
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">剪刀數</div>
                 <div class="col-9">
-                  <input-text v-model="postData.cut_num" />
+                  <input-text v-model="postData.cut_num" name="cut_num" />
                 </div>
               </div>
 
@@ -106,7 +123,7 @@
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">主屬性</div>
                 <div class="col-9">
-                  <multiselect
+                  <input-select
                     v-model="postData.main_attribute"
                     :options="mainAttributeOptions"
                   />
@@ -122,7 +139,6 @@
                       class="form-check-input"
                       :value="true"
                       type="radio"
-                      name="soul"
                       id="soulYes"
                     />
                     <label class="form-check-label" for="soulYes"> 是 </label>
@@ -145,7 +161,7 @@
                 <div class="d-flex mb-2">
                   <div class="col-3 pt-2">靈魂能力</div>
                   <div class="col-9">
-                    <multiselect
+                    <input-select
                       v-model="soulType"
                       :options="soulTypeOptions"
                     />
@@ -154,7 +170,7 @@
                 <div class="d-flex">
                   <div class="col-3 align-self-center" />
                   <div class="col-9">
-                    <multiselect v-model="soul" :options="soulOptions" />
+                    <input-select v-model="soul" :options="soulOptions" />
                   </div>
                 </div>
               </div>
@@ -162,7 +178,7 @@
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">星火等級</div>
                 <div class="col-9">
-                  <multiselect
+                  <input-select
                     v-model="postData.spark_level"
                     :options="sparkLevelOptions"
                   />
@@ -190,7 +206,7 @@
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">潛在能力等級</div>
                 <div class="col-9">
-                  <multiselect
+                  <input-select
                     v-model="postData.potential_level"
                     :options="potentialLevelOptions"
                   />
@@ -254,8 +270,10 @@
               <div v-if="postData.is_maple" class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">楓底能力</div>
                 <div class="col-9">
-                  <multiselect
+                  <input-select
+                    ref="inputMapleCapability"
                     v-model="postData.maple_capability"
+                    name="maple_capability"
                     :options="mapleOptions"
                   />
                 </div>
@@ -264,16 +282,41 @@
               <div v-if="postData.is_maple" class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">楓底等級</div>
                 <div class="col-9">
-                  <input-text type="number" v-model="postData.maple_level" />
+                  <input-text
+                    ref="inputMapleLevel"
+                    v-model="postData.maple_level"
+                    :value="postData.maple_level"
+                    name="maple_level"
+                    type="number"
+                  />
                 </div>
               </div>
 
               <div class="col-12 d-flex mb-2">
-                <div class="col-3">說明</div>
+                <div class="col-3 pt-2">伺服器</div>
+                <div class="col-9">
+                  <input-select
+                    v-model="server_name"
+                    name="server"
+                    :options="serverOptions"
+                  />
+                </div>
+              </div>
+
+              <div class="col-12 d-flex mb-2">
+                <div class="col-3 pt-2">商品標題</div>
+                <div class="col-9">
+                  <input-text v-model="postData.title" />
+                </div>
+              </div>
+
+              <div class="col-12 d-flex mb-2">
+                <div class="col-3 pt-2">說明</div>
                 <div class="col-9">
                   <textarea
                     v-model="postData.explanation"
                     class="w-100 form-control"
+                    style="height: auto"
                     rows="4"
                   />
                 </div>
@@ -282,7 +325,11 @@
               <div class="col-12 d-flex mb-2">
                 <div class="col-3 pt-2">價格</div>
                 <div class="col-9">
-                  <input-text v-model="postData.price" type="number" />
+                  <input-text
+                    v-model="postData.price"
+                    name="price"
+                    type="number"
+                  />
                 </div>
               </div>
             </div>
@@ -334,9 +381,8 @@
               <div class="level_box px-2 my-2">
                 <div class="d-flex py-2">
                   <div>
-                    等級：{{ postData.level || '??' }}/{{
-                      postData.total_level || '??'
-                    }}
+                    等級：{{ postData.level || '??' }} /
+                    {{ postData.total_level || '??' }}
                   </div>
                   <div class="ms-5">階級：{{ stageLevel || '??' }}</div>
                 </div>
@@ -375,10 +421,10 @@
                 <div>{{ postData.main_attribute }}</div>
 
                 <div v-if="postData.spark_capability">
-                  <div :class="sparkLevelColor">
+                  <div :class="sparkLevelColor(postData.spark_level)">
                     {{ postData.spark_capability[0] }}
                   </div>
-                  <div :class="sparkLevelColor">
+                  <div :class="sparkLevelColor(postData.spark_level)">
                     {{ postData.spark_capability[1] }}
                   </div>
                 </div>
@@ -454,20 +500,26 @@
                     />
                     販售金額：
                   </div>
-                  <div>{{ formatPrice(parseInt(postData.price)) }}</div>
+                  <div>
+                    {{
+                      postData.price
+                        ? formatPrice(parseInt(postData.price))
+                        : ''
+                    }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </validate-form>
-    </template>
-  </app-modal>
+      </template>
+    </app-modal>
+  </validate-form>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import { AppModal, InputText } from '@/components'
+import { AppModal, InputText, InputSelect } from '@/components'
 import {
   typeOptions,
   categoryOptions,
@@ -478,39 +530,58 @@ import {
   sparkLevelOptions,
   potentialLevelOptions,
   mapleOptions,
+  serverOptions,
 } from '../data'
 import StarList from './star-list.vue'
 import { apiGetProductList, apiPostProduct } from '@/services/api'
 import { productMixin } from '@/mixins'
 import * as yup from 'yup'
 import { Form as ValidateForm } from 'vee-validate'
-import Multiselect from '@vueform/multiselect'
 
 export default defineComponent({
   mixins: [productMixin],
   components: {
     AppModal,
     StarList,
-    Multiselect,
+    InputSelect,
     InputText,
     ValidateForm,
   },
   setup() {
     const schema = yup.object().shape({
-      category: yup.string().required('必填'),
-      star: yup.string().required('必填'),
-      // account: yup
-      //   .string()
-      //   .min(6, '最少6個字元')
-      //   .max(30, '最多30個字元')
-      //   .required('必填'),
-      // password: yup.string().min(8, '最少8個字元').required('必填'),
-      // email: yup.string().email('請輸入正確格式').required('必填'),
-      // confirm_password: yup
-      //   .string()
-      //   .required('必填')
-      //   .oneOf([yup.ref('password')], '密碼不一致'),
-      // line: yup.string(),
+      category: yup.string().required('必填').nullable(),
+      type: yup.string().required('必填').nullable(),
+      stageLevel: yup.string().required('必填').nullable(),
+      product_list: yup.string().required('必填').nullable(),
+      star: yup
+        .string()
+        .test('star', '請輸入 1 ~ 31', val => val >= 1 && val <= 31)
+        .required('必填'),
+      level: yup
+        .string()
+        .test('level', '請輸入 1 ~ 50', val => val >= 1 && val <= 50)
+        .required('必填'),
+      total_level: yup
+        .string()
+        .test('total_level', '請輸入 1 ~ 50', val => val >= 1 && val <= 50)
+        .required('必填'),
+      cut_num: yup
+        .string()
+        .test(
+          'cut_num',
+          '請輸入 0 ~ 10',
+          val => (val >= 0 && val <= 10) || val === ''
+        ),
+      maple_capability: yup.string().nullable(),
+      maple_level: yup
+        .string()
+        .test(
+          'maple_level',
+          '請輸入 1 ~ 5',
+          val => (val >= 1 && val <= 5) || val === ''
+        ),
+      price: yup.string().required('必填'),
+      server: yup.string().required('必填'),
     })
 
     return {
@@ -528,6 +599,7 @@ export default defineComponent({
       potentialLevelOptions: potentialLevelOptions,
       mapleOptions: mapleOptions,
       typeOptions: typeOptions,
+      serverOptions: serverOptions,
       productList: [],
       category: '',
       type: '',
@@ -536,6 +608,7 @@ export default defineComponent({
       selectedName: '',
       soulType: '',
       soul: '',
+      server_name: '',
       postData: {},
       stageLevelCode: 1,
       categoryRules: yup.string().required(),
@@ -552,6 +625,7 @@ export default defineComponent({
       try {
         if (this.type !== null) {
           this.postData.product_list = null
+          this.$refs.productInput.inputValue = ''
           const {
             data: { result },
           } = await apiGetProductList({
@@ -586,7 +660,8 @@ export default defineComponent({
         star: '',
         level: '',
         total_level: '',
-        is_maple: false,
+        is_maple: true,
+        maple_level: '',
         maple_capability: '',
         price: '',
         is_equippable_soul: false,
@@ -595,33 +670,12 @@ export default defineComponent({
       }
     },
     setLevelColor(level) {
-      switch (level) {
-        case '普通':
-          this.stageLevelCode = 1
-          break
-        case '稀有':
-          this.stageLevelCode = 2
-          break
-        case '史詩':
-          this.stageLevelCode = 3
-          break
-        case '罕見':
-          this.stageLevelCode = 4
-          break
-        case '傳說':
-          this.stageLevelCode = 5
-          break
-        case '神話':
-          this.stageLevelCode = 6
-          break
-        case '古代':
-          this.stageLevelCode = 7
-          break
-      }
+      this.stageLevelCode = this.setPotentialColor(level)
       this.clearSelectedItem('level')
     },
     clearSelectedItem(type) {
       this.postData.product_list = null
+      this.$refs.productInput.inputValue = ''
       this.selectedImage = ''
       this.selectedName = ''
       switch (type) {
@@ -629,7 +683,8 @@ export default defineComponent({
           this.productList = []
           break
         case 'category':
-          this.type = ''
+          this.type = null
+          this.$refs.typeInput.inputValue = ''
           this.productList = []
           break
       }
@@ -649,8 +704,8 @@ export default defineComponent({
     async submitHandler() {
       let loader = this.$loading.show()
       const {
-        is_maple,
         maple_capability,
+        maple_level,
         is_equippable_soul,
         potential_level,
         potential_capability,
@@ -661,7 +716,8 @@ export default defineComponent({
       try {
         await apiPostProduct({
           ...this.postData,
-          maple_capability: is_maple ? maple_capability : undefined,
+          maple_level: maple_level ? maple_level : undefined,
+          maple_capability: maple_capability ? maple_capability : undefined,
           soul_capability:
             is_equippable_soul && this.soulType && this.soul
               ? `${this.soulType}${this.soul}的`
@@ -674,8 +730,10 @@ export default defineComponent({
           spark_capability: spark_level
             ? spark_capability?.join(',')
             : undefined,
+          server_name: this.server_name,
         })
         this.$refs['appModal'].hide()
+        this.$emit('reload')
         this.$notify({ type: 'success', text: '登錄成功!' })
       } catch (e) {
         console.log(e)
@@ -720,20 +778,6 @@ export default defineComponent({
         return '可裝備靈魂'
       } else {
         return '可使用靈魂附魔'
-      }
-    },
-    sparkLevelColor() {
-      switch (this.postData.spark_level) {
-        case '稀有':
-          return 'blue-text'
-        case '罕見':
-          return 'orange-text'
-        case '傳說':
-          return 'green-text'
-        case '神話':
-          return 'red-text'
-        default:
-          return ''
       }
     },
     mapleText() {

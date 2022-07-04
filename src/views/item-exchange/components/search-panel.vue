@@ -19,7 +19,9 @@
         <div class="col-10 align-self-center">
           <input-select
             v-model="searchCondition.maple_capability"
-            :options="mapleCapabilityOptions"
+            label="name"
+            trackBy="value"
+            :options="mapleOptions"
             @input="capabilityHandler"
           />
         </div>
@@ -34,9 +36,9 @@
         <div class="col-10 align-self-center">
           <input-select
             v-model="searchCondition.stage_level"
-            multiple
             :options="stageLevelOptions"
             :close-on-select="false"
+            multiple
           />
         </div>
       </div>
@@ -94,13 +96,15 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { InputSelect, InputText } from '@/components'
+import { InputText, InputSelect } from '@/components'
+import { mapleOptions } from '../data'
 
 export default defineComponent({
   name: 'SearchPanel',
   components: { InputSelect, InputText },
   data() {
     return {
+      test: null,
       searchCondition: {
         category: '',
         type: '',
@@ -127,13 +131,7 @@ export default defineComponent({
         { label: '無', value: 0 },
         { label: '包含', value: 1 },
       ],
-      mapleCapabilityOptions: [
-        '致命傷害',
-        'Boss傷害',
-        'Boss防禦',
-        '物攻',
-        '魔攻',
-      ],
+      mapleOptions: mapleOptions,
     }
   },
   methods: {

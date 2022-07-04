@@ -1,4 +1,9 @@
-export const categoryOptions = ['武器', '防具', '造型', '消耗品']
+export const categoryOptions = [
+  { name: '武器', value: 'weapon' },
+  { name: '防具', value: 'armor' },
+  { name: '造型', value: 'skin' },
+  { name: '消耗品', value: 'consume' },
+]
 
 export const soulTypeOptions = [
   '充滿力量的',
@@ -38,11 +43,11 @@ export const stageLevelOptions = [
 ]
 
 export const mapleOptions = [
-  '殘忍的紋章',
-  '征服紋章',
-  '機靈紋章',
-  '強力紋章',
-  '神聖紋章',
+  { name: '殘忍的紋章', value: 'cruel' },
+  { name: '征服紋章', value: 'conquer' },
+  { name: '機靈紋章', value: 'clever' },
+  { name: '強力紋章', value: 'strong' },
+  { name: '神聖紋章', value: 'sacred' },
 ]
 
 export const sparkLevelOptions = ['罕見', '傳說', '神話']
@@ -56,9 +61,11 @@ export const mainAttributeOptions = [
   '致命攻擊率',
 ]
 
+export const serverOptions = ['傑尼斯', '斯卡尼亞', '露娜', '溫迪亞', '凱伊尼']
+
 export const typeOptions = [
   {
-    category: '武器',
+    category: 'weapon',
     type: [
       '長槍',
       '雙手劍',
@@ -84,11 +91,11 @@ export const typeOptions = [
     ],
   },
   {
-    category: '防具',
+    category: 'armor',
     type: ['帽子', '套服', '手套', '鞋子', '肩膀', '腰帶', '披風'],
   },
   {
-    category: '造型',
+    category: 'skin',
     type: [
       '武器',
       '帽子',

@@ -40,7 +40,11 @@
               >
                 <div class="label-box">伺服器</div>
                 <div class="form-box w-100">
-                  <input-select v-model="user.server_name" :options="server" />
+                  <input-select
+                    v-model="user.server_name"
+                    :options="server"
+                    placeholder="請選擇"
+                  />
                 </div>
               </div>
               <!-- server -->

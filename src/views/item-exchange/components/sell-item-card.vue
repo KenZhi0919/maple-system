@@ -2,15 +2,13 @@
   <div class="item-card d-flex mb-2">
     <div class="col-7">
       <div class="item-img-box d-flex align-items-center px-2">
-        <div class="item-img me-2" :class="`stage-7`">
-          <img
-            src="https://mapleweb.herokuapp.com/media/product_list_image_default/8_1.jpg"
-          />
+        <div class="item-img me-2" :class="setLevelColor(data.potential_level)">
+          <img :src="data.product_list_data.image" />
         </div>
         <div
           class="sell-card-detail d-flex flex-column justify-content-between"
         >
-          <div>傑伊希恩之槍</div>
+          <div>{{ data.product_list_data.name }}</div>
           <div>
             <div class="d-flex w-100">
               <div class="align-self-center me-1">
@@ -19,7 +17,7 @@
                   style="width: 20px; height: 20px"
                 />
               </div>
-              <div class="align-self-center">{{ formatPrice(6666666) }}</div>
+              <div class="align-self-center">{{ formatPrice(data.price) }}</div>
             </div>
           </div>
         </div>
@@ -46,9 +44,29 @@ import { productMixin } from '@/mixins'
 
 export default defineComponent({
   mixins: [productMixin],
-  props: {},
+  props: { data: Object },
   data() {
     return {}
+  },
+  methods: {
+    setLevelColor(level) {
+      switch (level) {
+        case '普通':
+          return 'stage-1'
+        case '稀有':
+          return 'stage-2'
+        case '史詩':
+          return 'stage-3'
+        case '罕見':
+          return 'stage-4'
+        case '傳說':
+          return 'stage-5'
+        case '神話':
+          return 'stage-6'
+        case '古代':
+          return 'stage-7'
+      }
+    },
   },
 })
 </script>

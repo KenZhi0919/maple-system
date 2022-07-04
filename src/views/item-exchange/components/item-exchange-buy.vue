@@ -7,10 +7,10 @@
         <input-radio
           v-model="searchCondition.category"
           v-for="(option, index) in categoryOptions"
-          :key="option"
-          :id="option"
-          :value="option"
-          :label="option"
+          :key="index"
+          :id="option.value"
+          :value="option.value"
+          :label="option.name"
           name="categoryBtn"
           label-class="category-btn btn d-flex align-items-center"
           :is-checked="index === 0"
@@ -67,16 +67,19 @@
 
         <div class="product-box d-flex flex-column align-items-center">
           <template v-if="!showDetailItems">
-            <div
-              v-for="product in productList"
-              :key="product.product_list_id"
-              class="product-row"
-            >
-              <item-card
-                :product="product"
-                @click="productClickHandler(product.product_list_id)"
-              />
-            </div>
+            <template v-if="productList.length > 0">
+              <div
+                v-for="product in productList"
+                :key="product.product_list_id"
+                class="product-row"
+              >
+                <item-card
+                  :product="product"
+                  @click="productClickHandler(product.product_list_id)"
+                />
+              </div>
+            </template>
+            <div v-else>沒有道具</div>
           </template>
 
           <template v-else>
@@ -134,7 +137,7 @@ export default defineComponent({
   data() {
     return {
       searchCondition: {
-        category: '武器',
+        category: 'weapon',
         type: '長槍',
         stage_level: undefined,
         star: undefined,
@@ -163,7 +166,7 @@ export default defineComponent({
         const {
           data: { result },
         } = await apiGetProductList(this.searchCondition)
-        this.productList = result
+        this.productList = result.filter(el => el.count > 0)
       } catch (err) {
         console.error(err)
       } finally {

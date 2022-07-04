@@ -24,8 +24,12 @@
         <!-- title row end -->
 
         <div class="product-box d-flex flex-column align-items-center">
-          <div class="product-row">
-            <sell-item-card />
+          <div
+            v-for="item in sellList"
+            :key="item.product_id"
+            class="product-row"
+          >
+            <sell-item-card :data="item" />
           </div>
         </div>
       </div>
@@ -33,7 +37,7 @@
   </div>
   <!-- 大類 end -->
   <!-- table row end -->
-  <item-sell-modal ref="itemSellModal" />
+  <item-sell-modal ref="itemSellModal" @reload="fetchSellProduct" />
 </template>
 
 <script>
@@ -41,6 +45,7 @@ import { defineComponent } from 'vue'
 
 import SellItemCard from './sell-item-card.vue'
 import ItemSellModal from './item-sell-modal.vue'
+import { apiGetUserSellProduct } from '@/services/api'
 
 export default defineComponent({
   name: 'ItemExchangeBuy',
@@ -49,9 +54,27 @@ export default defineComponent({
     ItemSellModal,
   },
   data() {
-    return {}
+    return {
+      sellList: [],
+    }
+  },
+  async mounted() {
+    await this.fetchSellProduct()
   },
   methods: {
+    async fetchSellProduct() {
+      let loader = this.$loading.show()
+      try {
+        const {
+          data: { result },
+        } = await apiGetUserSellProduct()
+        this.sellList = result
+      } catch (e) {
+        console.log(e)
+      } finally {
+        loader.hide()
+      }
+    },
     showModal() {
       this.$refs['itemSellModal'].show()
     },

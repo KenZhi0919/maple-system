@@ -88,10 +88,10 @@
         <div>{{ productDetail.main_attribute }}</div>
 
         <div v-if="productDetail.spark_capability">
-          <div :class="sparkLevelColor">
+          <div :class="sparkLevelColor(productDetail.spark_level)">
             {{ productDetail.spark_capability[0] }}
           </div>
-          <div :class="sparkLevelColor">
+          <div :class="sparkLevelColor(productDetail.spark_level)">
             {{ productDetail.spark_capability[1] }}
           </div>
         </div>
@@ -221,20 +221,6 @@ export default defineComponent({
           return 'blue-text'
         case '史詩':
           return 'purple-text'
-        case '罕見':
-          return 'orange-text'
-        case '傳說':
-          return 'green-text'
-        case '神話':
-          return 'red-text'
-        default:
-          return ''
-      }
-    },
-    sparkLevelColor() {
-      switch (this.productDetail.spark_level) {
-        case '稀有':
-          return 'blue-text'
         case '罕見':
           return 'orange-text'
         case '傳說':
