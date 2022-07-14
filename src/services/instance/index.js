@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { stringify } from 'qs'
 import Swal from 'sweetalert2'
+import { isArray } from 'lodash'
 
 const getCookie = cname => {
   const name = cname + '='
@@ -54,12 +55,26 @@ instance.interceptors.response.use(
   },
   error => {
     // 請求錯誤時做些事 EX: 403 抓 refresh token; api 錯誤顯示彈窗
-    Swal.fire({
-      title: error.response.data.result[0],
-      icon: 'error',
-      confirmButtonText: '確認',
-    })
-    return Promise.reject(error)
+    const errorResult = error.response.data.result
+    if (isArray(errorResult)) {
+      Swal.fire({
+        title: errorResult[0],
+        icon: 'error',
+        confirmButtonText: '確認',
+      })
+      return Promise.reject(error)
+    } else {
+      let title = ''
+      for (const item in errorResult) {
+        title += item + errorResult[item] + '\n'
+      }
+      Swal.fire({
+        title: title,
+        icon: 'error',
+        confirmButtonText: '確認',
+      })
+      return Promise.reject(error)
+    }
   }
 )
 

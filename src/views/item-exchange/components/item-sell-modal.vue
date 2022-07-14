@@ -531,7 +531,7 @@ import {
   potentialLevelOptions,
   mapleOptions,
   serverOptions,
-} from '../data'
+} from '@/data'
 import StarList from './star-list.vue'
 import { apiGetProductList, apiPostProduct } from '@/services/api'
 import { productMixin } from '@/mixins'

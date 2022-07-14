@@ -111,7 +111,7 @@ import { InputRadio } from '@/components'
 import ItemCard from './item-card.vue'
 import ItemDetailModal from './item-detail-modal.vue'
 import { apiGetProductList, apiGetProductDetail } from '@/services/api'
-import { typeOptions, categoryOptions } from '../data'
+import { typeOptions, categoryOptions } from '@/data'
 
 export default defineComponent({
   name: 'ItemExchangeBuy',

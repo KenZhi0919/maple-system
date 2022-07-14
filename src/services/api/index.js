@@ -31,3 +31,23 @@ export const apiGetUserSellProduct = () => {
 export const apiPatchUserInfo = (id, data) => {
   return instance.patch(`accounts/user/${id}`, data)
 }
+
+export const apiGetCoin = params => {
+  return instance.get('coins/coin', { params })
+}
+
+export const apiPostCoin = data => {
+  return instance.post('coins/coin', data)
+}
+
+export const apiPatchCoin = (id, data) => {
+  return instance.patch(`coins/coin/${id}`, data)
+}
+
+export const apiDeleteCoin = id => {
+  return instance.delete(id)
+}
+
+export const apiGetSelfCoin = () => {
+  return instance.get('coins/coin/sell-coin')
+}

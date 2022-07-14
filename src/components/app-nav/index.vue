@@ -9,10 +9,18 @@
         <router-link
           to="/itemexchange"
           class="btn btn-outline-secondary nav-btn mx-1"
+          style="width: 110px"
         >
-          交易所
+          道具交易所
         </router-link>
-        <div to="/bid" class="btn btn-outline-secondary nav-btn mx-1">競標</div>
+        <router-link
+          to="/coin"
+          class="btn btn-outline-secondary nav-btn mx-1"
+          style="width: 110px"
+        >
+          楓幣交易所
+        </router-link>
+        <!-- <div to="/bid" class="btn btn-outline-secondary nav-btn mx-1">競標</div>
         <div to="/sellaccount" class="btn btn-outline-secondary nav-btn mx-1">
           賣帳號
         </div>
@@ -24,7 +32,7 @@
         </div>
         <div to="/wish" class="btn btn-outline-secondary nav-btn mx-1">
           許願池
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="d-flex">

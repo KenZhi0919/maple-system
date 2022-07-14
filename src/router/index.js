@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { Info, ItemExchange, Login } from '@/views'
+import { Info, ItemExchange, Login, Coin } from '@/views'
 
 const getCookie = cname => {
   const name = cname + '='
@@ -26,6 +26,11 @@ const routes = [
     path: '/itemexchange',
     name: 'ItemExchange',
     component: ItemExchange,
+  },
+  {
+    path: '/coin',
+    name: 'Coin',
+    component: Coin,
   },
   {
     path: '/login',

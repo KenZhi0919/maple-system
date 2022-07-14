@@ -6,10 +6,11 @@
       :search-condition="searchCondition"
       @search="search"
     />
+
     <div class="trading-cart">
       <!-- title row start -->
       <div class="cart-title-row d-flex align-items-center">
-        <span class="cart-title ms-4 me-3">道具交易所</span>
+        <span class="cart-title ms-4 me-3">楓幣交易</span>
         <i class="bi bi-cash fs-2" />
       </div>
       <!-- title row end -->
@@ -36,7 +37,7 @@
       </div>
       <!-- function row end -->
 
-      <item-exchange-buy v-if="functional === 'buy'" ref="itemExchangeBuy" />
+      <coin-buy v-if="functional === 'buy'" ref="coinBuy" />
 
       <item-exchange-sell v-else />
     </div>
@@ -46,14 +47,14 @@
 <script>
 import { defineComponent, reactive, toRefs } from 'vue'
 import { InputRadio } from '@/components'
-import { SearchPanel, ItemExchangeBuy, ItemExchangeSell } from './components'
+import { SearchPanel, CoinBuy, ItemExchangeSell } from './components'
 
 export default defineComponent({
-  name: 'ItemExchange',
+  name: 'Coin',
   components: {
     InputRadio,
     SearchPanel,
-    ItemExchangeBuy,
+    CoinBuy,
     ItemExchangeSell,
   },
   setup() {
@@ -68,23 +69,17 @@ export default defineComponent({
   data() {
     return {
       searchCondition: {
-        category: '武器',
-        type: '長槍',
-        stage_level: undefined,
-        star: undefined,
-        is_maple: undefined,
-        maple_capability: undefined,
-        total_level: undefined,
-        min_price: undefined,
-        max_price: undefined,
-        ordering: undefined,
+        title: '',
+        total: '',
+        value: '',
+        server_name: '',
       },
     }
   },
 
   methods: {
     search(searchCondition) {
-      this.$refs['itemExchangeBuy'].search(searchCondition)
+      this.$refs['coinBuy'].search(searchCondition)
     },
   },
 })

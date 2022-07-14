@@ -61,7 +61,13 @@ export const mainAttributeOptions = [
   '致命攻擊率',
 ]
 
-export const serverOptions = ['傑尼斯', '斯卡尼亞', '露娜', '溫迪亞', '凱伊尼']
+export const serverOptions = [
+  { label: '傑尼斯', value: 'jenes' },
+  { label: '斯卡尼亞', value: 'scania' },
+  { label: '露娜', value: 'luna' },
+  { label: '溫迪亞', value: 'vindia' },
+  { label: '凱伊尼', value: 'kainey' },
+]
 
 export const typeOptions = [
   {

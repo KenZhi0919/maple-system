@@ -92,7 +92,7 @@
             </validate-form>
           </div>
 
-          <div v-if="!isRegister" class="my-4 d-flex align-items-center">
+          <div v-if="!isRegister" class="my-4 d-flex align-items-center w-100">
             <div class="line" />
             <span class="mx-3"> OR </span>
             <div class="line" />
@@ -222,9 +222,11 @@ export default defineComponent({
 .login-box {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 30px;
-  height: 800px;
+  height: 700px;
+  margin: 50px 0;
   width: 700px;
   position: relative;
+  overflow-x: auto;
 }
 
 .login-container {

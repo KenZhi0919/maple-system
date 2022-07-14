@@ -2,10 +2,10 @@
   <div class="exchange-search-panel px-5">
     <div class="row">
       <div class="col-6 d-flex">
-        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
           楓底
         </div>
-        <div class="col-10 align-self-center">
+        <div class="col-9 align-self-center">
           <input-select
             v-model="searchCondition.is_maple"
             :options="isMapleOptions"
@@ -13,10 +13,10 @@
         </div>
       </div>
       <div class="col-6 d-flex">
-        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
           紋章屬性
         </div>
-        <div class="col-10 align-self-center">
+        <div class="col-9 align-self-center">
           <input-select
             v-model="searchCondition.maple_capability"
             label="name"
@@ -30,10 +30,10 @@
 
     <div class="row">
       <div class="col-6 d-flex">
-        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
           階級
         </div>
-        <div class="col-10 align-self-center">
+        <div class="col-9 align-self-center">
           <input-select
             v-model="searchCondition.stage_level"
             :options="stageLevelOptions"
@@ -44,10 +44,10 @@
       </div>
 
       <div class="col-6 d-flex">
-        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
           最高等級
         </div>
-        <div class="col-10 align-self-center">
+        <div class="col-9 align-self-center">
           <input-text v-model="searchCondition.total_level" type="number" />
         </div>
       </div>
@@ -55,26 +55,26 @@
 
     <div class="row">
       <div class="col-6 d-flex">
-        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
           星力
         </div>
-        <div class="col-10 align-self-center">
+        <div class="col-9 align-self-center">
           <input-text v-model="searchCondition.star" type="number" />
         </div>
       </div>
 
       <div class="col-6 d-flex">
-        <div class="col-2 d-flex justify-content-end align-self-center pe-3">
+        <div class="col-3 d-flex justify-content-end align-self-center pe-3">
           價格
         </div>
-        <div class="col-10 d-flex align-items-center">
-          <div class="col-5 align-self-center" style="width: 47.5%">
+        <div class="col-9 d-flex align-items-center">
+          <div class="col-5 align-self-center" style="width: 45%">
             <input-text v-model="searchCondition.min_price" type="number" />
           </div>
           <div class="mx-2 d-flex justify-content-center" style="width: 5%">
             ~
           </div>
-          <div class="col-5 align-self-center" style="width: 47.5%">
+          <div class="col-5 align-self-center" style="width: 45%">
             <input-text v-model="searchCondition.max_price" type="number" />
           </div>
         </div>
@@ -97,14 +97,13 @@
 <script>
 import { defineComponent } from 'vue'
 import { InputText, InputSelect } from '@/components'
-import { mapleOptions } from '../data'
+import { mapleOptions } from '@/data'
 
 export default defineComponent({
   name: 'SearchPanel',
   components: { InputSelect, InputText },
   data() {
     return {
-      test: null,
       searchCondition: {
         category: '',
         type: '',

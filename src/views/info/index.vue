@@ -1,10 +1,14 @@
 <template>
   <div v-if="user.email !== null" class="container-lg info-container">
-    <validate-form v-slot="{ meta }" :validation-schema="schema">
+    <validate-form
+      v-slot="{ meta }"
+      :validation-schema="schema"
+      style="width: 800px"
+    >
       <div class="info-box d-flex justify-content-center align-items-center">
-        <div style="width: 600px">
+        <div style="width: 80%">
           <div class="d-flex flex-column align-items-center">
-            <h1 class="mb-5">個人資料</h1>
+            <h1 style="margin-bottom: 100px">個人資料</h1>
             <div class="w-100 d-flex align-items-center flex-column">
               <!-- 信箱 -->
               <div class="w-100 d-flex">
@@ -43,6 +47,7 @@
                   <input-select
                     v-model="user.server_name"
                     :options="server"
+                    label="label"
                     placeholder="請選擇"
                   />
                 </div>
@@ -89,7 +94,7 @@
 
             <div class="d-flex justify-content-center">
               <button
-                class="btn btn-primary"
+                class="btn btn-primary mt-5"
                 style="border-radius: 20px"
                 :disabled="!meta.valid || cPasswordIsError || passwordIsError"
                 @click.prevent="updateHandler"
@@ -109,6 +114,7 @@ import { defineComponent } from 'vue'
 import { InputText, InputSelect } from '@/components'
 import { apiGetUserInfo, apiPatchUserInfo } from '../../services/api'
 import { Form as ValidateForm } from 'vee-validate'
+import { serverOptions } from '@/data'
 import * as Yup from 'yup'
 
 export default defineComponent({
@@ -135,7 +141,7 @@ export default defineComponent({
       },
       confirmPassword: '',
       new_password: '',
-      server: ['傑尼斯', '斯卡尼亞', '露娜', '溫迪亞', '凱伊尼'],
+      server: serverOptions,
     }
   },
   mounted() {
@@ -203,8 +209,8 @@ export default defineComponent({
 .info-box {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 30px;
-  height: 800px;
-  width: 900px;
+  height: 750px;
+  width: 100%;
   position: relative;
 }
 
